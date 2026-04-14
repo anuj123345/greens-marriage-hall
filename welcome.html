@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Greens Marriage Mandap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Nunito:wght@300;400;600;700&display=swap" />
+  <style>
+    :root {
+      --green-deep:  #5a8a5e;
+      --green-mid:   #7bae7f;
+      --green-light: #c8dfc9;
+      --green-pale:  #eaf4ea;
+      --cream:       #fdf6ec;
+      --blush:       #f7d4c8;
+      --rose:        #e8a598;
+      --text-dark:   #3d3a36;
+      --text-muted:  #7a7570;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 1rem 2.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ── Background blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: var(--green-light);
+      opacity: .35;
+      top: -150px; right: -80px;
+    }
+    .blob-2 {
+      width: 380px; height: 380px;
+      background: var(--blush);
+      opacity: .35;
+      bottom: -100px; left: -60px;
+    }
+
+    /* ── Petal rain ── */
+    .petals { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .petal {
+      position: absolute;
+      top: -30px;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
+      10%  { opacity: .6; }
+      90%  { opacity: .4; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Main card ── */
+    .welcome-card {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      max-width: 600px;
+      width: 100%;
+      animation: riseIn .9s cubic-bezier(.4,0,.2,1) .4s both;
+    }
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .blessing {
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      font-style: italic;
+      color: var(--green-mid);
+      margin-bottom: 1.25rem;
+      animation: riseIn .7s ease .8s both;
+    }
+
+    .logo-mark {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 10px 32px rgba(90,138,94,.28);
+      animation: riseIn .7s ease .6s both;
+    }
+
+    .welcome-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .4rem;
+      animation: riseIn .7s ease .9s both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: .25rem;
+      animation: riseIn .8s ease 1s both;
+    }
+    h1 em { font-style: italic; color: var(--green-mid); }
+
+    .subtitle {
+      font-size: .97rem;
+      color: var(--text-muted);
+      margin: .65rem 0 2.25rem;
+      animation: riseIn .7s ease 1.1s both;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 auto 2.25rem;
+      max-width: 260px;
+      animation: riseIn .7s ease 1.2s both;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--green-light); }
+    .divider-icon { color: var(--rose); font-size: .85rem; }
+
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 60px;
+      padding: .95rem 2.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: .97rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 28px rgba(90,138,94,.32);
+      transition: transform .25s ease, box-shadow .25s ease;
+      animation: riseIn .7s ease 1.4s both;
+    }
+    .enter-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(90,138,94,.42);
+    }
+    .enter-btn svg {
+      width: 17px; height: 17px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ── Co-powered strip ── */
+    .copowered {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: 100%;
+      animation: riseIn .7s ease 1.6s both;
+    }
+
+    .copowered-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .85rem;
+    }
+
+    .partners {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .partner-pill {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: #fff;
+      border: 1.5px solid #ddeedd;
+      border-radius: 50px;
+      padding: .4rem 1rem .4rem .45rem;
+      box-shadow: 0 2px 12px rgba(90,138,94,.1);
+    }
+
+    .partner-logo {
+      height: 28px;
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .partner-logo img {
+      height: 28px;
+      width: auto;
+      max-width: 90px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .partner-name {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+
+    body.exiting { animation: fadeOut .45s ease forwards; }
+    @keyframes fadeOut { to { opacity: 0; transform: scale(.98); } }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="petals" id="petals"></div>
+
+  <!-- Main card -->
+  <div class="welcome-card">
+    <p class="blessing">ଜୟ ଜଗନ୍ନାଥ &nbsp;·&nbsp; Jai Jagannath</p>
+    <div class="logo-mark">🌿</div>
+    <p class="welcome-label">Welcome to</p>
+    <h1>Greens <em>Marriage</em><br>Mandap</h1>
+    <p class="subtitle">Premium Venue &nbsp;·&nbsp; Bhubaneswar, Odisha</p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">✦</span>
+      <div class="divider-line"></div>
+    </div>
+    <a href="index.html" class="enter-btn" id="enterBtn">
+      Explore the Venue
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- Co-powered strip -->
+  <div class="copowered">
+    <p class="copowered-label">Co-powered by</p>
+    <div class="partners">
+
+      <div class="partner-pill">
+        <div class="partner-logo" style="background:#e8e8e8;">
+          <img src="logos/indulge-salon.png" alt="Indulge The Salon" />
+        </div>
+        <span class="partner-name">Indulge The Salon</span>
+      </div>
+
+      <div class="partner-pill">
+        <div class="partner-logo" style="background:#111;">
+          <img src="logos/studio-sinfonia.png" alt="Studio Sinfonia" />
+        </div>
+        <span class="partner-name">Studio Sinfonia</span>
+      </div>
+
+      <div class="partner-pill">
+        <div class="partner-logo" style="background:#fff;">
+          <img src="logos/weavorah.png" alt="Weavorah" />
+        </div>
+        <span class="partner-name">Weavorah</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Petal rain
+    const petalsEl = document.getElementById('petals');
+    const emojis = ['🌸','🌺','🌼','🌷','✿','❀'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.fontSize = (.5 + Math.random() * .8) + 'rem';
+      p.style.animationDuration = (7 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 9) + 's';
+      petalsEl.appendChild(p);
+    }
+
+    // Smooth exit
+    document.getElementById('enterBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const dest = this.href;
+      document.body.classList.add('exiting');
+      setTimeout(() => { window.location.href = dest; }, 440);
+    });
+
+    // Auto-redirect after 12s
+    setTimeout(() => {
+      if (!document.body.classList.contains('exiting')) {
+        document.body.classList.add('exiting');
+        setTimeout(() => { window.location.href = 'index.html'; }, 440);
+      }
+    }, 12000);
+  </script>
+</body>
+</html>

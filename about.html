@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Greens Marriage Hall</title>
+  <meta name="description" content="Learn the story behind Greens — a family-founded marriage hall built on love, trust, and the dream of giving every couple a perfect celebration." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--green-pale) 0%, var(--cream) 60%, var(--blush) 100%);
+      padding: 96px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 450px; height: 450px;
+      border-radius: 50%;
+      background: var(--green-light);
+      opacity: .3;
+      top: -150px; right: -80px;
+      filter: blur(80px);
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero h1 { margin: .75rem 0 1rem; }
+    .page-hero p  { font-size: 1.1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Story Section ── */
+    .story { background: var(--cream); }
+    .story-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-img {
+      position: relative;
+    }
+    .story-main-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--blush) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .story-accent-img {
+      position: absolute;
+      width: 180px;
+      bottom: -24px; right: -24px;
+      border-radius: var(--radius-md);
+      background: var(--white);
+      box-shadow: var(--shadow-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .story-accent-img .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--green-mid);
+    }
+    .story-accent-img p { font-size: .8rem; color: var(--text-light); font-weight: 600; line-height: 1.4; }
+
+    .story-content h2 { margin-bottom: 1.25rem; }
+    .story-content p  { margin-bottom: 1.25rem; line-height: 1.85; font-size: .97rem; }
+
+    /* ── Founder Quote ── */
+    .founder { background: var(--white); }
+    .founder-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .founder-portrait {
+      text-align: center;
+    }
+    .founder-avatar {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blush) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      margin: 0 auto 1.25rem;
+      box-shadow: var(--shadow-md);
+    }
+    .founder-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: .25rem;
+    }
+    .founder-title { font-size: .85rem; color: var(--text-light); }
+
+    .founder-quote blockquote {
+      position: relative;
+      padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+      background: var(--green-pale);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--green-mid);
+    }
+    .founder-quote blockquote::before {
+      content: '"';
+      position: absolute;
+      top: 1rem; left: 1.25rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--green-light);
+    }
+    .founder-quote blockquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+    .founder-quote blockquote cite {
+      display: block;
+      margin-top: 1.25rem;
+      font-style: normal;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--green-deep);
+    }
+
+    /* ── Values ── */
+    .values { background: var(--cream); }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .value-card h3 { margin-bottom: .6rem; font-size: 1.1rem; }
+    .value-card p  { font-size: .9rem; line-height: 1.7; }
+
+    /* ── Milestones ── */
+    .milestones { background: var(--green-pale); overflow: hidden; }
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--green-light);
+      transform: translateX(-50%);
+    }
+    .milestone {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 0;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .milestone:last-child { margin-bottom: 0; }
+    .milestone-left  { text-align: right; padding-right: 32px; }
+    .milestone-right { text-align: left;  padding-left: 32px; }
+    .milestone-dot {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .milestone-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green-mid);
+    }
+    .milestone-text {
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-top: .15rem;
+    }
+    .milestone-sub {
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-top: .2rem;
+    }
+
+    /* Even rows: content on right */
+    .milestone.right .milestone-left  { order: 1; }
+    .milestone.right .milestone-dot   { order: 2; }
+    .milestone.right .milestone-right { order: 3; }
+
+    /* ── Team ── */
+    .team { background: var(--white); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .team-card {
+      text-align: center;
+      transition: transform var(--transition);
+    }
+    .team-card:hover { transform: translateY(-4px); }
+    .team-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .ta-1 { background: linear-gradient(135deg, var(--blush) 0%, var(--rose) 100%); }
+    .ta-2 { background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%); }
+    .ta-3 { background: linear-gradient(135deg, var(--cream-dark) 0%, #e0d0b0 100%); }
+    .ta-4 { background: linear-gradient(135deg, #e8d5f5 0%, #c8b0e8 100%); }
+
+    .team-card h4 { font-size: 1rem; margin-bottom: .2rem; }
+    .team-card .role { font-size: .82rem; color: var(--green-mid); font-weight: 600; margin-bottom: .4rem; }
+    .team-card p { font-size: .83rem; line-height: 1.55; }
+
+    /* ── Awards ── */
+    .awards { background: var(--cream); }
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .award-badge {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .award-badge .award-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .award-badge h4 { font-size: .92rem; margin-bottom: .3rem; }
+    .award-badge p  { font-size: .8rem; color: var(--text-light); }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .story-inner    { grid-template-columns: 1fr; gap: 48px; }
+      .story-img      { display: none; }
+      .founder-inner  { grid-template-columns: 1fr; gap: 40px; }
+      .founder-portrait { display: flex; gap: 1.5rem; align-items: center; text-align: left; }
+      .founder-avatar { width: 100px; height: 100px; font-size: 3rem; margin: 0; }
+      .values-grid    { grid-template-columns: 1fr 1fr; }
+      .team-grid      { grid-template-columns: repeat(2, 1fr); }
+      .awards-grid    { grid-template-columns: repeat(2, 1fr); }
+      .timeline::before { display: none; }
+      .milestone { grid-template-columns: 48px 1fr; }
+      .milestone-left { display: none; }
+      .milestone-right { padding-left: 20px; text-align: left; }
+      .milestone.right .milestone-left  { display: none; }
+      .milestone.right .milestone-right { order: 2; }
+    }
+    @media (max-width: 540px) {
+      .values-grid  { grid-template-columns: 1fr; }
+      .team-grid    { grid-template-columns: 1fr 1fr; }
+      .awards-grid  { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🌿</div>
+        <span class="nav-logo-text">Green<span>s</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ── -->
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="badge badge-green">Our Story</span>
+      <h1>Built on Love,<br>Driven by Passion</h1>
+      <p>For over 15 years, Greens has been the trusted home of Bhubaneswar's most cherished celebrations. This is the story of how it all began.</p>
+    </div>
+  </div>
+
+  <!-- ── Story ── -->
+  <section class="story">
+    <div class="container story-inner">
+      <div class="story-img">
+        <div class="story-main-img">🌿</div>
+        <div class="story-accent-img">
+          <div class="big-num">500+</div>
+          <p>Weddings<br>Celebrated</p>
+        </div>
+      </div>
+      <div class="story-content">
+        <p class="section-label">How It All Started</p>
+        <h2>A Dream That Grew<br>Into a Legacy</h2>
+        <p>
+          Greens was born in 2008 from a very simple dream — to create a place where families could celebrate life's most meaningful moments without worry, without stress, and with complete joy.
+        </p>
+        <p>
+          What started as a modest hall near Mancheswar has grown into Bhubaneswar's most sought-after wedding venue. We expanded our garden terrace in 2014, added our luxury bridal suite in 2018, and completed our grand ballroom renovation in 2022 — each step guided by the feedback and trust of the families we serve.
+        </p>
+        <p>
+          Today, a team of 40+ passionate professionals keeps the Greens dream alive every single day — from the security guard who greets your guests at the gate to the senior coordinator who stays by your side from first enquiry to the last dance.
+        </p>
+        <div style="display:flex;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--cream-dark);">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green-mid);">500+</div>
+            <div style="font-size:.82rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Events Hosted</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green-mid);">40+</div>
+            <div style="font-size:.82rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Team Members</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green-mid);">4.9★</div>
+            <div style="font-size:.82rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Average Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Founder's Note ── -->
+  <section class="founder">
+    <div class="container founder-inner">
+      <div class="founder-portrait">
+        <div class="founder-avatar">👨‍💼</div>
+        <div>
+          <div class="founder-name">Rajendra Shrestha</div>
+          <div class="founder-title">Founder & Managing Director</div>
+        </div>
+      </div>
+      <div class="founder-quote">
+        <blockquote>
+          <p>
+            I remember the day we opened our doors — a small team, a freshly painted hall, and a belief that people deserved a beautiful place to celebrate their love. Fifteen years later, every time I see a bride walk down our aisle or a family share a meal under our lights, I know we built the right thing.
+          </p>
+          <p style="margin-top:1rem;">
+            Greens will always be more than a venue. It is a promise — that on your most important day, we will give you our very best.
+          </p>
+          <cite>— Rajendra Shrestha, Founder</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Values ── -->
+  <section class="values">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">What We Believe</p>
+        <h2>Our Core Values</h2>
+        <p>These principles guide every decision we make — from how we design the hall to how we treat every guest.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">💚</div>
+          <h3>Warmth First</h3>
+          <p>Every family that walks through our doors is treated like our own. Hospitality isn't a service — it's who we are.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">✨</div>
+          <h3>Relentless Excellence</h3>
+          <p>We sweat the small details so you don't have to. From the floral arrangement to the parking flow — everything is considered.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>Trust & Transparency</h3>
+          <p>No hidden fees, no last-minute surprises. We believe in honest pricing and clear communication from day one.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌱</div>
+          <h3>Sustainability</h3>
+          <p>We actively reduce waste, use energy-efficient systems, and partner with local flower growers to keep our footprint green.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🎨</div>
+          <h3>Creative Vision</h3>
+          <p>Every wedding is unique. We celebrate individual stories by helping couples bring their own vision to life — not a template.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🏆</div>
+          <h3>Community Pride</h3>
+          <p>Rooted in Bhubaneswar, we give back to the community through local hiring, charity events, and supporting young couples.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Milestones ── -->
+  <section class="milestones">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Journey</p>
+        <h2>15 Years of Milestones</h2>
+      </div>
+      <div class="timeline">
+        <div class="milestone">
+          <div class="milestone-left">
+            <div class="milestone-year">2008</div>
+            <div class="milestone-text">Grand Opening</div>
+            <div class="milestone-sub">Greens opens its doors with capacity for 300 guests</div>
+          </div>
+          <div class="milestone-dot">🌿</div>
+          <div class="milestone-right"></div>
+        </div>
+        <div class="milestone right">
+          <div class="milestone-left"></div>
+          <div class="milestone-dot">🌳</div>
+          <div class="milestone-right">
+            <div class="milestone-year">2011</div>
+            <div class="milestone-text">100th Wedding</div>
+            <div class="milestone-sub">We celebrated our 100th event with a free reception for a local couple</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-left">
+            <div class="milestone-year">2014</div>
+            <div class="milestone-text">Garden Terrace Opens</div>
+            <div class="milestone-sub">Outdoor capacity expanded to 400 guests in our lush garden</div>
+          </div>
+          <div class="milestone-dot">🌸</div>
+          <div class="milestone-right"></div>
+        </div>
+        <div class="milestone right">
+          <div class="milestone-left"></div>
+          <div class="milestone-dot">👸</div>
+          <div class="milestone-right">
+            <div class="milestone-year">2018</div>
+            <div class="milestone-text">Luxury Bridal Suite</div>
+            <div class="milestone-sub">New bridal suite and groom's lounge added to the venue</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-left">
+            <div class="milestone-year">2022</div>
+            <div class="milestone-text">Grand Ballroom Renovation</div>
+            <div class="milestone-sub">Full interior redesign, new lighting system, capacity grows to 1,200</div>
+          </div>
+          <div class="milestone-dot">🏛️</div>
+          <div class="milestone-right"></div>
+        </div>
+        <div class="milestone right">
+          <div class="milestone-left"></div>
+          <div class="milestone-dot">🌟</div>
+          <div class="milestone-right">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-text">500+ Events &amp; 4.9★ Rating</div>
+            <div class="milestone-sub">Recognised as Bhubaneswar's top-rated marriage hall</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Team ── -->
+  <section class="team">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">The People Behind Greens</p>
+        <h2>Meet Our Team</h2>
+        <p>Our dedicated professionals bring expertise, creativity, and genuine care to every event.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar ta-1">👩</div>
+          <h4>Sunita Shrestha</h4>
+          <div class="role">Head Event Coordinator</div>
+          <p>12 years of making families' dreams a reality with flawless execution and calm leadership.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar ta-2">👨‍🍳</div>
+          <h4>Chef Bikram Rai</h4>
+          <div class="role">Executive Chef</div>
+          <p>Trained in Kolkata and Bhubaneswar, Chef Bikram leads our in-house culinary team of 15.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar ta-3">👩‍🎨</div>
+          <h4>Prativa Gurung</h4>
+          <div class="role">Lead Decorator</div>
+          <p>An artist at heart, Prativa has designed over 300 unique wedding themes across all budgets.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar ta-4">👨‍💻</div>
+          <h4>Anil Tamang</h4>
+          <div class="role">A/V & Tech Manager</div>
+          <p>Anil ensures our sound, lighting, and screens run flawlessly so every moment is picture-perfect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Awards ── -->
+  <section class="awards">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Recognition</p>
+        <h2>Awards & Achievements</h2>
+      </div>
+      <div class="awards-grid">
+        <div class="award-badge">
+          <div class="award-icon">🏆</div>
+          <h4>Best Wedding Venue</h4>
+          <p>Odisha Hospitality Awards — 2023 & 2024</p>
+        </div>
+        <div class="award-badge">
+          <div class="award-icon">⭐</div>
+          <h4>4.9 Star Rating</h4>
+          <p>Based on 380+ verified guest reviews</p>
+        </div>
+        <div class="award-badge">
+          <div class="award-icon">🌿</div>
+          <h4>Green Venue Certified</h4>
+          <p>Odisha Eco-Friendly Business Initiative — 2022</p>
+        </div>
+        <div class="award-badge">
+          <div class="award-icon">💐</div>
+          <h4>Couples' Choice Award</h4>
+          <p>WeddingWire South Asia — 2022, 2023, 2024</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section style="background:linear-gradient(135deg,var(--green-mid) 0%,var(--green-deep) 100%);padding:80px 0;text-align:center;">
+    <div class="container">
+      <p class="section-label" style="color:rgba(255,255,255,.6)">Join the Greens Family</p>
+      <h2 style="color:#fff;margin-bottom:.75rem;">Be Part of Our Story</h2>
+      <p style="color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 2rem;font-size:1.05rem;">
+        Let's create something beautiful together. Reach out today and start planning your dream event at Greens.
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn" style="background:#fff;color:var(--green-deep);border-color:#fff;font-weight:700;">
+          <i class="fa-solid fa-calendar-check"></i> Book a Tour
+        </a>
+        <a href="pricing.html" class="btn" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,.6);font-weight:700;">
+          <i class="fa-solid fa-tag"></i> View Pricing
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">🌿</div>
+            <span class="nav-logo-text">Green<span style="color:var(--green-light)">s</span></span>
+          </div>
+          <p>Where your dream wedding comes to life. Serving families across Bhubaneswar since 2008.</p>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Wedding Reception</a></li>
+            <li><a href="#">Engagement Ceremony</a></li>
+            <li><a href="#">Bridal Shower</a></li>
+            <li><a href="#">In-House Catering</a></li>
+            <li><a href="#">Décor Packages</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            <span>KV Ave, near East Coast Railway Stadium, Mancheswar, Bhubaneswar, Odisha 751017</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-phone"></i></span>
+            <span>+91 90402 10791 / 70085 46641</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span>Ritesh.jena80@gmail.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Greens Marriage Hall. All rights reserved.</span>
+        <span>Made with 🌿 in Bhubaneswar</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+
+  <!-- ── Back to Welcome ── -->
+  <a href="welcome.html" title="Back to Welcome Page" style="
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    display:flex;align-items:center;gap:.5rem;
+    background:#fff;border:1.5px solid #c8dfc9;
+    border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
+    box-shadow:0 4px 20px rgba(90,138,94,.18);
+    font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;
+    color:#5a8a5e;text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(90,138,94,.25)'"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(90,138,94,.18)'">
+    <span style="font-size:1rem;">🌿</span> Welcome Page
+  </a>
+
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+
+const ease = [0.25, 0.1, 0.25, 1]
+
+function reveal(sel) {
+  document.querySelectorAll(sel).forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(24px)'
+    inView(el, ({ target }) =>
+      animate(target, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, easing: ease }),
+      { amount: 0.25 })
+  })
+}
+
+function staggerReveal(parentSel, childSel, delay = 0.1) {
+  document.querySelectorAll(parentSel).forEach(parent => {
+    const kids = parent.querySelectorAll(childSel)
+    kids.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(28px)' })
+    inView(parent, () => {
+      animate(kids, { opacity: [0, 1], y: [28, 0] },
+        { delay: stagger(delay), duration: 0.5, easing: ease })
+    }, { amount: 0.1 })
+  })
+}
+
+reveal('.section-label')
+reveal('.section-header h2')
+
+// Story section
+reveal('.story-text, .story-img')
+
+// Founder card — slide up with scale
+const founder = document.querySelector('.founder-card, .founder-inner')
+if (founder) {
+  founder.style.opacity = '0'; founder.style.transform = 'translateY(40px) scale(0.97)'
+  inView(founder, ({ target }) =>
+    animate(target, { opacity: [0, 1], y: [40, 0], scale: [0.97, 1] },
+      { duration: 0.7, easing: ease }), { amount: 0.3 })
+}
+
+// Values — stagger grid
+staggerReveal('.values-grid', '.value-card', 0.08)
+
+// Timeline milestones — alternate left/right
+document.querySelectorAll('.timeline-item, .milestone').forEach((el, i) => {
+  const fromX = i % 2 === 0 ? -36 : 36
+  el.style.opacity = '0'; el.style.transform = `translateX(${fromX}px)`
+  inView(el, ({ target }) =>
+    animate(target, { opacity: [0, 1], x: [fromX, 0] },
+      { duration: 0.6, easing: ease, delay: i * 0.05 }), { amount: 0.3 })
+})
+
+// Team cards
+staggerReveal('.team-grid, .team-section', '.team-card', 0.1)
+
+// Awards
+staggerReveal('.awards-section, .awards-grid', '.award-item', 0.08)
+
+// Spring hover on value & team cards
+document.querySelectorAll('.value-card, .team-card').forEach(card => {
+  card.addEventListener('mouseenter', () =>
+    animate(card, { scale: 1.04, y: -4 }, { type: 'spring', stiffness: 320, damping: 20 }))
+  card.addEventListener('mouseleave', () =>
+    animate(card, { scale: 1, y: 0 }, { type: 'spring', stiffness: 320, damping: 20 }))
+})
+</script>
+</body>
+</html>

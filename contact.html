@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Book — Greens Marriage Hall</title>
+  <meta name="description" content="Get in touch with Greens Marriage Hall to book a tour, enquire about availability, or ask any questions about our venue and services." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--blush) 50%, var(--green-pale) 100%);
+      padding: 96px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: var(--blush);
+      opacity: .4;
+      top: -100px; left: -80px;
+      filter: blur(80px);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: var(--green-light);
+      opacity: .3;
+      bottom: -80px; right: -60px;
+      filter: blur(70px);
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero h1 { margin: .75rem 0 1rem; }
+    .page-hero p  { font-size: 1.1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Contact Layout ── */
+    .contact-section { background: var(--cream); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ── Contact Info Sidebar ── */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .info-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+    .info-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .ic-green  { background: var(--green-pale); color: var(--green-deep); }
+    .ic-blush  { background: #fde8e4; color: var(--rose-deep); }
+    .ic-cream  { background: var(--cream-dark); color: #7a6a50; }
+    .ic-purple { background: #ede8f5; color: #7a5ab0; }
+    .ic-sky    { background: #e4f0fb; color: #4a80b0; }
+
+    .info-body h4 { font-size: .97rem; margin-bottom: .3rem; }
+    .info-body p, .info-body a {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      display: block;
+    }
+    .info-body a:hover { color: var(--green-mid); }
+
+    /* Hours table */
+    .hours-table {
+      width: 100%;
+      font-size: .88rem;
+      margin-top: .5rem;
+    }
+    .hours-table tr td { padding: .2rem 0; color: var(--text-muted); }
+    .hours-table tr td:first-child { font-weight: 600; color: var(--text-dark); width: 50%; }
+    .hours-table tr.closed td { color: var(--text-light); }
+    .closed-badge {
+      background: #f0ece8;
+      color: var(--text-light);
+      border-radius: var(--radius-xl);
+      padding: .1rem .5rem;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    /* Social links in info */
+    /* ── Apple Dock · Follow Us ── */
+    .social-dock-wrap {
+      margin-top: 1rem;
+      padding-top: 16px; /* room for magnified icons */
+    }
+    .social-dock {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(253,246,236,.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(200,223,201,.5);
+      border-radius: 18px;
+      box-shadow:
+        0 6px 24px rgba(90,138,94,.12),
+        inset 0 1px 0 rgba(255,255,255,.6);
+    }
+    .social-dock-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      transition:
+        width  .28s cubic-bezier(.34,1.56,.64,1),
+        height .28s cubic-bezier(.34,1.56,.64,1),
+        border-radius .28s ease,
+        box-shadow .2s ease;
+      will-change: width, height;
+    }
+    .social-dock-icon:hover { box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+    .sdi-fb { background: linear-gradient(145deg,#1877f2,#3b5998); }
+    .sdi-ig { background: linear-gradient(145deg,#833ab4 0%,#e1306c 50%,#f77737 100%); }
+    .sdi-yt { background: linear-gradient(145deg,#ff0000,#b31217); }
+    .sdi-wa { background: linear-gradient(145deg,#25d366,#128c7e); }
+    .sdi-tk { background: linear-gradient(145deg,#010101,#69c9d0); }
+
+    /* Tooltip */
+    .social-dock-icon::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(30,28,26,.88);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: .28rem .7rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .social-dock-icon::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 5px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      border: 4px solid transparent;
+      border-top-color: rgba(30,28,26,.88);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .social-dock-icon:hover::after,
+    .social-dock-icon:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .social-dock-reflection {
+      width: 32px; height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(123,174,127,.4), transparent);
+      border-radius: 2px;
+      margin: 5px auto 0;
+    }
+
+    /* ── Booking Form ── */
+    .booking-form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem;
+      box-shadow: var(--shadow-md);
+    }
+    .booking-form-card h2 { font-size: 1.5rem; margin-bottom: .4rem; }
+    .booking-form-card .subtitle { font-size: .9rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+    .form-section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-light);
+      margin: 1.5rem 0 .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .form-section-label:first-of-type { margin-top: 0; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .form-group label .req { color: var(--rose-deep); margin-left: 2px; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: .8rem 1rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'Nunito', sans-serif;
+      font-size: .92rem;
+      color: var(--text-dark);
+      background: var(--cream);
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(123,174,127,.15);
+      background: var(--white);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-top: .4rem;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .88rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: .4rem .85rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-xl);
+      transition: border-color var(--transition), background var(--transition), color var(--transition);
+    }
+    .checkbox-label input[type="checkbox"] { display: none; }
+    .checkbox-label:has(input:checked) {
+      border-color: var(--green-mid);
+      background: var(--green-pale);
+      color: var(--green-deep);
+      font-weight: 700;
+    }
+
+    .form-submit {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .form-submit .btn { flex: 1; min-width: 200px; justify-content: center; }
+    .form-submit .privacy {
+      font-size: .78rem;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    /* success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .form-success .success-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1.5rem;
+    }
+    .form-success h3 { margin-bottom: .5rem; }
+    .form-success p  { font-size: .95rem; }
+
+    /* ── Map Section ── */
+    .map-section { background: var(--white); padding-bottom: 0; }
+    .map-section .section-header { margin-bottom: 40px; }
+    .map-embed {
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      height: 420px;
+      background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+    }
+    .map-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .map-pin-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green-deep);
+    }
+
+    /* ── Quick Links ── */
+    .quick-links { background: var(--green-pale); padding: 64px 0; }
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .quick-link-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .quick-link-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .ql-icon {
+      font-size: 2rem;
+      margin-bottom: .75rem;
+    }
+    .quick-link-card h4 { margin-bottom: .35rem; }
+    .quick-link-card p  { font-size: .85rem; margin-bottom: 1.25rem; line-height: 1.55; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .quick-links-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    }
+    @media (max-width: 540px) {
+      .form-row { grid-template-columns: 1fr; }
+      .booking-form-card { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🌿</div>
+        <span class="nav-logo-text">Green<span>s</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ── -->
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="badge badge-rose">Get in Touch</span>
+      <h1>Let's Plan Your<br>Perfect Day</h1>
+      <p>Fill out the form, give us a call, or simply drop by for a free tour — we'd love to meet you and show you around.</p>
+    </div>
+  </div>
+
+  <!-- ── Contact Section ── -->
+  <section class="contact-section">
+    <div class="container contact-inner">
+
+      <!-- Sidebar Info -->
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-icon ic-green"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="info-body">
+            <h4>Our Address</h4>
+            <p>Greens Marriage Mandap<br>KV Ave, near East Coast Railway Stadium<br>Railway Colony, Mancheswar, Gadakan<br>Bhubaneswar, Odisha 751017</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon ic-blush"><i class="fa-solid fa-phone"></i></div>
+          <div class="info-body">
+            <h4>Phone & WhatsApp</h4>
+            <a href="https://wa.me/919040210791" target="_blank" rel="noopener">+91 90402 10791</a>
+            <a href="https://wa.me/917008546641" target="_blank" rel="noopener">+91 70085 46641</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon ic-cream"><i class="fa-solid fa-envelope"></i></div>
+          <div class="info-body">
+            <h4>Email Us</h4>
+            <a href="https://mail.google.com/mail/?view=cm&to=Ritesh.jena80@gmail.com" target="_blank" rel="noopener">Ritesh.jena80@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon ic-sky"><i class="fa-solid fa-clock"></i></div>
+          <div class="info-body">
+            <h4>Office Hours</h4>
+            <table class="hours-table">
+              <tr><td>Sunday – Friday</td><td>9:00 AM – 6:00 PM</td></tr>
+              <tr><td>Saturday</td><td>10:00 AM – 4:00 PM</td></tr>
+              <tr class="closed"><td>Public Holidays</td><td><span class="closed-badge">Closed</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon ic-purple"><i class="fa-solid fa-share-nodes"></i></div>
+          <div class="info-body">
+            <h4>Follow Us</h4>
+            <p>Stay updated with our latest events, décor inspiration, and real weddings.</p>
+            <div class="social-dock-wrap">
+              <div class="social-dock" id="contactDock">
+                <a href="https://www.facebook.com/share/1FDEj4bnRG/" target="_blank" rel="noopener"
+                   class="social-dock-icon sdi-fb" data-label="Facebook" aria-label="Facebook">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener"
+                   class="social-dock-icon sdi-ig" data-label="Instagram" aria-label="Instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener"
+                   class="social-dock-icon sdi-yt" data-label="YouTube" aria-label="YouTube">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://wa.me/919040210791" target="_blank" rel="noopener"
+                   class="social-dock-icon sdi-wa" data-label="WhatsApp" aria-label="WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener"
+                   class="social-dock-icon sdi-tk" data-label="TikTok" aria-label="TikTok">
+                  <i class="fa-brands fa-tiktok"></i>
+                </a>
+              </div>
+              <div class="social-dock-reflection"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <div class="booking-form-card">
+        <h2>Booking Enquiry</h2>
+        <p class="subtitle">Fill in your details and we'll get back to you within 24 hours with availability and a personalised quote.</p>
+
+        <form id="bookingForm" novalidate>
+          <p class="form-section-label">Your Details</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" placeholder="e.g. Priya Sharma" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="tel" placeholder="+977 98X-XXX-XXXX" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="priya@example.com" />
+          </div>
+
+          <p class="form-section-label">Event Details</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Event Type <span class="req">*</span></label>
+              <select required>
+                <option value="">Select event type...</option>
+                <option>Wedding Reception</option>
+                <option>Engagement Ceremony</option>
+                <option>Bridal Shower</option>
+                <option>Full-Day Grand Booking</option>
+                <option>Other Celebration</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Date <span class="req">*</span></label>
+              <input type="date" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estimated Guest Count</label>
+              <input type="number" placeholder="e.g. 450" min="50" max="1200" />
+            </div>
+            <div class="form-group">
+              <label>Approximate Budget</label>
+              <select>
+                <option value="">Select range (Rs.)...</option>
+                <option>Under 75,000</option>
+                <option>75,000 – 1,50,000</option>
+                <option>1,50,000 – 3,00,000</option>
+                <option>3,00,000+</option>
+                <option>Flexible / Open</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="form-section-label">Services of Interest</p>
+          <div class="form-group">
+            <label>Select all that apply</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" />🍽️ In-House Catering</label>
+              <label class="checkbox-label"><input type="checkbox" />🌸 Decoration Package</label>
+              <label class="checkbox-label"><input type="checkbox" />🎤 Sound & Lighting</label>
+              <label class="checkbox-label"><input type="checkbox" />👸 Bridal Suite</label>
+              <label class="checkbox-label"><input type="checkbox" />🚗 Valet Parking</label>
+              <label class="checkbox-label"><input type="checkbox" />📸 Photography Setup</label>
+              <label class="checkbox-label"><input type="checkbox" />🎵 Live Band / DJ</label>
+              <label class="checkbox-label"><input type="checkbox" />🎊 Custom Add-Ons</label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:.5rem;">
+            <label>Additional Message or Questions</label>
+            <textarea placeholder="Tell us about your theme ideas, special requirements, dietary needs, or anything else we should know..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>How Did You Hear About Us?</label>
+              <select>
+                <option value="">Select an option...</option>
+                <option>Google Search</option>
+                <option>Facebook / Instagram</option>
+                <option>Friend or Family Referral</option>
+                <option>Attended an Event at Greens</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Callback Time</label>
+              <input type="text" placeholder="e.g. Weekday mornings after 10 AM" />
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Submit Enquiry
+            </button>
+          </div>
+          <p class="privacy" style="margin-top:.75rem;text-align:center;">
+            <i class="fa-solid fa-lock" style="font-size:.8rem;"></i>
+            Your information is private and will never be shared. We'll reach out within 24 hours.
+          </p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Enquiry Received!</h3>
+          <p>Thank you for reaching out. Our team will contact you within 24 hours to confirm availability and discuss your vision.</p>
+          <a href="index.html" class="btn btn-primary" style="margin-top:1.5rem;">Back to Home</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Map ── -->
+  <section class="map-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Find Us</p>
+        <h2>Our Location</h2>
+        <p>KV Ave, near East Coast Railway Stadium, Railway Colony, Mancheswar, Bhubaneswar — easily accessible from all major areas of the city.</p>
+      </div>
+    </div>
+    <div style="padding: 0 max(4vw, calc((100vw - 1140px)/2));">
+      <div class="map-embed">
+        <!-- Google Maps embed — replace src with your actual embed URL -->
+        <iframe
+          src="https://maps.google.com/maps?q=KV+Ave+near+East+Coast+Railway+Stadium+Railway+Colony+Mancheswar+Bhubaneswar+Odisha+751017&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Greens Marriage Hall Location">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quick Links ── -->
+  <section class="quick-links">
+    <div class="container">
+      <div class="section-header" style="margin-bottom:40px;">
+        <p class="section-label">Explore More</p>
+        <h2>Ready to Learn More?</h2>
+      </div>
+      <div class="quick-links-grid">
+        <div class="quick-link-card">
+          <div class="ql-icon">🏛️</div>
+          <h4>View Our Features</h4>
+          <p>Explore our hall's world-class amenities, capacity options, and services.</p>
+          <a href="features.html" class="btn btn-outline">See Features</a>
+        </div>
+        <div class="quick-link-card">
+          <div class="ql-icon">💰</div>
+          <h4>Check Pricing</h4>
+          <p>Transparent packages for every event size and budget — no hidden surprises.</p>
+          <a href="pricing.html" class="btn btn-outline">View Packages</a>
+        </div>
+        <div class="quick-link-card">
+          <div class="ql-icon">💚</div>
+          <h4>Our Story</h4>
+          <p>Learn about the family behind Greens and what makes us truly special.</p>
+          <a href="about.html" class="btn btn-outline">About Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">🌿</div>
+            <span class="nav-logo-text">Green<span style="color:var(--green-light)">s</span></span>
+          </div>
+          <p>Where your dream wedding comes to life. Serving families across Bhubaneswar since 2008.</p>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Wedding Reception</a></li>
+            <li><a href="#">Engagement Ceremony</a></li>
+            <li><a href="#">Bridal Shower</a></li>
+            <li><a href="#">In-House Catering</a></li>
+            <li><a href="#">Décor Packages</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            <span>KV Ave, near East Coast Railway Stadium, Mancheswar, Bhubaneswar, Odisha 751017</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-phone"></i></span>
+            <span>+91 90402 10791 / 70085 46641</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span>Ritesh.jena80@gmail.com</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-clock"></i></span>
+            <span>Sun–Fri, 9 AM – 6 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Greens Marriage Hall. All rights reserved.</span>
+        <span>Made with 🌿 in Bhubaneswar</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    // Form submission (demo)
+    const form    = document.getElementById('bookingForm');
+    const success = document.getElementById('formSuccess');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      success.style.display = 'block';
+    });
+  </script>
+
+  <!-- ── Back to Welcome ── -->
+  <a href="welcome.html" title="Back to Welcome Page" style="
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    display:flex;align-items:center;gap:.5rem;
+    background:#fff;border:1.5px solid #c8dfc9;
+    border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
+    box-shadow:0 4px 20px rgba(90,138,94,.18);
+    font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;
+    color:#5a8a5e;text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(90,138,94,.25)'"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(90,138,94,.18)'">
+    <span style="font-size:1rem;">🌿</span> Welcome Page
+  </a>
+
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+
+const ease = [0.25, 0.1, 0.25, 1]
+
+function reveal(sel) {
+  document.querySelectorAll(sel).forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(24px)'
+    inView(el, ({ target }) =>
+      animate(target, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, easing: ease }),
+      { amount: 0.25 })
+  })
+}
+
+reveal('.section-label')
+reveal('.section-header h2')
+
+// Info cards — stagger in
+const infoCards = document.querySelectorAll('.info-card')
+infoCards.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateX(-24px)' })
+inView('.contact-info', () => {
+  animate(infoCards, { opacity: [0, 1], x: [-24, 0] },
+    { delay: stagger(0.1), duration: 0.5, easing: ease })
+}, { amount: 0.1 })
+
+// Booking form — slide up
+const formCard = document.querySelector('.booking-form-card')
+if (formCard) {
+  formCard.style.opacity = '0'; formCard.style.transform = 'translateY(40px)'
+  inView(formCard, ({ target }) =>
+    animate(target, { opacity: [0, 1], y: [40, 0] },
+      { duration: 0.65, easing: ease, delay: 0.15 }), { amount: 0.2 })
+}
+
+// Map embed — fade in
+const map = document.querySelector('.map-embed, iframe')
+if (map) {
+  map.style.opacity = '0'
+  inView(map, ({ target }) =>
+    animate(target, { opacity: [0, 1] }, { duration: 0.8, easing: ease }), { amount: 0.2 })
+}
+
+// Spring hover on info cards
+infoCards.forEach(card => {
+  card.addEventListener('mouseenter', () =>
+    animate(card, { x: 4, scale: 1.02 }, { type: 'spring', stiffness: 300, damping: 20 }))
+  card.addEventListener('mouseleave', () =>
+    animate(card, { x: 0, scale: 1 }, { type: 'spring', stiffness: 300, damping: 20 }))
+})
+
+// Form fields — focus glow pulse
+document.querySelectorAll('input, textarea, select').forEach(field => {
+  field.addEventListener('focus', () =>
+    animate(field, { scale: [1, 1.01, 1] }, { duration: 0.3, easing: ease }))
+})
+</script>
+
+<script>
+  // ── Apple Dock magnification for contact page ──
+  (function () {
+    var dock  = document.getElementById('contactDock');
+    if (!dock) return;
+    var icons = Array.from(dock.querySelectorAll('.social-dock-icon'));
+    var BASE  = 40;
+    var MAX   = 72;
+    var DIST  = 120;
+
+    dock.addEventListener('mousemove', function (e) {
+      icons.forEach(function (icon) {
+        var rect   = icon.getBoundingClientRect();
+        var center = rect.left + rect.width / 2;
+        var d      = Math.abs(e.clientX - center);
+        var size, radius;
+        if (d < DIST) {
+          var smooth = 0.5 - 0.5 * Math.cos(Math.PI * (1 - d / DIST));
+          size   = BASE + (MAX - BASE) * smooth;
+          radius = 11 + 11 * smooth;
+        } else {
+          size = BASE; radius = 11;
+        }
+        icon.style.width        = size + 'px';
+        icon.style.height       = size + 'px';
+        icon.style.borderRadius = radius + 'px';
+        icon.style.fontSize     = (size * 0.42) + 'px';
+      });
+    });
+
+    dock.addEventListener('mouseleave', function () {
+      icons.forEach(function (icon) {
+        icon.style.width        = BASE + 'px';
+        icon.style.height       = BASE + 'px';
+        icon.style.borderRadius = '11px';
+        icon.style.fontSize     = (BASE * 0.42) + 'px';
+      });
+    });
+  })();
+</script>
+</body>
+</html>

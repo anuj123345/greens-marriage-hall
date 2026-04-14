@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greens Group — Our Businesses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Nunito:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --green-deep:  #5a8a5e;
+      --green-mid:   #7bae7f;
+      --green-light: #c8dfc9;
+      --green-pale:  #eaf4ea;
+      --cream:       #fdf6ec;
+      --blush:       #f7d4c8;
+      --rose:        #e8a598;
+      --text-dark:   #3d3a36;
+      --text-muted:  #7a7570;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text-dark); }
+
+    /* ── Top Bar ── */
+    .top-bar {
+      background: rgba(253,246,236,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--green-light);
+      padding: .85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-bar .brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; color: var(--green-deep); text-decoration: none; }
+    .top-bar nav { display: flex; gap: 1rem; align-items: center; }
+    .top-bar nav a { text-decoration: none; font-size: .85rem; font-weight: 600; color: var(--text-muted); padding: .4rem .9rem; border-radius: 20px; transition: background .2s, color .2s; }
+    .top-bar nav a:hover { background: var(--green-pale); color: var(--green-deep); }
+    .top-bar nav a.cta { background: var(--green-mid); color: #fff; }
+    .top-bar nav a.cta:hover { background: var(--green-deep); }
+
+    /* ── Hero ── */
+    .hub-hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      background: linear-gradient(160deg, var(--green-pale) 0%, var(--cream) 60%, var(--blush) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hub-hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: var(--green-light);
+      border-radius: 50%;
+      top: -200px; right: -150px;
+      opacity: .25;
+      filter: blur(80px);
+    }
+    .hub-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #fff; border: 1.5px solid var(--green-light);
+      border-radius: 40px; padding: .4rem 1.1rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--green-deep);
+      margin-bottom: 1.5rem;
+    }
+    .hub-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; margin-bottom: .75rem; }
+    .hub-hero h1 em { font-style: italic; color: var(--green-mid); }
+    .hub-hero p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 2rem 2rem 3rem;
+      background: var(--cream);
+    }
+    .stat { text-align: center; }
+    .stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--green-deep); }
+    .stat span { font-size: .8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+
+    /* ── Brand Cards ── */
+    .brands-section { padding: 3rem 2rem 5rem; max-width: 1200px; margin: 0 auto; }
+    .section-label { text-align: center; font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); text-align: center; margin-bottom: 3rem; }
+
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .brand-card {
+      background: #fff;
+      border: 1.5px solid #eee;
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: transform .25s ease, box-shadow .25s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+
+    .brand-card .bc-logo {
+      height: 56px; display: flex; align-items: center;
+    }
+    .brand-card .bc-logo img { height: 48px; width: auto; max-width: 160px; object-fit: contain; border-radius: 6px; }
+    .brand-card .bc-logo .bc-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .brand-card .bc-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; }
+    .brand-card .bc-tagline { font-size: .85rem; color: var(--text-muted); line-height: 1.5; }
+
+    .service-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .25rem; }
+    .chip {
+      font-size: .72rem; font-weight: 700; padding: .25rem .7rem;
+      border-radius: 20px; background: var(--green-pale);
+      color: var(--green-deep); border: 1px solid var(--green-light);
+    }
+
+    .bc-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: auto; padding-top: .75rem; border-top: 1px solid #f0f0f0; }
+    .bc-btn {
+      flex: 1; min-width: 100px;
+      text-align: center; text-decoration: none;
+      padding: .6rem 1rem; border-radius: 30px;
+      font-size: .82rem; font-weight: 700; cursor: pointer;
+      transition: all .2s;
+    }
+    .bc-btn-primary { background: var(--green-mid); color: #fff; }
+    .bc-btn-primary:hover { background: var(--green-deep); }
+    .bc-btn-outline { border: 1.5px solid var(--green-light); color: var(--green-deep); background: transparent; }
+    .bc-btn-outline:hover { background: var(--green-pale); }
+
+    /* Greens card accent */
+    .card-greens { border-color: #c8dfc9; }
+    .card-greens .bc-icon { background: var(--green-pale); }
+    /* Indulge accent */
+    .card-indulge { border-color: #f7d4c8; }
+    .card-indulge .chip { background: #fff5f3; color: #b56a5a; border-color: #f7d4c8; }
+    /* Sinfonia accent */
+    .card-sinfonia { border-color: #d4d0f7; }
+    .card-sinfonia .chip { background: #f3f3ff; color: #5a58a0; border-color: #d4d0f7; }
+    /* Weavorah accent */
+    .card-weavorah { border-color: #f7e9c8; }
+    .card-weavorah .chip { background: #fffbf0; color: #8a6a2a; border-color: #f7e9c8; }
+
+    /* ── Enquiries Banner ── */
+    .enquiries-banner {
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+      color: #fff; text-align: center;
+      padding: 3.5rem 2rem;
+    }
+    .enquiries-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: .75rem; }
+    .enquiries-banner p { opacity: .85; margin-bottom: 1.75rem; font-size: .97rem; }
+    .enquiries-banner .banner-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .enquiries-banner .bb { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 700; font-size: .9rem; transition: transform .2s; }
+    .enquiries-banner .bb:hover { transform: translateY(-2px); }
+    .enquiries-banner .bb-white { background: #fff; color: var(--green-deep); }
+    .enquiries-banner .bb-wa { background: #25d366; color: #fff; }
+
+    /* ── Footer ── */
+    footer { background: #2a2a2a; color: #aaa; text-align: center; padding: 1.75rem 2rem; font-size: .82rem; }
+    footer a { color: var(--green-light); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .brand-grid { grid-template-columns: 1fr; }
+      .stats-row { gap: 1.5rem; }
+      .top-bar { flex-wrap: wrap; gap: .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <a href="welcome.html" class="brand">🌿 Greens Group</a>
+    <nav>
+      <a href="welcome.html"><i class="fa-solid fa-house"></i> Welcome</a>
+      <a href="index.html">Greens Mandap</a>
+      <a href="index.html#contact" class="cta">Enquire Now</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hub-hero">
+    <div class="eyebrow"><i class="fa-solid fa-building"></i> Business Portfolio</div>
+    <h1>The <em>Greens</em> Group</h1>
+    <p>Four trusted brands. One unforgettable celebration. All your wedding needs — under one roof.</p>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat"><strong>4</strong><span>Brands</span></div>
+    <div class="stat"><strong>500+</strong><span>Happy Families</span></div>
+    <div class="stat"><strong>15+</strong><span>Years Combined</span></div>
+    <div class="stat"><strong>1</strong><span>Contact for All</span></div>
+  </div>
+
+  <!-- Brand Cards -->
+  <section class="brands-section">
+    <p class="section-label">Our Businesses</p>
+    <h2 class="section-title">Everything you need for your big day</h2>
+
+    <div class="brand-grid">
+
+      <!-- Greens Marriage Mandap -->
+      <div class="brand-card card-greens">
+        <div class="bc-logo">
+          <div class="bc-icon">🌿</div>
+        </div>
+        <div class="bc-name">Greens Marriage Mandap</div>
+        <div class="bc-tagline">Premium wedding venue in the heart of Bhubaneswar — where dreams become celebrations.</div>
+        <div class="service-chips">
+          <span class="chip">Grand Lawn</span>
+          <span class="chip">Convention Hall</span>
+          <span class="chip">Stage &amp; Decor</span>
+          <span class="chip">Bridal Suite</span>
+          <span class="chip">Parking</span>
+        </div>
+        <div class="bc-actions">
+          <a href="index.html" class="bc-btn bc-btn-outline">View Venue</a>
+          <a href="contact.html" class="bc-btn bc-btn-primary">Enquire</a>
+        </div>
+      </div>
+
+      <!-- Indulge The Salon -->
+      <div class="brand-card card-indulge">
+        <div class="bc-logo">
+          <img src="logos/indulge-salon.png" alt="Indulge The Salon" style="background:#e8e8e8; border-radius:6px; padding:4px;" />
+        </div>
+        <div class="bc-name">Indulge The Salon</div>
+        <div class="bc-tagline">Bridal beauty, hair styling, and grooming — look your most radiant self on your special day.</div>
+        <div class="service-chips">
+          <span class="chip">Bridal Makeup</span>
+          <span class="chip">Hair Styling</span>
+          <span class="chip">Skincare</span>
+          <span class="chip">Grooming</span>
+          <span class="chip">Pre-Wedding Package</span>
+        </div>
+        <div class="bc-actions">
+          <a href="indulge-enquiry.html" class="bc-btn bc-btn-outline">Learn More</a>
+          <a href="indulge-enquiry.html#form" class="bc-btn bc-btn-primary" style="background:#e8a598;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Studio Sinfonia -->
+      <div class="brand-card card-sinfonia">
+        <div class="bc-logo">
+          <img src="logos/studio-sinfonia.png" alt="Studio Sinfonia" style="background:#111; border-radius:6px; padding:4px;" />
+        </div>
+        <div class="bc-name">Studio Sinfonia</div>
+        <div class="bc-tagline">Cinematic wedding photography &amp; videography — capturing every emotion, every moment, forever.</div>
+        <div class="service-chips">
+          <span class="chip">Wedding Photography</span>
+          <span class="chip">Videography</span>
+          <span class="chip">Pre-Wedding Shoot</span>
+          <span class="chip">Drone Coverage</span>
+          <span class="chip">Album Design</span>
+        </div>
+        <div class="bc-actions">
+          <a href="sinfonia-enquiry.html" class="bc-btn bc-btn-outline">Learn More</a>
+          <a href="sinfonia-enquiry.html#form" class="bc-btn bc-btn-primary" style="background:#7b78c8;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Weavorah -->
+      <div class="brand-card card-weavorah">
+        <div class="bc-logo">
+          <img src="logos/weavorah.png" alt="Weavorah" style="background:#fff; border-radius:6px; padding:4px;" />
+        </div>
+        <div class="bc-name">Weavorah</div>
+        <div class="bc-tagline">Sarees. Stories. Soul. — Handloom and bridal wear crafted for the most important moments of your life.</div>
+        <div class="service-chips">
+          <span class="chip">Bridal Sarees</span>
+          <span class="chip">Handloom</span>
+          <span class="chip">Custom Orders</span>
+          <span class="chip">Lehenga</span>
+          <span class="chip">Styling Consult</span>
+        </div>
+        <div class="bc-actions">
+          <a href="weavorah-enquiry.html" class="bc-btn bc-btn-outline">Learn More</a>
+          <a href="weavorah-enquiry.html#form" class="bc-btn bc-btn-primary" style="background:#c8922a;">Book Now</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Enquiries Banner -->
+  <section class="enquiries-banner">
+    <h2>One point of contact for everything</h2>
+    <p>All enquiries — venue, salon, photography, and fashion — reach us directly.<br>We'll connect you to the right team within 24 hours.</p>
+    <div class="banner-btns">
+      <a href="https://mail.google.com/mail/?view=cm&to=Ritesh.jena80%40gmail.com&su=General+Enquiry+—+Greens+Group&body=Hi%2C+I+would+like+to+enquire+about+your+services." target="_blank" rel="noopener" class="bb bb-white">
+        <i class="fa-solid fa-envelope"></i> Email Us
+      </a>
+      <a href="https://wa.me/919040210791" target="_blank" rel="noopener" class="bb bb-wa">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Us
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Greens Group · Bhubaneswar, Odisha · <a href="welcome.html">Welcome Page</a></p>
+  </footer>
+
+  <!-- Floating Welcome Button -->
+  <a href="welcome.html" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid var(--green-light);border-radius:40px;padding:.55rem 1.1rem;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;color:var(--green-deep);text-decoration:none;box-shadow:0 4px 18px rgba(90,138,94,.18);transition:transform .2s;" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform='none'">
+    🌿 Welcome Page
+  </a>
+
+</body>
+</html>

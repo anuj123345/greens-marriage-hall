@@ -1,0 +1,354 @@
+/* =========================================================
+   GREENS — Marriage Hall · Global Stylesheet
+   Palette: sage green, cream, blush, dusty rose
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+/* ── Design Tokens ── */
+:root {
+  --green-deep:   #5a8a5e;
+  --green-mid:    #7bae7f;
+  --green-light:  #c8dfc9;
+  --green-pale:   #eaf4ea;
+  --cream:        #fdf6ec;
+  --cream-dark:   #f5ead8;
+  --blush:        #f7d4c8;
+  --rose:         #e8a598;
+  --rose-deep:    #c97b6e;
+  --text-dark:    #3d3a36;
+  --text-muted:   #7a7570;
+  --text-light:   #a8a49f;
+  --white:        #ffffff;
+  --shadow-sm:    0 2px 12px rgba(90,138,94,.10);
+  --shadow-md:    0 6px 28px rgba(90,138,94,.14);
+  --shadow-lg:    0 16px 48px rgba(90,138,94,.18);
+  --radius-sm:    10px;
+  --radius-md:    18px;
+  --radius-lg:    28px;
+  --radius-xl:    40px;
+  --transition:   .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a  { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.25;
+  color: var(--text-dark);
+}
+h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 600; }
+h4 { font-size: 1.1rem; font-weight: 600; }
+p  { color: var(--text-muted); }
+
+.section-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green-mid);
+  margin-bottom: .75rem;
+}
+
+/* ── Layout ── */
+.container {
+  width: min(1140px, 92vw);
+  margin-inline: auto;
+}
+
+section { padding: 96px 0; }
+
+.text-center { text-align: center; }
+
+.section-header {
+  max-width: 640px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.section-header p { margin-top: .75rem; font-size: 1.05rem; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 2rem;
+  border-radius: var(--radius-xl);
+  font-family: 'Nunito', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--green-mid);
+  color: var(--white);
+  border-color: var(--green-mid);
+}
+.btn-primary:hover {
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--green-mid);
+  border-color: var(--green-mid);
+}
+.btn-outline:hover {
+  background: var(--green-mid);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-rose {
+  background: var(--rose);
+  color: var(--white);
+  border-color: var(--rose);
+}
+.btn-rose:hover {
+  background: var(--rose-deep);
+  border-color: var(--rose-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,165,152,.35);
+}
+
+/* ── Navigation ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253,246,236,.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--cream-dark);
+  padding: 0;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+}
+.nav-logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--green-mid);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.nav-logo-text span { color: var(--green-mid); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-links a {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 2px;
+  background: var(--green-mid);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--green-deep); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+
+.nav-cta { margin-left: 1rem; }
+
+/* mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2.5px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--text-dark);
+  color: rgba(255,255,255,.7);
+  padding: 64px 0 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.footer-brand .nav-logo-text { color: var(--white); }
+.footer-brand p {
+  margin-top: 1rem;
+  font-size: .9rem;
+  color: rgba(255,255,255,.55);
+  max-width: 260px;
+  line-height: 1.7;
+}
+.footer-brand .socials {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1.25rem;
+}
+.footer-brand .socials a {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  transition: background var(--transition);
+}
+.footer-brand .socials a:hover { background: var(--green-mid); color: #fff; }
+
+.footer-col h5 {
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.footer-col ul li { margin-bottom: .6rem; }
+.footer-col ul li a {
+  font-size: .9rem;
+  color: rgba(255,255,255,.55);
+  transition: color var(--transition);
+}
+.footer-col ul li a:hover { color: var(--green-light); }
+
+.footer-contact-item {
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  margin-bottom: .85rem;
+  font-size: .9rem;
+}
+.footer-contact-item .icon { color: var(--green-light); margin-top: .15rem; flex-shrink: 0; }
+
+.footer-bottom {
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .85rem;
+  color: rgba(255,255,255,.35);
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Pill Badge ── */
+.badge {
+  display: inline-block;
+  padding: .3rem .9rem;
+  border-radius: var(--radius-xl);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.badge-green { background: var(--green-pale); color: var(--green-deep); }
+.badge-rose  { background: #fde8e4; color: var(--rose-deep); }
+.badge-cream { background: var(--cream-dark); color: #8a7a60; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 680px) {
+  section { padding: 64px 0; }
+
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 72px 0 0 0;
+    background: var(--cream);
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    z-index: 99;
+  }
+  .nav-links.open a { font-size: 1.3rem; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+}

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Greens Marriage Hall</title>
+  <meta name="description" content="Explore everything Greens has to offer — from air conditioning and state-of-the-art lighting to in-house catering and a luxury bridal suite." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--green-pale) 0%, var(--cream) 60%, var(--blush) 100%);
+      padding: 96px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: var(--green-light);
+      opacity: .25;
+      top: -200px; right: -100px;
+      filter: blur(80px);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: var(--blush);
+      opacity: .3;
+      bottom: -120px; left: -80px;
+      filter: blur(60px);
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero h1 { margin: .75rem 0 1rem; }
+    .page-hero p {
+      font-size: 1.1rem;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* ── Main Amenities Grid ── */
+    .amenities { background: var(--cream); }
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .amenity-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .amenity-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .amenity-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+    }
+    .thumb-green  { background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%); }
+    .thumb-blush  { background: linear-gradient(135deg, #fde8e4 0%, var(--blush) 100%); }
+    .thumb-cream  { background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%); }
+    .thumb-purple { background: linear-gradient(135deg, #ede8f5 0%, #d5c8f0 100%); }
+    .thumb-sky    { background: linear-gradient(135deg, #e4f0fb 0%, #c8dff5 100%); }
+    .thumb-gold   { background: linear-gradient(135deg, #fdf3dc 0%, #f5e0a0 100%); }
+
+    .amenity-body { padding: 1.5rem 1.75rem 2rem; }
+    .amenity-body h3 { margin-bottom: .5rem; }
+    .amenity-body p  { font-size: .93rem; line-height: 1.7; margin-bottom: 1rem; }
+    .amenity-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .tag {
+      padding: .25rem .75rem;
+      border-radius: var(--radius-xl);
+      font-size: .75rem;
+      font-weight: 700;
+      background: var(--green-pale);
+      color: var(--green-deep);
+    }
+
+    /* ── Capacity Section ── */
+    .capacity { background: var(--white); }
+    .capacity-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .capacity-visual {
+      position: relative;
+    }
+    .capacity-hall {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      box-shadow: var(--shadow-md);
+    }
+    .cap-badges {
+      position: absolute;
+      bottom: -16px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      width: max-content;
+    }
+    .cap-badge {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: .9rem 1.25rem;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      min-width: 110px;
+    }
+    .cap-badge .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--green-mid);
+    }
+    .cap-badge .lbl {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .capacity-content { padding-top: 40px; }
+    .capacity-content h2 { margin-bottom: 1rem; }
+    .capacity-content p  { margin-bottom: 1.5rem; line-height: 1.8; }
+
+    .capacity-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      font-size: .92rem;
+    }
+    .capacity-table th {
+      background: var(--green-mid);
+      color: var(--white);
+      padding: .85rem 1.25rem;
+      text-align: left;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .capacity-table td {
+      padding: .9rem 1.25rem;
+      border-bottom: 1px solid var(--cream-dark);
+      color: var(--text-muted);
+    }
+    .capacity-table tr:last-child td { border-bottom: none; }
+    .capacity-table tr:nth-child(even) td { background: var(--cream); }
+    .capacity-table td:first-child { font-weight: 600; color: var(--text-dark); }
+
+    /* ── Services Grid ── */
+    .services { background: var(--green-pale); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .service-tile {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .service-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .service-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 1rem;
+    }
+    .si-green  { background: var(--green-pale); color: var(--green-deep); }
+    .si-blush  { background: #fde8e4; color: var(--rose-deep); }
+    .si-cream  { background: var(--cream-dark); color: #7a6a50; }
+    .si-purple { background: #ede8f5; color: #7a5ab0; }
+    .si-sky    { background: #e4f0fb; color: #4a80b0; }
+    .si-gold   { background: #fdf3dc; color: #9a7a30; }
+    .si-pink   { background: #fde4f0; color: #b05080; }
+    .si-teal   { background: #d8f5f0; color: #308080; }
+
+    .service-tile h4 { font-size: 1rem; margin-bottom: .4rem; }
+    .service-tile p  { font-size: .85rem; line-height: 1.55; }
+
+    /* ── Tech Features ── */
+    .tech { background: var(--cream); }
+    .tech-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .tech-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .tech-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .tech-item:hover {
+      transform: translateX(6px);
+      box-shadow: var(--shadow-md);
+    }
+    .tech-item-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-sm);
+      background: var(--green-pale);
+      color: var(--green-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .tech-item h4 { font-size: .97rem; margin-bottom: .3rem; }
+    .tech-item p  { font-size: .85rem; line-height: 1.6; }
+
+    .tech-visual {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(160deg, #1a2a1c 0%, #2d4a30 100%);
+      aspect-ratio: 4/5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .tech-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(123,174,127,.3) 0%, transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(232,165,152,.2) 0%, transparent 60%);
+    }
+    .tech-visual-icon { font-size: 6rem; position: relative; z-index: 1; }
+    .tech-visual-label {
+      position: relative; z-index: 1;
+      color: rgba(255,255,255,.7);
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1000px) {
+      .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid  { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .capacity-inner { grid-template-columns: 1fr; gap: 60px; }
+      .capacity-visual { display: none; }
+      .tech-inner { grid-template-columns: 1fr; gap: 48px; }
+      .tech-visual { display: none; }
+    }
+    @media (max-width: 540px) {
+      .amenities-grid { grid-template-columns: 1fr; }
+      .services-grid  { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🌿</div>
+        <span class="nav-logo-text">Green<span>s</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html" class="active">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ── -->
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <span class="badge badge-green">Everything You Need</span>
+      <h1>World-Class Amenities<br>for Your Special Day</h1>
+      <p>From the first consultation to the final dance, Greens provides every detail to make your celebration extraordinary.</p>
+    </div>
+  </div>
+
+  <!-- ── Main Amenities ── -->
+  <section class="amenities">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Amenities</p>
+        <h2>Our Hall Features</h2>
+        <p>Every facility at Greens is designed to exceed expectations and ensure your event runs perfectly.</p>
+      </div>
+      <div class="amenities-grid">
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-green">❄️</div>
+          <div class="amenity-body">
+            <h3>Central Air Conditioning</h3>
+            <p>State-of-the-art HVAC system maintains the perfect temperature across all indoor areas — ensuring guest comfort regardless of the season.</p>
+            <div class="amenity-tags">
+              <span class="tag">Full Hall Coverage</span>
+              <span class="tag">Bridal Suite</span>
+              <span class="tag">Dining Area</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-blush">🎤</div>
+          <div class="amenity-body">
+            <h3>Professional Sound System</h3>
+            <p>Crystal-clear audio from our premium speaker arrays fills every corner of the hall. Supports live bands, DJs, and PA systems seamlessly.</p>
+            <div class="amenity-tags">
+              <span class="tag">Live Band Ready</span>
+              <span class="tag">DJ Setup</span>
+              <span class="tag">Wireless Mics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-gold">💡</div>
+          <div class="amenity-body">
+            <h3>Programmable LED Lighting</h3>
+            <p>Transform your event with thousands of LED options — from warm candlelit glows to vibrant colour washes for the dance floor.</p>
+            <div class="amenity-tags">
+              <span class="tag">16M Colours</span>
+              <span class="tag">Stage Spotlights</span>
+              <span class="tag">Dance Floor Lighting</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-cream">🎭</div>
+          <div class="amenity-body">
+            <h3>Grand Elevated Stage</h3>
+            <p>A beautifully crafted 40-foot wide elevated stage with professional backdrop options, perfect for ceremonies, performances, and photo moments.</p>
+            <div class="amenity-tags">
+              <span class="tag">40-Ft Wide</span>
+              <span class="tag">Backdrops Available</span>
+              <span class="tag">Ramp Access</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-purple">👸</div>
+          <div class="amenity-body">
+            <h3>Luxury Bridal Suite</h3>
+            <p>A private, elegantly appointed bridal suite with a full vanity, lounge seating, and en-suite bathroom — the perfect preparation space.</p>
+            <div class="amenity-tags">
+              <span class="tag">Private Lounge</span>
+              <span class="tag">Full Vanity</span>
+              <span class="tag">En-Suite Bath</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-thumb thumb-sky">🚗</div>
+          <div class="amenity-body">
+            <h3>Large Parking Area</h3>
+            <p>Secure, well-lit large parking area with security guards on duty throughout every event — plenty of space for all your guests.</p>
+            <div class="amenity-tags">
+              <span class="tag">Large Capacity</span>
+              <span class="tag">24-Hr Security</span>
+              <span class="tag">Support Staff</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Capacity ── -->
+  <section class="capacity">
+    <div class="container capacity-inner">
+      <div class="capacity-visual">
+        <div class="capacity-hall">🏛️</div>
+        <div class="cap-badges">
+          <div class="cap-badge">
+            <div class="num">15K</div>
+            <div class="lbl">Sq Ft Lawn</div>
+          </div>
+          <div class="cap-badge">
+            <div class="num">AC</div>
+            <div class="lbl">Convention Hall</div>
+          </div>
+          <div class="cap-badge">
+            <div class="num">2</div>
+            <div class="lbl">Private Rooms</div>
+          </div>
+        </div>
+      </div>
+      <div class="capacity-content">
+        <p class="section-label">Venue Spaces</p>
+        <h2>Spacious Venues for<br>Every Occasion</h2>
+        <p>Greens features a massive 15,000 sq ft open lawn and a fully equipped Convention Hall — giving you the flexibility to host intimate gatherings or grand celebrations.</p>
+        <table class="capacity-table">
+          <thead>
+            <tr>
+              <th>Space</th>
+              <th>Type</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Open Lawn</td>
+              <td>15,000 sq ft · Outdoor</td>
+              <td>Weddings, Receptions, Sangeet</td>
+            </tr>
+            <tr>
+              <td>Convention Hall</td>
+              <td>Indoor · AC</td>
+              <td>Engagements, Haldi, Private Events</td>
+            </tr>
+            <tr>
+              <td>Bridal Suite</td>
+              <td>Private Room</td>
+              <td>Bride preparation & relaxation</td>
+            </tr>
+            <tr>
+              <td>Groom's Room</td>
+              <td>Private Room</td>
+              <td>Groom preparation & relaxation</td>
+            </tr>
+            <tr>
+              <td>Parking Area</td>
+              <td>Large Outdoor</td>
+              <td>Guest vehicles · Security guarded</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ── -->
+  <section class="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">All-Inclusive Services</p>
+        <h2>We Handle Everything</h2>
+        <p>From décor to departure, our team is with you every step of the way.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-tile">
+          <div class="service-icon si-green"><i class="fa-solid fa-utensils"></i></div>
+          <h4>In-House Catering</h4>
+          <p>Multi-cuisine menus customised to your taste and dietary requirements.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-blush"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h4>Decoration Packages</h4>
+          <p>Floral arrangements, draping, centrepieces, and theme installations.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-cream"><i class="fa-solid fa-camera"></i></div>
+          <h4>Photography Nooks</h4>
+          <p>Curated backdrops and setups designed for stunning wedding photography.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-purple"><i class="fa-solid fa-person-chalkboard"></i></div>
+          <h4>Event Coordinator</h4>
+          <p>A dedicated coordinator handles your timeline and vendor communication.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-sky"><i class="fa-solid fa-fire-burner"></i></div>
+          <h4>Outside Caterer Allowed</h4>
+          <p>Bring your own caterer of choice — kitchen facilities available for use.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-gold"><i class="fa-solid fa-champagne-glasses"></i></div>
+          <h4>Bar & Beverage</h4>
+          <p>Custom bar setups with mocktail bars, juice stations, and chai counters.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-pink"><i class="fa-solid fa-baby"></i></div>
+          <h4>Kids' Corner</h4>
+          <p>A supervised play area to keep young guests entertained and parents relaxed.</p>
+        </div>
+        <div class="service-tile">
+          <div class="service-icon si-teal"><i class="fa-solid fa-wifi"></i></div>
+          <h4>High-Speed Wi-Fi</h4>
+          <p>Venue-wide gigabit Wi-Fi for guests and streaming requirements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tech & Infrastructure ── -->
+  <section class="tech">
+    <div class="container tech-inner">
+      <div class="tech-list-wrap">
+        <p class="section-label">Tech & Infrastructure</p>
+        <h2>Built for the Modern Wedding</h2>
+        <p style="margin-bottom:2.5rem;">Every technological detail has been considered so your event flows flawlessly from start to finish.</p>
+        <div class="tech-list">
+          <div class="tech-item">
+            <div class="tech-item-icon"><i class="fa-solid fa-tv"></i></div>
+            <div>
+              <h4>HD LED Screens & Projectors</h4>
+              <p>Large-format displays for live feeds, slideshows, and video presentations throughout the venue.</p>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-item-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+              <h4>Backup Power Generation</h4>
+              <p>Industrial-grade generators ensure seamless power during any outage — your event never stops.</p>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <h4>CCTV & 24-Hr Security</h4>
+              <p>Full venue surveillance and a professional security team keep guests and gifts safe at all times.</p>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-item-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
+            <div>
+              <h4>Fire Safety Systems</h4>
+              <p>State-of-the-art sprinklers, fire exits, and trained safety staff across all areas of the venue.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tech-visual">
+        <div class="tech-visual-icon">✨</div>
+        <div class="tech-visual-label">Premium Infrastructure</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section style="background:linear-gradient(135deg,var(--green-mid) 0%,var(--green-deep) 100%);padding:80px 0;text-align:center;position:relative;overflow:hidden;">
+    <div class="container" style="position:relative;z-index:1;">
+      <p class="section-label" style="color:rgba(255,255,255,.6)">See It In Person</p>
+      <h2 style="color:#fff;margin-bottom:.75rem;">Come Take a Look</h2>
+      <p style="color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 2rem;font-size:1.05rem;">
+        Words and photos don't do it justice. Book a free site visit and experience Greens for yourself.
+      </p>
+      <a href="contact.html" class="btn" style="background:#fff;color:var(--green-deep);border-color:#fff;font-weight:700;">
+        <i class="fa-solid fa-calendar-check"></i> Schedule a Visit
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">🌿</div>
+            <span class="nav-logo-text">Green<span style="color:var(--green-light)">s</span></span>
+          </div>
+          <p>Where your dream wedding comes to life. Serving families across Bhubaneswar since 2008.</p>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Wedding Reception</a></li>
+            <li><a href="#">Engagement Ceremony</a></li>
+            <li><a href="#">Bridal Shower</a></li>
+            <li><a href="#">In-House Catering</a></li>
+            <li><a href="#">Décor Packages</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            <span>KV Ave, near East Coast Railway Stadium, Mancheswar, Bhubaneswar, Odisha 751017</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-phone"></i></span>
+            <span>+91 90402 10791 / 70085 46641</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span>Ritesh.jena80@gmail.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Greens Marriage Hall. All rights reserved.</span>
+        <span>Made with 🌿 in Bhubaneswar</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+
+  <!-- ── Back to Welcome ── -->
+  <a href="welcome.html" title="Back to Welcome Page" style="
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    display:flex;align-items:center;gap:.5rem;
+    background:#fff;border:1.5px solid #c8dfc9;
+    border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
+    box-shadow:0 4px 20px rgba(90,138,94,.18);
+    font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;
+    color:#5a8a5e;text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(90,138,94,.25)'"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(90,138,94,.18)'">
+    <span style="font-size:1rem;">🌿</span> Welcome Page
+  </a>
+
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+
+const ease = [0.25, 0.1, 0.25, 1]
+
+function staggerReveal(parentSel, childSel, delay = 0.1) {
+  document.querySelectorAll(parentSel).forEach(parent => {
+    const kids = parent.querySelectorAll(childSel)
+    kids.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(30px)' })
+    inView(parent, () => {
+      animate(kids, { opacity: [0, 1], y: [30, 0] },
+        { delay: stagger(delay), duration: 0.5, easing: ease })
+    }, { amount: 0.1 })
+  })
+}
+
+function reveal(sel) {
+  document.querySelectorAll(sel).forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(24px)'
+    inView(el, ({ target }) =>
+      animate(target, { opacity: [0, 1], y: [24, 0] }, { duration: 0.55, easing: ease }),
+      { amount: 0.3 })
+  })
+}
+
+reveal('.section-label')
+reveal('.section-header h2')
+
+// Amenity cards stagger
+staggerReveal('.amenities-grid', '.amenity-card', 0.09)
+
+// Services tiles stagger
+staggerReveal('.services-grid, .services-list', '.service-item, .service-tile', 0.07)
+
+// Capacity section
+reveal('.capacity-section h2, .capacity-item')
+
+// Spring hover on amenity cards
+document.querySelectorAll('.amenity-card').forEach(card => {
+  card.addEventListener('mouseenter', () =>
+    animate(card, { scale: 1.03, y: -4 }, { type: 'spring', stiffness: 300, damping: 20 }))
+  card.addEventListener('mouseleave', () =>
+    animate(card, { scale: 1, y: 0 }, { type: 'spring', stiffness: 300, damping: 20 }))
+})
+</script>
+</body>
+</html>

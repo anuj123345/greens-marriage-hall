@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greens — Where Your Dream Wedding Comes to Life</title>
+  <meta name="description" content="Greens is a premium marriage hall offering elegant spaces, in-house catering, and complete event planning for your perfect wedding day." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--cream) 0%, #f0ede6 50%, var(--green-pale) 100%);
+      padding: 80px 0;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .45;
+      pointer-events: none;
+    }
+    .hero-blob-1 {
+      width: 520px; height: 520px;
+      background: var(--green-light);
+      top: -120px; right: -80px;
+    }
+    .hero-blob-2 {
+      width: 360px; height: 360px;
+      background: var(--blush);
+      bottom: -100px; left: -60px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: .4rem 1rem .4rem .6rem;
+      box-shadow: var(--shadow-sm);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow .dot {
+      width: 8px; height: 8px;
+      background: var(--rose);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.4); opacity: .6; }
+    }
+
+    .hero h1 {
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green-mid);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin-bottom: 2.25rem;
+      color: var(--text-muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .hero-stat-num span { color: var(--green-mid); }
+    .hero-stat-label {
+      font-size: .82rem;
+      color: var(--text-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* hero visual */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(160deg, var(--green-light) 0%, var(--blush) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+    }
+    .hero-img-badge {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .hero-img-badge .icon-wrap {
+      width: 44px; height: 44px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .hero-img-badge strong { display: block; font-size: .95rem; color: var(--text-dark); }
+    .hero-img-badge small { color: var(--text-light); font-size: .8rem; }
+
+    .hero-img-badge2 {
+      position: absolute;
+      top: 20px; right: -20px;
+      background: var(--green-mid);
+      color: var(--white);
+      border-radius: var(--radius-md);
+      padding: .85rem 1.1rem;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .hero-img-badge2 strong { display: block; font-size: 1.3rem; font-family: 'Playfair Display', serif; }
+    .hero-img-badge2 small { font-size: .75rem; opacity: .85; }
+
+    /* ── Features Strip ── */
+    .features-strip {
+      background: var(--white);
+      padding: 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .strip-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid var(--cream-dark);
+    }
+    .strip-item {
+      padding: 36px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      border-right: 1px solid var(--cream-dark);
+      transition: background var(--transition);
+    }
+    .strip-item:last-child { border-right: none; }
+    .strip-item:hover { background: var(--green-pale); }
+    .strip-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      color: var(--green-deep);
+    }
+    .strip-item h4 { font-size: .97rem; margin-bottom: .25rem; }
+    .strip-item p  { font-size: .85rem; line-height: 1.5; }
+
+    /* ── About Teaser ── */
+    .about-teaser {
+      background: var(--cream);
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--blush) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+    }
+    .about-img-accent {
+      position: absolute;
+      width: 160px; height: 160px;
+      border-radius: var(--radius-md);
+      background: var(--white);
+      box-shadow: var(--shadow-md);
+      bottom: -28px; right: -28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .25rem;
+    }
+    .about-img-accent .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green-mid);
+    }
+    .about-img-accent p { font-size: .82rem; color: var(--text-light); font-weight: 600; }
+
+    .about-content h2 { margin-bottom: 1.25rem; }
+    .about-content p  { margin-bottom: 1.5rem; line-height: 1.8; }
+
+    .about-points {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-bottom: 2rem;
+    }
+    .about-point {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .about-point .check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      color: var(--green-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Gallery Strip ── */
+    .gallery-section {
+      background: var(--white);
+      overflow: hidden;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+    }
+    .gallery-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover .gallery-thumb { transform: scale(1.05); }
+
+    .gallery-thumb-1 { background: linear-gradient(135deg, #d4ebd5 0%, #a8c9a9 100%); }
+    .gallery-thumb-2 { background: linear-gradient(135deg, #f7d4c8 0%, #e8b5a5 100%); }
+    .gallery-thumb-3 { background: linear-gradient(135deg, #fde8c8 0%, #f5d0a0 100%); }
+    .gallery-thumb-4 { background: linear-gradient(135deg, #e8d5f5 0%, #d0b5e8 100%); }
+    .gallery-thumb-5 { background: linear-gradient(135deg, #d5eaf7 0%, #b0d0e8 100%); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(61,58,54,.5) 100%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    /* ── Testimonials ── */
+    .testimonials {
+      background: var(--green-pale);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .testimonial-card.featured {
+      background: var(--green-mid);
+      color: var(--white);
+    }
+    .testimonial-card.featured p,
+    .testimonial-card.featured .author-sub { color: rgba(255,255,255,.8); }
+    .testimonial-card.featured .author-name { color: var(--white); }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: .8;
+      color: var(--green-light);
+      margin-bottom: .5rem;
+    }
+    .testimonial-card.featured .quote-mark { color: rgba(255,255,255,.3); }
+
+    .testimonial-text {
+      font-size: .97rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .stars { color: #f5c042; margin-bottom: .5rem; font-size: .95rem; }
+    .testimonial-card.featured .stars { color: #fde68a; }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .av-1 { background: var(--blush); }
+    .av-2 { background: var(--green-light); }
+    .av-3 { background: var(--cream-dark); }
+    .author-name { font-size: .95rem; font-weight: 700; color: var(--text-dark); }
+    .author-sub  { font-size: .8rem; color: var(--text-light); }
+
+    /* ── Final CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
+      padding: 96px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      top: -200px; right: -100px;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+      bottom: -150px; left: -80px;
+    }
+    .cta-section h2 {
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,.8);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-white {
+      background: var(--white);
+      color: var(--green-deep);
+      border-color: var(--white);
+    }
+    .btn-white:hover {
+      background: var(--cream);
+      border-color: var(--cream);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,.15);
+    }
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.6);
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,.15);
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-inner   { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual  { display: none; }
+      .strip-inner  { grid-template-columns: repeat(2, 1fr); }
+      .about-inner  { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-wrap { display: none; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+      .gallery-accordion { height: 380px; }
+    }
+    @media (max-width: 680px) {
+      .strip-inner { grid-template-columns: 1fr; }
+      .hero-stats  { flex-direction: column; gap: 1rem; }
+      .gallery-accordion { height: auto; flex-direction: column; gap: 8px; }
+      .gallery-panel { flex: unset !important; height: 220px; }
+      .gallery-panel:hover { flex: unset !important; }
+    }
+
+    /* ── Global Reveal Animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ── Floating Animation ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-14px); }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: .8; }
+      50%       { transform: translateX(-50%) translateY(8px); opacity: .4; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(123,174,127,.5); }
+      50%       { box-shadow: 0 0 0 14px rgba(123,174,127,0); }
+    }
+    @keyframes sparkle {
+      0%   { transform: scale(0) rotate(0deg); opacity: 0; }
+      50%  { transform: scale(1) rotate(180deg); opacity: 1; }
+      100% { transform: scale(0) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-visual { animation: float 6s ease-in-out infinite; }
+    .about-img-accent { animation: float 5s ease-in-out infinite; }
+
+    /* ── Enhanced Hero Image ── */
+    .hero-img-main {
+      background-image:
+        linear-gradient(160deg, rgba(200,223,201,.6) 0%, rgba(247,212,200,.6) 100%),
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      font-size: 0 !important;
+      border: 3px solid rgba(255,255,255,.8);
+    }
+
+    /* ── Hero floating particles ── */
+    .hero-petal {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50% 0 50% 0;
+      background: var(--blush);
+      opacity: 0;
+      pointer-events: none;
+      animation: sparkle 4s ease-in-out infinite;
+    }
+    .hero-petal:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; background: var(--blush); }
+    .hero-petal:nth-child(2) { top: 60%; left: 8%;  animation-delay: 1.2s; background: var(--green-light); width: 8px; height: 8px; }
+    .hero-petal:nth-child(3) { top: 35%; right: 12%; animation-delay: 2.4s; background: var(--rose); width: 6px; height: 6px; }
+    .hero-petal:nth-child(4) { top: 75%; right: 20%; animation-delay: 0.8s; background: var(--blush); width: 12px; height: 12px; }
+    .hero-petal:nth-child(5) { top: 15%; right: 30%; animation-delay: 3s; background: var(--cream-dark); width: 7px; height: 7px; }
+
+    /* ── Scroll hint ── */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      color: var(--text-light);
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-scroll-hint svg { width: 18px; height: 18px; stroke: var(--green-mid); stroke-width: 2; fill: none; }
+
+    /* ── Enhanced badge glassmorphism ── */
+    .hero-img-badge {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.88) !important;
+      border: 1px solid rgba(255,255,255,.6);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .hero-img-badge2 {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(135deg, var(--green-mid), var(--green-deep)) !important;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    /* ── Strip icon gradient ── */
+    .strip-icon {
+      background: linear-gradient(135deg, var(--green-pale), var(--cream-dark)) !important;
+      box-shadow: var(--shadow-sm);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .strip-item:hover .strip-icon {
+      background: linear-gradient(135deg, var(--green-light), var(--blush)) !important;
+      transform: scale(1.08);
+    }
+
+    /* ── Gallery Accordion ── */
+    .gallery-accordion {
+      display: flex;
+      gap: 10px;
+      height: 520px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .gallery-panel {
+      position: relative;
+      flex: 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: flex .55s cubic-bezier(.4,0,.2,1);
+      min-width: 60px;
+    }
+    .gallery-panel:hover { flex: 4.5; }
+    .gallery-panel img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .55s ease;
+      display: block;
+    }
+    .gallery-panel:hover img { transform: scale(1.05); }
+    .gallery-panel-info {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 35%, rgba(30,26,22,.75) 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .gallery-panel:hover .gallery-panel-info { opacity: 1; transform: translateY(0); }
+    .gallery-panel-sub {
+      color: rgba(255,255,255,.7);
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: .25rem;
+    }
+    .gallery-panel-label {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600;
+    }
+
+    /* ── SVG Stars ── */
+    .stars-svg { display: flex; gap: 2px; margin-bottom: .55rem; }
+    .stars-svg svg { width: 15px; height: 15px; }
+
+    /* ── Enhanced testimonial chip ── */
+    .review-chip {
+      border: 1px solid var(--cream-dark) !important;
+      transition: transform var(--transition), box-shadow var(--transition) !important;
+    }
+    .review-chip:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: var(--shadow-md) !important;
+    }
+
+    /* ── CTA decorative rings ── */
+    .cta-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.1);
+      pointer-events: none;
+    }
+    .cta-ring-1 { width: 280px; height: 280px; top: -80px; left: -80px; }
+    .cta-ring-2 { width: 480px; height: 480px; bottom: -200px; right: -120px; }
+    .cta-ring-3 { width: 160px; height: 160px; top: 50%; right: 18%; transform: translateY(-50%); border-color: rgba(255,255,255,.06); }
+
+    /* ── Nav scroll effect ── */
+    .nav.nav-scrolled {
+      box-shadow: var(--shadow-md);
+      background: rgba(253,246,236,.97);
+    }
+
+    /* ── About section image upgrade ── */
+    .about-img {
+      background-image:
+        linear-gradient(135deg, rgba(247,212,200,.5) 0%, rgba(200,223,201,.5) 100%),
+        url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=700&q=80') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      font-size: 0 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🌿</div>
+        <span class="nav-logo-text">Green<span>s</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <!-- floating petals -->
+    <div class="hero-petal"></div>
+    <div class="hero-petal"></div>
+    <div class="hero-petal"></div>
+    <div class="hero-petal"></div>
+    <div class="hero-petal"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="dot"></div>
+          Now Accepting 2025 &amp; 2026 Bookings
+        </div>
+        <h1>Where Your <em>Dream Wedding</em> Comes to Life</h1>
+        <p class="hero-sub">
+          Greens is Bhubaneswar's most cherished marriage hall — a place where love stories become unforgettable celebrations, wrapped in warmth and elegance.
+        </p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary">
+            <i class="fa-solid fa-envelope"></i> Enquire Now
+          </a>
+          <a href="tour.html" class="btn btn-outline">
+            <i class="fa-solid fa-calendar-check"></i> Book a Tour
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">500<span>+</span></div>
+            <div class="hero-stat-label">Events Hosted</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">1200<span></span></div>
+            <div class="hero-stat-label">Guest Capacity</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">15<span>+</span></div>
+            <div class="hero-stat-label">Years of Joy</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-main" role="img" aria-label="Greens marriage hall interior"></div>
+        <div class="hero-img-badge">
+          <div class="icon-wrap">⭐</div>
+          <div>
+            <strong>4.9 / 5 Rating</strong>
+            <small>Based on 380+ reviews</small>
+          </div>
+        </div>
+        <div class="hero-img-badge2">
+          <strong>✓ Free</strong>
+          <small>Site Visit</small>
+        </div>
+      </div>
+    </div>
+    <!-- scroll hint -->
+    <div class="hero-scroll-hint">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── Features Strip ── -->
+  <div class="features-strip">
+    <div class="strip-inner reveal">
+      <div class="strip-item">
+        <div class="strip-icon"><i class="fa-solid fa-users"></i></div>
+        <div>
+          <h4>Up to 1,200 Guests</h4>
+          <p>Flexible indoor &amp; outdoor spaces for any size celebration.</p>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div>
+          <h4>In-House Catering</h4>
+          <p>Multi-cuisine menus crafted by experienced chefs.</p>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div>
+          <h4>Décor &amp; Styling</h4>
+          <p>Floral arrangements, lighting &amp; stage design packages.</p>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+          <h4>Prime Location</h4>
+          <p>Centrally located with ample parking for 200+ vehicles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About Teaser ── -->
+  <section class="about-teaser">
+    <div class="container about-inner reveal">
+      <div class="about-img-wrap">
+        <div class="about-img" role="img" aria-label="Greens wedding hall facade"></div>
+        <div class="about-img-accent">
+          <div class="num">15+</div>
+          <p>Years of<br>Excellence</p>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-label">Our Story</p>
+        <h2>A Legacy of Beautiful Beginnings</h2>
+        <p>
+          Founded with a dream to create the perfect backdrop for life's most precious moments, Greens has been the chosen venue for weddings, receptions, and engagements across Bhubaneswar.
+        </p>
+        <p>
+          Every corner of our hall is designed with love — from the grand entrance and glittering chandeliers to our lush outdoor garden that becomes pure magic at sunset.
+        </p>
+        <div class="about-points">
+          <div class="about-point">
+            <div class="check"><i class="fa-solid fa-check"></i></div>
+            Dedicated event coordinator assigned to every booking
+          </div>
+          <div class="about-point">
+            <div class="check"><i class="fa-solid fa-check"></i></div>
+            Fully air-conditioned with state-of-the-art sound &amp; lighting
+          </div>
+          <div class="about-point">
+            <div class="check"><i class="fa-solid fa-check"></i></div>
+            Luxury bridal suite with private lounge
+          </div>
+          <div class="about-point">
+            <div class="check"><i class="fa-solid fa-check"></i></div>
+            Customisable decoration packages for every budget
+          </div>
+        </div>
+        <a href="about.html" class="btn btn-primary">Our Full Story <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gallery ── -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Gallery</p>
+        <h2>Moments That Last Forever</h2>
+        <p>A glimpse into the celebrations that have filled our halls with laughter, tears of joy, and love.</p>
+      </div>
+      <div class="gallery-accordion reveal">
+        <div class="gallery-panel">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80" alt="Wedding ceremony at Greens" loading="lazy" />
+          <div class="gallery-panel-info">
+            <span class="gallery-panel-sub">Ceremony</span>
+            <span class="gallery-panel-label">Grand Ballroom</span>
+          </div>
+        </div>
+        <div class="gallery-panel">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=900&q=80" alt="Floral decoration" loading="lazy" />
+          <div class="gallery-panel-info">
+            <span class="gallery-panel-sub">Décor</span>
+            <span class="gallery-panel-label">Floral Arrangements</span>
+          </div>
+        </div>
+        <div class="gallery-panel">
+          <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=900&q=80" alt="Wedding reception" loading="lazy" />
+          <div class="gallery-panel-info">
+            <span class="gallery-panel-sub">Reception</span>
+            <span class="gallery-panel-label">Candlelit Evening</span>
+          </div>
+        </div>
+        <div class="gallery-panel">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=900&q=80" alt="Outdoor garden" loading="lazy" />
+          <div class="gallery-panel-info">
+            <span class="gallery-panel-sub">Outdoor</span>
+            <span class="gallery-panel-label">Garden Terrace</span>
+          </div>
+        </div>
+        <div class="gallery-panel">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=900&q=80" alt="Wedding celebration" loading="lazy" />
+          <div class="gallery-panel-info">
+            <span class="gallery-panel-sub">Celebration</span>
+            <span class="gallery-panel-label">Joy &amp; Dance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ── -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Google Reviews</p>
+        <h2>What Our Guests Say</h2>
+        <p>Real reviews from real guests — straight from Google Maps.</p>
+      </div>
+      <div class="testimonials-grid reveal">
+
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+          <p class="testimonial-text">
+            Well it was quite spacious venue and had both indoor and outdoor areas. The indoor venue can accommodate 100–200 people and can be used for small scale parties or private birthdays, whereas the lawn area can easily accommodate a much larger crowd.
+          </p>
+          <div class="author">
+            <div class="author-avatar av-1">🧭</div>
+            <div>
+              <div class="author-name">Sambit Tripathy</div>
+              <div class="author-sub">Local Guide · 166 reviews · 1 year ago</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card featured">
+          <div class="quote-mark">"</div>
+          <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+          <p class="testimonial-text">
+            This is a very good marriage mandap. The venue is spacious, well-maintained, and beautifully arranged for weddings. The atmosphere feels festive and welcoming, making it perfect for such an important occasion. Overall, it's an excellent choice for hosting marriage ceremonies.
+          </p>
+          <div class="author">
+            <div class="author-avatar av-2">💒</div>
+            <div>
+              <div class="author-name">Priyanka Das</div>
+              <div class="author-sub">7 reviews · 4 months ago</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+          <p class="testimonial-text">
+            Good place for organizing marriage, thread ceremony &amp; reception. It's a big open green field with a big hall with central AC. Has good toilet and wash basin provisions. In-house tent, decoration and lighting provision available.
+          </p>
+          <div class="author">
+            <div class="author-avatar av-3">🧭</div>
+            <div>
+              <div class="author-name">Sanket Pati</div>
+              <div class="author-sub">Local Guide · 58 reviews · 4 years ago</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Reviews Marquee ── -->
+      <div class="reviews-marquee-wrap">
+        <div class="reviews-marquee">
+          <div class="reviews-track" id="reviewsTrack">
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Fantastic Place. Outstanding all Types of Arrangements for any Function."</p>
+              <span>Biswajit Mishra · Local Guide · 1 year ago</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Very Beautiful spacious place suitable for wedding &amp; Sangeet Night ✨"</p>
+              <span>Mithun Sahu · 2 months ago</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Good banquet place with adequate open area and facilities, located just behind Mancheswar Railway Stadium. Recommended for all public functions."</p>
+              <span>Wanderlost! · Local Guide · 408 reviews</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"It's a beautiful mandap with an awesome tent and decoration."</p>
+              <span>Arpita Singha · Local Guide · 2 years ago</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Very good for marriage party, birthday party &amp; meetings. Large space for dinner. Staff are very good and well-behaved."</p>
+              <span>Manoj Kumar Jena · Local Guide · 113 reviews</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"NYC PLACE with beautiful catering service."</p>
+              <span>Aswini Biswal · Local Guide · 129 reviews</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Awesome Place — lots of parking space available. Available for various types of functions."</p>
+              <span>Asutos Choudhury · Local Guide · 8 years ago</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Good Place to arrange Marriage Party, Birthday Party and Celebration. Cheap rates and good behavior from the owner."</p>
+              <span>Tech &amp; Sports · Local Guide · 263 reviews</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"Out door place is pretty good for summer marriage reception. Good but a little bit far from main road."</p>
+              <span>Subrat Rout · Local Guide · 97 reviews</span>
+            </div>
+
+            <div class="review-chip">
+              <div class="stars-svg" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#f5c042" stroke="#f5c042" stroke-width="1"/></svg>
+          </div>
+              <p>"A very quiet place to have celebration parties. Nice place to make enjoyment."</p>
+              <span>Himanshu Kumar · Local Guide · 104 reviews</span>
+            </div>
+
+          </div><!-- /.reviews-track (duplicated by JS) -->
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="https://www.google.com/maps/search/Greens+Marriage+Hall+Bhubaneswar" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fa-brands fa-google"></i> View All Google Reviews
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ── Reviews Marquee ── */
+    .reviews-marquee-wrap {
+      margin-top: 48px;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .reviews-marquee { width: 100%; }
+    .reviews-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+    }
+    .reviews-marquee-wrap:hover .reviews-track { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .review-chip {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      width: 300px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .rc-stars { color: #f5c042; font-size: .9rem; margin-bottom: .5rem; }
+    .review-chip p {
+      font-size: .88rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin-bottom: .75rem;
+      font-style: italic;
+    }
+    .review-chip span {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+  </style>
+
+  <script>
+    // Duplicate the track for seamless loop
+    const track = document.getElementById('reviewsTrack');
+    if (track) {
+      const clone = track.cloneNode(true);
+      clone.id = '';
+      track.parentElement.appendChild(clone);
+    }
+  </script>
+
+  <!-- ── Final CTA ── -->
+  <section class="cta-section">
+    <div class="cta-ring cta-ring-1"></div>
+    <div class="cta-ring cta-ring-2"></div>
+    <div class="cta-ring cta-ring-3"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <p class="section-label" style="color:rgba(255,255,255,.6)">Begin Your Journey</p>
+      <h2>Your Perfect Day Starts Here</h2>
+      <p>Schedule a free site visit and let us show you why Greens is Bhubaneswar's most beloved wedding venue.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-white btn-primary">
+          <i class="fa-solid fa-calendar-check"></i> Book a Free Tour
+        </a>
+        <a href="tel:+919040210791" class="btn btn-outline-white btn-outline">
+          <i class="fa-solid fa-phone"></i> Call Us Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Follow Us · Apple Dock ── -->
+  <section class="follow-section">
+    <style>
+      /* ── Section shell ── */
+      .follow-section {
+        background: var(--cream);
+        padding: 96px 0 112px;
+        border-top: 1px solid var(--cream-dark);
+      }
+      .follow-header {
+        text-align: center;
+        margin-bottom: 56px;
+      }
+      .follow-header h2 { margin-bottom: .75rem; }
+      .follow-header p  { font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
+
+      /* ── Dock wrapper ── */
+      .dock-wrap {
+        display: flex;
+        justify-content: center;
+        /* extra vertical room so magnified icons don't clip */
+        padding: 48px 0 8px;
+      }
+
+      /* ── The dock bar itself ── */
+      .apple-dock {
+        display: flex;
+        align-items: flex-end;  /* icons grow upward */
+        gap: 10px;
+        padding: 10px 16px;
+        background: rgba(253,246,236,.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(200,223,201,.55);
+        border-radius: 22px;
+        box-shadow:
+          0 8px 32px rgba(90,138,94,.14),
+          0 2px 8px  rgba(90,138,94,.08),
+          inset 0 1px 0 rgba(255,255,255,.65);
+      }
+
+      /* ── Each icon slot ── */
+      .dock-icon {
+        --icon-size: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width:  var(--icon-size);
+        height: var(--icon-size);
+        border-radius: 14px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: calc(var(--icon-size) * .45);
+        color: #fff;
+        flex-shrink: 0;
+        position: relative;
+        /* Spring easing: slight overshoot like framer-motion spring */
+        transition:
+          width  .28s cubic-bezier(.34,1.56,.64,1),
+          height .28s cubic-bezier(.34,1.56,.64,1),
+          border-radius .28s ease,
+          box-shadow .25s ease;
+        will-change: width, height;
+      }
+      .dock-icon:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      }
+
+      /* Brand gradients */
+      .dock-fb  { background: linear-gradient(145deg,#1877f2,#3b5998); }
+      .dock-ig  { background: linear-gradient(145deg,#833ab4 0%,#e1306c 50%,#f77737 100%); }
+      .dock-yt  { background: linear-gradient(145deg,#ff0000,#b31217); }
+      .dock-wa  { background: linear-gradient(145deg,#25d366,#128c7e); }
+
+      /* Tooltip above each icon */
+      .dock-icon::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: calc(100% + 12px);
+        left: 50%;
+        transform: translateX(-50%) translateY(5px);
+        background: rgba(30,28,26,.88);
+        color: #fff;
+        font-family: 'Nunito', sans-serif;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        padding: .32rem .8rem;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      /* Caret */
+      .dock-icon::before {
+        content: '';
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%) translateY(5px);
+        border: 5px solid transparent;
+        border-top-color: rgba(30,28,26,.88);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+        z-index: 1;
+      }
+      .dock-icon:hover::after,
+      .dock-icon:hover::before {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* Reflection strip at dock bottom */
+      .dock-reflection {
+        display: flex;
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .dock-reflection-bar {
+        width: 40px; height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(123,174,127,.4), transparent);
+        border-radius: 2px;
+      }
+
+      /* Mobile: disable magnification JS, use static size */
+      @media (max-width: 540px) {
+        .apple-dock { gap: 8px; padding: 8px 12px; }
+        .dock-icon  { --icon-size: 44px !important; border-radius: 12px !important; }
+      }
+    </style>
+
+    <div class="container">
+      <div class="follow-header reveal">
+        <p class="section-label">Stay Connected</p>
+        <h2>Follow Our Journey</h2>
+        <p>Behind-the-scenes moments, real weddings, décor inspiration — follow us for all of it.</p>
+      </div>
+
+      <div class="dock-wrap reveal">
+        <div>
+          <div class="apple-dock" id="socialDock">
+
+            <a href="https://www.facebook.com/share/1FDEj4bnRG/"
+               target="_blank" rel="noopener"
+               class="dock-icon dock-fb"
+               data-label="Facebook"
+               aria-label="Follow on Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#"
+               target="_blank" rel="noopener"
+               class="dock-icon dock-ig"
+               data-label="Instagram"
+               aria-label="Follow on Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#"
+               target="_blank" rel="noopener"
+               class="dock-icon dock-yt"
+               data-label="YouTube"
+               aria-label="Subscribe on YouTube">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+
+            <a href="https://wa.me/919040210791"
+               target="_blank" rel="noopener"
+               class="dock-icon dock-wa"
+               data-label="WhatsApp"
+               aria-label="Message on WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+          </div>
+          <!-- Dock reflection -->
+          <div class="dock-reflection">
+            <div class="dock-reflection-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const dock   = document.getElementById('socialDock');
+        if (!dock) return;
+
+        const icons  = Array.from(dock.querySelectorAll('.dock-icon'));
+        const BASE   = 52;   // px — resting size
+        const MAX    = 96;   // px — fully magnified
+        const DIST   = 150;  // px — influence radius
+
+        function applyMagnification(mouseX) {
+          icons.forEach(function (icon) {
+            const rect   = icon.getBoundingClientRect();
+            const center = rect.left + rect.width / 2;
+            const d      = Math.abs(mouseX - center);
+
+            var size, radius;
+            if (d < DIST) {
+              // Cosine curve for smooth fall-off (same shape as framer-motion useTransform)
+              var ratio = 1 - d / DIST;
+              var smooth = 0.5 - 0.5 * Math.cos(Math.PI * ratio); // ease in-out
+              size   = BASE + (MAX - BASE) * smooth;
+              radius = 14 + 14 * smooth; // 14px → 28px (more circular when big)
+            } else {
+              size   = BASE;
+              radius = 14;
+            }
+
+            icon.style.width        = size + 'px';
+            icon.style.height       = size + 'px';
+            icon.style.borderRadius = radius + 'px';
+            icon.style.fontSize     = (size * 0.42) + 'px';
+          });
+        }
+
+        function resetAll() {
+          icons.forEach(function (icon) {
+            icon.style.width        = BASE + 'px';
+            icon.style.height       = BASE + 'px';
+            icon.style.borderRadius = '14px';
+            icon.style.fontSize     = (BASE * 0.42) + 'px';
+          });
+        }
+
+        dock.addEventListener('mousemove', function (e) {
+          applyMagnification(e.clientX);
+        });
+
+        dock.addEventListener('mouseleave', resetAll);
+
+        // Touch: no magnification on mobile, just ensure base size
+        if ('ontouchstart' in window) resetAll();
+      })();
+    </script>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">🌿</div>
+            <span class="nav-logo-text">Green<span style="color:var(--green-light)">s</span></span>
+          </div>
+          <p>Where your dream wedding comes to life. Serving families across Bhubaneswar with warmth and elegance since 2008.</p>
+          <div class="socials">
+            <a href="https://www.facebook.com/share/1FDEj4bnRG/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://wa.me/919040210791" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Wedding Reception</a></li>
+            <li><a href="#">Engagement Ceremony</a></li>
+            <li><a href="#">Bridal Shower</a></li>
+            <li><a href="#">In-House Catering</a></li>
+            <li><a href="#">Décor Packages</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            <span>KV Ave, near East Coast Railway Stadium, Mancheswar, Bhubaneswar, Odisha 751017</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-phone"></i></span>
+            <span>+91 90402 10791 / 70085 46641</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span>Ritesh.jena80@gmail.com</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon"><i class="fa-solid fa-clock"></i></span>
+            <span>Sun–Fri, 9 AM – 6 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Greens Marriage Hall. All rights reserved.</span>
+        <span>Made with 🌿 in Bhubaneswar</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+
+    // ── Nav shadow on scroll ──
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 40);
+    }, { passive: true });
+  </script>
+
+  <!-- ── Back to Welcome ── -->
+  <a href="welcome.html" title="Back to Welcome Page" style="
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    display:flex;align-items:center;gap:.5rem;
+    background:#fff;border:1.5px solid #c8dfc9;
+    border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
+    box-shadow:0 4px 20px rgba(90,138,94,.18);
+    font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;
+    color:#5a8a5e;text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(90,138,94,.25)'"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(90,138,94,.18)'">
+    <span style="font-size:1rem;">🌿</span> Welcome Page
+  </a>
+
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+
+const ease = [0.25, 0.1, 0.25, 1]
+
+// ── Hide elements before animating ───────────────────────
+function hide(sel) {
+  document.querySelectorAll(sel).forEach(el => {
+    el.style.opacity = '0'
+    el.style.transform = 'translateY(32px)'
+  })
+}
+
+// ── Scroll-reveal single elements ────────────────────────
+function reveal(sel, opts = {}) {
+  hide(sel)
+  inView(sel, ({ target }) => {
+    animate(target, { opacity: [0, 1], y: [32, 0] }, { duration: 0.55, easing: ease, ...opts })
+  }, { amount: 0.2 })
+}
+
+// ── Stagger children when parent enters view ─────────────
+function staggerReveal(parentSel, childSel, delay = 0.1) {
+  document.querySelectorAll(parentSel).forEach(parent => {
+    const kids = parent.querySelectorAll(childSel)
+    kids.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(28px)' })
+    inView(parent, () => {
+      animate(kids, { opacity: [0, 1], y: [28, 0] },
+        { delay: stagger(delay), duration: 0.5, easing: ease })
+    }, { amount: 0.1 })
+  })
+}
+
+// ── Section headings ──────────────────────────────────────
+reveal('.section-label')
+reveal('.section-header h2')
+
+// ── Features strip ────────────────────────────────────────
+staggerReveal('.features-strip', '.feature-item', 0.08)
+
+// ── About section — slide from sides ─────────────────────
+const aboutImg = document.querySelector('.about-img-wrap')
+if (aboutImg) {
+  aboutImg.style.cssText += 'opacity:0;transform:translateX(-40px)'
+  inView('.about-inner', () => animate(aboutImg,
+    { opacity: [0, 1], x: [-40, 0] }, { duration: 0.65, easing: ease }), { amount: 0.2 })
+}
+const aboutContent = document.querySelector('.about-content')
+if (aboutContent) {
+  aboutContent.style.cssText += 'opacity:0;transform:translateX(40px)'
+  inView('.about-inner', () => animate(aboutContent,
+    { opacity: [0, 1], x: [40, 0] }, { duration: 0.65, easing: ease, delay: 0.1 }), { amount: 0.2 })
+}
+staggerReveal('.about-points', '.about-point', 0.1)
+
+// ── Gallery ───────────────────────────────────────────────
+staggerReveal('.gallery-accordion', '.gallery-panel', 0.08)
+
+// ── Testimonials ──────────────────────────────────────────
+staggerReveal('.testimonials-grid', '.testimonial-card', 0.1)
+
+// ── Follow Us dock ────────────────────────────────────────
+staggerReveal('.apple-dock', '.dock-icon', 0.06)
+
+// ── Stats counter ─────────────────────────────────────────
+const statEls = document.querySelectorAll('.hero-stat-num')
+const statData = [
+  { end: 500, suffix: '+' },
+  { end: 1200, suffix: '' },
+  { end: 15, suffix: '+' },
+]
+let counted = false
+inView('.hero-stats', () => {
+  if (counted) return; counted = true
+  statData.forEach(({ end, suffix }, i) => {
+    if (!statEls[i]) return
+    animate(0, end, {
+      duration: 2, easing: [0.25, 0.1, 0.25, 1],
+      onUpdate: v => { statEls[i].innerHTML = Math.round(v).toLocaleString() + `<span>${suffix}</span>` }
+    })
+  })
+})
+
+// ── Spring hover on cards ─────────────────────────────────
+document.querySelectorAll('.testimonial-card, .gallery-item, .feature-item').forEach(card => {
+  card.addEventListener('mouseenter', () =>
+    animate(card, { scale: 1.04 }, { type: 'spring', stiffness: 350, damping: 18 }))
+  card.addEventListener('mouseleave', () =>
+    animate(card, { scale: 1 }, { type: 'spring', stiffness: 350, damping: 18 }))
+})
+</script>
+</body>
+</html>
