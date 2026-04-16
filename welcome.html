@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Nunito:wght@300;400;600;700&display=swap" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <style>
     :root {
       --green-deep:  #5a8a5e;
@@ -369,7 +370,7 @@
     </a>
     <a href="login.html" class="login-link" id="loginLink">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      Login to your account
+      <span id="loginLinkText">Login to explore the venue</span>
     </a>
   </div>
 
@@ -442,6 +443,25 @@
       petalsEl.appendChild(p);
     }
 
+    // ── Supabase session check ──
+    const SUPABASE_URL = 'https://seqjdrqofebjptbrsrce.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlcWpkcnFvZmVianB0YnJzcmNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyNzIyMTUsImV4cCI6MjA1OTg0ODIxNX0.Y_JFoNKG7hCuD2lSJb5hfwNpZRuxTFMGr4boMvFoFY4';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    (async function() {
+      const { data: { session } } = await sb.auth.getSession();
+      const loginLink = document.getElementById('loginLink');
+      const loginText = document.getElementById('loginLinkText');
+
+      if (session && session.user) {
+        const meta = session.user.user_metadata;
+        const name = meta.full_name || meta.name || session.user.email.split('@')[0];
+        // Show greeting and point to index
+        loginText.textContent = 'Hello, ' + name + ' — continue to venue';
+        loginLink.href = 'index.html';
+      }
+    })();
+
     // ── Smooth exit ──
     ['enterBtn', 'loginLink'].forEach(function(id) {
       const el = document.getElementById(id);
@@ -453,14 +473,6 @@
         setTimeout(() => { window.location.href = dest; }, 440);
       });
     });
-
-    // ── Auto-redirect after 14s ──
-    setTimeout(() => {
-      if (!document.body.classList.contains('exiting')) {
-        document.body.classList.add('exiting');
-        setTimeout(() => { window.location.href = 'index.html'; }, 440);
-      }
-    }, 14000);
   </script>
 
 <!-- Mobile Preview Overlay -->
