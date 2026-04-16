@@ -1,8 +1,18 @@
 (function () {
-  var SUPABASE_URL = 'https://seqjdrqofebjptbrsrce.supabase.co';
-  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlcWpkcnFvZmVianB0YnJzcmNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyNzIyMTUsImV4cCI6MjA1OTg0ODIxNX0.Y_JFoNKG7hCuD2lSJb5hfwNpZRuxTFMGr4boMvFoFY4';
+  var SUPABASE_URL = 'https://avvyqtsmobpgwitwbrnk.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0';
 
-  // Read session synchronously from localStorage — same scan used by auth guard
+  function clearSession() {
+    try {
+      for (var i = localStorage.length - 1; i >= 0; i--) {
+        var k = localStorage.key(i);
+        if (k && (k.indexOf('sb-') === 0 || k === 'supabase.auth.token')) {
+          localStorage.removeItem(k);
+        }
+      }
+    } catch (e) {}
+  }
+
   function getStoredSession() {
     try {
       for (var i = 0; i < localStorage.length; i++) {
@@ -22,10 +32,8 @@
     if (!btn || !label) return;
 
     var session = getStoredSession();
+    if (!session) return;
 
-    if (!session) return; // not logged in — keep Login link as-is
-
-    // Logged in: update button to Logout immediately (no async wait)
     var user = session.user || {};
     var meta = user.user_metadata || {};
     var name = meta.full_name || meta.name || (user.email ? user.email.split('@')[0] : '');
@@ -37,17 +45,9 @@
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      // Step 1: clear session from localStorage immediately (synchronous)
-      // This ensures login.html won't find a session and auto-redirect
-      try {
-        for (var i = localStorage.length - 1; i >= 0; i--) {
-          var k = localStorage.key(i);
-          if (k && (k.indexOf('sb-') === 0 || k === 'supabase.auth.token')) {
-            localStorage.removeItem(k);
-          }
-        }
-      } catch (e) {}
-      // Step 2: server-side signOut, then redirect regardless of outcome
+      // Clear session locally first — guaranteed before redirect
+      clearSession();
+      // Server-side signout (fire and forget)
       try {
         var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         sb.auth.signOut().then(function () {

@@ -388,8 +388,14 @@
   }
 
   async function signOut() {
-    await _sb.auth.signOut();
-    window.location.reload();
+    try {
+      for (var i = localStorage.length - 1; i >= 0; i--) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('sb-') === 0) localStorage.removeItem(k);
+      }
+    } catch(e) {}
+    try { await _sb.auth.signOut(); } catch(e) {}
+    window.location.href = 'welcome.html';
   }
 
   // ── Dashboard ──

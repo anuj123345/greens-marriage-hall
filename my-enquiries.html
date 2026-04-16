@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>!function(){var ok=false;try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("sb-")===0&&k.indexOf("-auth-token")>0){var v=JSON.parse(localStorage.getItem(k)||"{}");if(v&&v.access_token){ok=true;break;}}}}catch(e){}if(!ok){window.location.replace("welcome.html");}}();</script>
   <title>My Enquiries — Greens Marriage Hall</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&display=swap" />
@@ -175,8 +176,14 @@
   }
 
   async function signOut() {
-    await _sb.auth.signOut();
-    window.location.href = 'login.html';
+    try {
+      for (var i = localStorage.length - 1; i >= 0; i--) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('sb-') === 0) localStorage.removeItem(k);
+      }
+    } catch(e) {}
+    try { await _sb.auth.signOut(); } catch(e) {}
+    window.location.href = 'welcome.html';
   }
 
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
