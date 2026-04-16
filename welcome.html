@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <title>Welcome to Greens Marriage Mandap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,166 +13,231 @@
       --green-deep:  #5a8a5e;
       --green-mid:   #7bae7f;
       --green-light: #c8dfc9;
-      --green-pale:  #eaf4ea;
       --cream:       #fdf6ec;
       --blush:       #f7d4c8;
       --rose:        #e8a598;
-      --text-dark:   #3d3a36;
-      --text-muted:  #7a7570;
+      --gold:        #d4a847;
+      --gold-light:  #f0d080;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-    }
+    html, body { width: 100%; height: 100%; }
 
     body {
       font-family: 'Nunito', sans-serif;
-      background: var(--cream);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       padding: 2rem 1rem 2.5rem;
       position: relative;
-      overflow-x: hidden;
+      overflow: hidden;
+      min-height: 100vh;
     }
 
-    /* ── Background blobs ── */
-    .blob {
+    /* ── Full-screen cinematic background ── */
+    .bg-photo {
       position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
+      inset: 0;
       z-index: 0;
+      background:
+        url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1600&q=85')
+        center / cover no-repeat;
+      animation: kenBurns 22s ease-in-out infinite alternate;
+      will-change: transform;
     }
-    .blob-1 {
-      width: 500px; height: 500px;
-      background: var(--green-light);
-      opacity: .35;
-      top: -150px; right: -80px;
-    }
-    .blob-2 {
-      width: 380px; height: 380px;
-      background: var(--blush);
-      opacity: .35;
-      bottom: -100px; left: -60px;
+    @keyframes kenBurns {
+      from { transform: scale(1);    filter: brightness(.95); }
+      to   { transform: scale(1.09); filter: brightness(1.02); }
     }
 
-    /* ── Petal rain ── */
-    .petals { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    /* ── Layered overlay ── */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg,
+          rgba(14,28,16,.62) 0%,
+          rgba(35,60,38,.40) 45%,
+          rgba(14,22,16,.72) 100%);
+    }
+    /* subtle vignette ring */
+    .bg-vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse at center,
+        transparent 38%,
+        rgba(8,16,10,.55) 100%);
+    }
+
+    /* ── Firefly particles ── */
+    .fireflies {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .firefly {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(212,168,71,.9);
+      box-shadow: 0 0 6px 2px rgba(212,168,71,.6);
+      animation: fireflyFloat ease-in-out infinite;
+    }
+    @keyframes fireflyFloat {
+      0%   { transform: translate(0, 0) scale(.8); opacity: 0; }
+      20%  { opacity: 1; }
+      50%  { transform: translate(var(--tx), var(--ty)) scale(1.4); opacity: .85; }
+      80%  { opacity: .6; }
+      100% { transform: translate(calc(var(--tx)*1.6), calc(var(--ty)*1.8)) scale(.6); opacity: 0; }
+    }
+
+    /* ── Petal rain (refined — small circles, not emoji) ── */
+    .petals { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
     .petal {
       position: absolute;
-      top: -30px;
+      top: -20px;
+      border-radius: 50% 0 50% 0;
       opacity: 0;
-      animation: fall linear infinite;
+      animation: petalFall linear infinite;
     }
-    @keyframes fall {
-      0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
-      10%  { opacity: .6; }
-      90%  { opacity: .4; }
-      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    @keyframes petalFall {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+      8%   { opacity: .7; }
+      85%  { opacity: .35; }
+      100% { transform: translateY(105vh) rotate(420deg) scale(.5); opacity: 0; }
     }
 
-    /* ── Main card ── */
+    /* ── Decorative corner lines ── */
+    .corner {
+      position: fixed;
+      z-index: 4;
+      width: 80px; height: 80px;
+      pointer-events: none;
+      opacity: .45;
+    }
+    .corner::before, .corner::after {
+      content: '';
+      position: absolute;
+      background: var(--gold-light);
+      border-radius: 1px;
+    }
+    .corner-tl { top: 24px; left: 24px; }
+    .corner-tl::before { width: 2px; height: 60px; top: 0; left: 0; }
+    .corner-tl::after  { width: 60px; height: 2px; top: 0; left: 0; }
+
+    .corner-tr { top: 24px; right: 24px; }
+    .corner-tr::before { width: 2px; height: 60px; top: 0; right: 0; }
+    .corner-tr::after  { width: 60px; height: 2px; top: 0; right: 0; }
+
+    .corner-bl { bottom: 24px; left: 24px; }
+    .corner-bl::before { width: 2px; height: 60px; bottom: 0; left: 0; }
+    .corner-bl::after  { width: 60px; height: 2px; bottom: 0; left: 0; }
+
+    .corner-br { bottom: 24px; right: 24px; }
+    .corner-br::before { width: 2px; height: 60px; bottom: 0; right: 0; }
+    .corner-br::after  { width: 60px; height: 2px; bottom: 0; right: 0; }
+
+    /* ── Main card (glassmorphism) ── */
     .welcome-card {
       position: relative;
-      z-index: 1;
+      z-index: 5;
       text-align: center;
-      padding: 2.5rem 2rem;
-      max-width: 600px;
+      padding: 3rem 2.75rem 2.75rem;
+      max-width: 560px;
       width: 100%;
-      animation: riseIn .9s cubic-bezier(.4,0,.2,1) .4s both;
+      background: rgba(14, 28, 16, .38);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(200,223,201,.25);
+      border-radius: 32px;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.12);
+      animation: riseIn 1s cubic-bezier(.4,0,.2,1) .3s both;
     }
     @keyframes riseIn {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(32px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
 
     .blessing {
       font-family: 'Playfair Display', serif;
-      font-size: .95rem;
+      font-size: .9rem;
       font-style: italic;
-      color: var(--green-mid);
-      margin-bottom: 1.25rem;
+      color: rgba(200,223,201,.85);
+      margin-bottom: 1.5rem;
+      letter-spacing: .04em;
       animation: riseIn .7s ease .8s both;
     }
 
     .logo-mark {
-      width: 68px; height: 68px;
+      width: 72px; height: 72px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.9rem;
-      margin: 0 auto 1.25rem;
-      box-shadow: 0 10px 32px rgba(90,138,94,.28);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+      box-shadow:
+        0 0 0 6px rgba(123,174,127,.2),
+        0 0 0 12px rgba(123,174,127,.08),
+        0 12px 36px rgba(0,0,0,.4);
       animation: riseIn .7s ease .6s both;
-    }
-
-    .welcome-label {
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: .4rem;
-      animation: riseIn .7s ease .9s both;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
       font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.15;
-      margin-bottom: .25rem;
-      animation: riseIn .8s ease 1s both;
+      color: #fff;
+      line-height: 1.18;
+      margin-bottom: .5rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,.4);
+      animation: riseIn .8s ease .9s both;
     }
-    h1 em { font-style: italic; color: var(--green-mid); }
+    h1 em { font-style: italic; color: var(--gold-light); }
 
     .subtitle {
-      font-size: .97rem;
-      color: var(--text-muted);
-      margin: .65rem 0 2.25rem;
-      animation: riseIn .7s ease 1.1s both;
+      font-size: .93rem;
+      color: rgba(255,255,255,.65);
+      margin: .6rem 0 2rem;
+      letter-spacing: .05em;
+      animation: riseIn .7s ease 1.05s both;
     }
 
+    /* gold ornamental divider */
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 0 auto 2.25rem;
-      max-width: 260px;
-      animation: riseIn .7s ease 1.2s both;
+      display: flex; align-items: center; gap: .85rem;
+      margin: 0 auto 2rem;
+      max-width: 240px;
+      animation: riseIn .7s ease 1.15s both;
     }
-    .divider-line { flex: 1; height: 1px; background: var(--green-light); }
-    .divider-icon { color: var(--rose); font-size: .85rem; }
+    .divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,168,71,.5), transparent);
+    }
+    .divider-icon { color: var(--gold); font-size: .9rem; }
 
     .enter-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .55rem;
+      display: inline-flex; align-items: center; gap: .55rem;
       background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
       color: #fff;
-      border: none;
-      border-radius: 60px;
-      padding: .95rem 2.5rem;
+      border: none; border-radius: 60px;
+      padding: 1rem 2.75rem;
       font-family: 'Nunito', sans-serif;
-      font-size: .97rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 8px 28px rgba(90,138,94,.32);
-      transition: transform .25s ease, box-shadow .25s ease;
-      animation: riseIn .7s ease 1.4s both;
+      font-size: .97rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      box-shadow:
+        0 8px 32px rgba(90,138,94,.45),
+        0 0 0 1px rgba(200,223,201,.3);
+      transition: transform .28s ease, box-shadow .28s ease;
+      animation: riseIn .7s ease 1.3s both;
     }
     .enter-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 14px 40px rgba(90,138,94,.42);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 18px 48px rgba(90,138,94,.55), 0 0 0 1px rgba(200,223,201,.4);
     }
     .enter-btn svg {
       width: 17px; height: 17px;
@@ -181,81 +247,98 @@
 
     /* ── Co-powered strip ── */
     .copowered {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      width: 100%;
-      animation: riseIn .7s ease 1.6s both;
+      position: relative; z-index: 5;
+      text-align: center; width: 100%;
+      animation: riseIn .7s ease 1.55s both;
     }
-
     .copowered-label {
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
       margin-bottom: .85rem;
     }
-
     .partners {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: center;
+      gap: .85rem; flex-wrap: wrap;
     }
-
     .partner-pill {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      background: #fff;
-      border: 1.5px solid #ddeedd;
+      display: flex; align-items: center; gap: .55rem;
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.14);
       border-radius: 50px;
       padding: .4rem 1rem .4rem .45rem;
-      box-shadow: 0 2px 12px rgba(90,138,94,.1);
+      transition: border-color .2s, background .2s;
     }
-
+    .partner-pill:hover {
+      background: rgba(0,0,0,.5);
+      border-color: rgba(255,255,255,.28);
+    }
     .partner-logo {
-      height: 28px;
-      border-radius: 5px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      height: 26px; border-radius: 5px; overflow: hidden;
+      display: flex; align-items: center; flex-shrink: 0;
     }
-    .partner-logo img {
-      height: 28px;
-      width: auto;
-      max-width: 90px;
-      object-fit: contain;
-      display: block;
-    }
+    .partner-logo img { height: 26px; width: auto; max-width: 80px; object-fit: contain; display: block; }
+    .partner-name { font-size: .8rem; font-weight: 700; color: rgba(255,255,255,.82); white-space: nowrap; }
 
-    .partner-name {
-      font-size: .82rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      white-space: nowrap;
-    }
-
+    /* ── Exit animation ── */
     body.exiting { animation: fadeOut .45s ease forwards; }
     @keyframes fadeOut { to { opacity: 0; transform: scale(.98); } }
+
+    @media (max-width: 480px) {
+      body { padding: 1.5rem .875rem 2rem; }
+      .welcome-card { padding: 2.25rem 1.75rem; }
+      .corner { display: none; }
+      .blessing { font-size: .82rem; margin-bottom: 1.25rem; }
+      .logo-mark { width: 64px; height: 64px; font-size: 1.7rem; margin-bottom: 1.25rem; }
+      .enter-btn { padding: .9rem 2.25rem; font-size: .9rem; }
+    }
+    @media (max-width: 400px) {
+      body { padding: 1.25rem .75rem 1.75rem; }
+      .welcome-card { padding: 1.75rem 1.25rem; border-radius: 20px; }
+      .welcome-card h1 { font-size: 1.9rem; }
+      .subtitle { font-size: .85rem; }
+      .partner-pill { padding: .35rem .8rem .35rem .4rem; }
+      .partner-name { font-size: .75rem; }
+      .copowered-label { font-size: .62rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bg-photo { animation: none; }
+      .firefly  { animation: none; opacity: .4 !important; }
+      .petal    { animation: none; opacity: .3 !important; }
+    }
+    /* View Mode Toggle */
+    .vm-toggle { position:fixed; top:88px; right:20px; z-index:99999; }
+    .vm-btn { display:flex; align-items:center; gap:8px; background:rgba(90,138,94,.85); color:#fff; border:1px solid rgba(255,255,255,.2); border-radius:30px; padding:10px 18px 10px 14px; font-size:.8rem; font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer; box-shadow:0 4px 24px rgba(0,0,0,.35); letter-spacing:.02em; white-space:nowrap; backdrop-filter:blur(8px); transition:background .2s, transform .15s; }
+    .vm-btn:hover { background:rgba(61,107,64,.9); transform:translateY(-2px); }
+    .vm-btn i { font-size:.88rem; }
   </style>
 </head>
 <body>
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+  <!-- Cinematic background -->
+  <div class="bg-photo"></div>
+  <div class="bg-overlay"></div>
+  <div class="bg-vignette"></div>
+
+  <!-- Corner decorations -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- Fireflies -->
+  <div class="fireflies" id="fireflies"></div>
+
+  <!-- Petal rain -->
   <div class="petals" id="petals"></div>
 
   <!-- Main card -->
   <div class="welcome-card">
     <p class="blessing">ଜୟ ଜଗନ୍ନାଥ &nbsp;·&nbsp; Jai Jagannath</p>
     <div class="logo-mark">🌿</div>
-    <p class="welcome-label">Welcome to</p>
-    <h1>Greens <em>Marriage</em><br>Mandap</h1>
+    <h1>Welcome to <em>Greens</em></h1>
     <p class="subtitle">Premium Venue &nbsp;·&nbsp; Bhubaneswar, Odisha</p>
     <div class="divider">
       <div class="divider-line"></div>
@@ -272,47 +355,72 @@
   <div class="copowered">
     <p class="copowered-label">Co-powered by</p>
     <div class="partners">
-
       <div class="partner-pill">
-        <div class="partner-logo" style="background:#e8e8e8;">
+        <div class="partner-logo" style="background:#e0e0e0;">
           <img src="logos/indulge-salon.png" alt="Indulge The Salon" />
         </div>
         <span class="partner-name">Indulge The Salon</span>
       </div>
-
       <div class="partner-pill">
         <div class="partner-logo" style="background:#111;">
           <img src="logos/studio-sinfonia.png" alt="Studio Sinfonia" />
         </div>
         <span class="partner-name">Studio Sinfonia</span>
       </div>
-
       <div class="partner-pill">
         <div class="partner-logo" style="background:#fff;">
           <img src="logos/weavorah.png" alt="Weavorah" />
         </div>
         <span class="partner-name">Weavorah</span>
       </div>
-
     </div>
   </div>
 
   <script>
-    // Petal rain
+    // ── Fireflies ──
+    const ff = document.getElementById('fireflies');
+    const fireflyCount = window.innerWidth < 480 ? 10 : 22;
+    for (let i = 0; i < fireflyCount; i++) {
+      const el = document.createElement('div');
+      el.className = 'firefly';
+      const size = 2 + Math.random() * 4;
+      el.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}vw;
+        top:${10 + Math.random()*80}vh;
+        --tx:${(Math.random()-0.5)*120}px;
+        --ty:${-(20 + Math.random()*80)}px;
+        animation-duration:${5 + Math.random()*9}s;
+        animation-delay:${Math.random()*8}s;
+        opacity:0;
+      `;
+      ff.appendChild(el);
+    }
+
+    // ── Petal rain (CSS shapes) ──
     const petalsEl = document.getElementById('petals');
-    const emojis = ['🌸','🌺','🌼','🌷','✿','❀'];
-    for (let i = 0; i < 18; i++) {
+    const colors = [
+      'rgba(200,223,201,.55)',
+      'rgba(247,212,200,.5)',
+      'rgba(212,168,71,.45)',
+      'rgba(255,255,255,.35)',
+      'rgba(232,165,152,.45)',
+    ];
+    for (let i = 0; i < 20; i++) {
       const p = document.createElement('div');
       p.className = 'petal';
-      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.fontSize = (.5 + Math.random() * .8) + 'rem';
-      p.style.animationDuration = (7 + Math.random() * 10) + 's';
-      p.style.animationDelay = (Math.random() * 9) + 's';
+      const size = 5 + Math.random() * 9;
+      p.style.cssText = `
+        left:${Math.random()*100}vw;
+        width:${size}px; height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${9 + Math.random()*12}s;
+        animation-delay:${Math.random()*10}s;
+      `;
       petalsEl.appendChild(p);
     }
 
-    // Smooth exit
+    // ── Smooth exit ──
     document.getElementById('enterBtn').addEventListener('click', function(e) {
       e.preventDefault();
       const dest = this.href;
@@ -320,13 +428,63 @@
       setTimeout(() => { window.location.href = dest; }, 440);
     });
 
-    // Auto-redirect after 12s
+    // ── Auto-redirect after 14s ──
     setTimeout(() => {
       if (!document.body.classList.contains('exiting')) {
         document.body.classList.add('exiting');
         setTimeout(() => { window.location.href = 'index.html'; }, 440);
       }
-    }, 12000);
+    }, 14000);
   </script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
+  })();
+</script>
 </body>
 </html>

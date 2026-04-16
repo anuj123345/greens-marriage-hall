@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs (for when you add a build step)
+dist/
+build/
+.next/
+out/
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local
+*.env
+
+# Secrets / credentials
+secrets/
+credentials.json
+serviceAccountKey.json
+
+# IDE & OS
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Claude Code / tooling internals
+.code-review-graph/
+graphify-out/
+.graphify_uncached.txt
+
+# Vercel
+.vercel/

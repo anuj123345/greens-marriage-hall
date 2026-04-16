@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <title>Venue Tour — Greens Marriage Mandap</title>
   <meta name="description" content="Take a visual tour of Greens Marriage Mandap — explore our lawn, convention hall, stage, bridal suite, and more." />
   <link rel="stylesheet" href="styles.css" />
@@ -164,7 +165,7 @@
 
     /* ── Lightbox ── */
     .lightbox {
-      display: none;
+      display: flex;
       position: fixed;
       inset: 0;
       background: rgba(20,20,20,.92);
@@ -173,7 +174,6 @@
       justify-content: center;
       padding: 2rem;
     }
-    .lightbox.open { display: flex; }
     .lightbox-inner {
       position: relative;
       max-width: 900px;
@@ -241,12 +241,51 @@
     .upload-banner h3 { font-size: 1.1rem; margin-bottom: .4rem; }
     .upload-banner p  { font-size: .9rem; color: var(--text-muted); }
 
+    /* ── Nav Scroll ── */
+    .nav.nav-scrolled {
+      background: rgba(253,246,236,.98);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── Gallery real photos ── */
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* ── Lightbox fade ── */
+    .lightbox {
+      opacity: 0;
+      transition: opacity .25s ease;
+      pointer-events: none;
+    }
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 900px) {
-      .gallery-masonry { columns: 2; }
+      .gallery-masonry { columns: 2; column-gap: 14px; }
     }
     @media (max-width: 540px) {
       .gallery-masonry { columns: 1; }
+    }
+    @media (max-width: 680px) {
+      .lightbox-close {
+        position: fixed;
+        top: 16px; right: 16px;
+        font-size: 1.5rem;
+        background: rgba(0,0,0,.45);
+        border-radius: 50%;
+        width: 44px; height: 44px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 1;
+      }
+      .lightbox-img { max-width: 96vw; max-height: 80vh; }
     }
   </style>
 </head>
@@ -265,8 +304,9 @@
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-item"><a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Enquire Now</a></li>
       </ul>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -312,140 +352,86 @@
   <section class="gallery-section">
     <div class="container">
 
-      <!-- Nudge to add real photos -->
-      <div class="upload-banner" id="uploadBanner">
-        <h3>📸 Share your venue photos to complete this gallery</h3>
-        <p>Drop image files or share a folder path — I'll wire them in across the grid instantly.</p>
-      </div>
-
       <div class="gallery-masonry" id="galleryGrid">
 
         <!-- Lawn & Outdoor -->
         <div class="gallery-item" data-cat="lawn" data-label="Open Lawn — 15,000 sq ft">
-          <div class="photo-placeholder ph-tall ph-green">
-            <span class="ph-icon">🌿</span>
-            <span class="ph-label">Open Lawn</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80" alt="Open Lawn — 15,000 sq ft" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Open Lawn — 15,000 sq ft</span></div>
         </div>
 
         <div class="gallery-item" data-cat="stage" data-label="Decorated Stage">
-          <div class="photo-placeholder ph-med ph-blush">
-            <span class="ph-icon">🎭</span>
-            <span class="ph-label">Stage Setup</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80" alt="Decorated Stage" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Decorated Stage</span></div>
         </div>
 
         <div class="gallery-item" data-cat="hall" data-label="Convention Hall">
-          <div class="photo-placeholder ph-med ph-sky">
-            <span class="ph-icon">🏛️</span>
-            <span class="ph-label">Convention Hall</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80" alt="Convention Hall" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Convention Hall</span></div>
         </div>
 
         <div class="gallery-item" data-cat="bridal" data-label="Bridal Suite">
-          <div class="photo-placeholder ph-tall ph-purple">
-            <span class="ph-icon">👸</span>
-            <span class="ph-label">Bridal Suite</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1596439902898-0f04c3b54e00?w=800&q=80" alt="Bridal Suite" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Bridal Suite</span></div>
         </div>
 
         <div class="gallery-item" data-cat="lawn" data-label="Garden View">
-          <div class="photo-placeholder ph-short ph-green">
-            <span class="ph-icon">🌸</span>
-            <span class="ph-label">Garden View</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1545128485-c400ce246584?w=800&q=80" alt="Garden View" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Garden View</span></div>
         </div>
 
         <div class="gallery-item" data-cat="stage" data-label="Floral Mandap Setup">
-          <div class="photo-placeholder ph-wide ph-blush">
-            <span class="ph-icon">💐</span>
-            <span class="ph-label">Floral Mandap</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80" alt="Floral Mandap Setup" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Floral Mandap Setup</span></div>
         </div>
 
         <div class="gallery-item" data-cat="hall" data-label="Seating Arrangement">
-          <div class="photo-placeholder ph-med ph-cream">
-            <span class="ph-icon">🪑</span>
-            <span class="ph-label">Seating Arrangement</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&q=80" alt="Seating Arrangement" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Seating Arrangement</span></div>
         </div>
 
         <div class="gallery-item" data-cat="event" data-label="Wedding Reception">
-          <div class="photo-placeholder ph-tall ph-gold">
-            <span class="ph-icon">💒</span>
-            <span class="ph-label">Wedding Reception</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="Wedding Reception" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Wedding Reception</span></div>
         </div>
 
         <div class="gallery-item" data-cat="stage" data-label="LED Wall Setup">
-          <div class="photo-placeholder ph-short ph-sky">
-            <span class="ph-icon">📺</span>
-            <span class="ph-label">LED Wall</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1508026788873-f35ebde3a3c9?w=800&q=80" alt="LED Wall Setup" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">LED Wall Setup</span></div>
         </div>
 
         <div class="gallery-item" data-cat="parking" data-label="Parking Area">
-          <div class="photo-placeholder ph-med ph-cream">
-            <span class="ph-icon">🚗</span>
-            <span class="ph-label">Parking Area</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1470093851219-69951fcbb533?w=800&q=80" alt="Parking Area" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Large Parking Area</span></div>
         </div>
 
         <div class="gallery-item" data-cat="event" data-label="Sangeet Night">
-          <div class="photo-placeholder ph-wide ph-purple">
-            <span class="ph-icon">🎶</span>
-            <span class="ph-label">Sangeet Night</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1601804551468-d0b8cb6e33c8?w=800&q=80" alt="Sangeet Night" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Sangeet Night</span></div>
         </div>
 
         <div class="gallery-item" data-cat="bridal" data-label="Groom's Room">
-          <div class="photo-placeholder ph-short ph-gold">
-            <span class="ph-icon">🤵</span>
-            <span class="ph-label">Groom's Room</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1584685000927-b4c8bc4ea0aa?w=800&q=80" alt="Groom's Room" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Groom's Room</span></div>
         </div>
 
         <div class="gallery-item" data-cat="lawn" data-label="Evening Lawn Setup">
-          <div class="photo-placeholder ph-med ph-blush">
-            <span class="ph-icon">🌅</span>
-            <span class="ph-label">Evening Setup</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80" alt="Evening Lawn Setup" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Evening Lawn Setup</span></div>
         </div>
 
         <div class="gallery-item" data-cat="event" data-label="Haldi Ceremony">
-          <div class="photo-placeholder ph-tall ph-gold">
-            <span class="ph-icon">🌼</span>
-            <span class="ph-label">Haldi Ceremony</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1621270516990-3b4a75b32b35?w=800&q=80" alt="Haldi Ceremony" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Haldi Ceremony</span></div>
         </div>
 
         <div class="gallery-item" data-cat="stage" data-label="Night Lighting">
-          <div class="photo-placeholder ph-med ph-purple">
-            <span class="ph-icon">✨</span>
-            <span class="ph-label">Night Lighting</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&q=80" alt="Stage Night Lighting" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Stage Night Lighting</span></div>
         </div>
 
         <div class="gallery-item" data-cat="hall" data-label="Dining Setup">
-          <div class="photo-placeholder ph-short ph-green">
-            <span class="ph-icon">🍽️</span>
-            <span class="ph-label">Dining Setup</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Dining Setup" loading="lazy" />
           <div class="gallery-overlay"><span class="overlay-label">Dining Setup</span></div>
         </div>
 
@@ -540,8 +526,8 @@
   </footer>
 
   <!-- Back to welcome -->
-  <a href="welcome.html" title="Back to Welcome Page" style="
-    position:fixed;bottom:28px;right:28px;z-index:999;
+  <a href="welcome.html" title="Back to Welcome Page" data-iframe-hide style="
+    position:fixed;bottom:28px;right:20px;z-index:999;
     display:flex;align-items:center;gap:.5rem;
     background:#fff;border:1.5px solid #c8dfc9;
     border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
@@ -558,7 +544,20 @@
     // Nav toggle
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.classList.toggle('open');
+      document.body.style.overflow = links.classList.contains('open') ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Nav scroll
+    window.addEventListener('scroll', () =>
+      document.querySelector('.nav').classList.toggle('nav-scrolled', window.scrollY > 40));
 
     // Category filter
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -570,39 +569,27 @@
         btn.classList.add('active');
         const cat = btn.dataset.cat;
         items.forEach(item => {
-          if (cat === 'all' || item.dataset.cat === cat) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
+          item.style.display = (cat === 'all' || item.dataset.cat === cat) ? 'block' : 'none';
         });
       });
     });
 
-    // Lightbox
+    // Lightbox (fade in/out)
     const lightbox      = document.getElementById('lightbox');
-    const lightboxLabel = document.getElementById('lightboxLabel');
     const lightboxCap   = document.getElementById('lightboxCaption');
     const lightboxClose = document.getElementById('lightboxClose');
 
     items.forEach(item => {
       item.addEventListener('click', () => {
         const label = item.dataset.label || 'Venue Photo';
-        lightboxLabel.textContent = label;
-        lightboxCap.textContent   = label + ' · Greens Marriage Mandap';
+        lightboxCap.textContent = label + ' · Greens Marriage Mandap';
 
-        // If item has a real <img>, show it; otherwise show placeholder
-        const realImg = item.querySelector('img:not(.ph-icon)');
+        const realImg = item.querySelector('img');
         const content = document.getElementById('lightboxContent');
-        if (realImg && realImg.src) {
+        if (realImg) {
           content.innerHTML = `<img src="${realImg.src}" alt="${label}" />`;
         } else {
-          const icon = item.querySelector('.ph-icon')?.textContent || '🌿';
-          content.innerHTML = `
-            <div class="lightbox-placeholder">
-              <span class="icon">${icon}</span>
-              <p>${label}</p>
-            </div>`;
+          content.innerHTML = `<div class="lightbox-placeholder"><span class="icon">🌿</span><p>${label}</p></div>`;
         }
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -618,5 +605,74 @@
       document.body.style.overflow = '';
     }
   </script>
+
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+const ease = [0.25, 0.1, 0.25, 1]
+
+// Stagger gallery items on load
+const galleryItems = document.querySelectorAll('.gallery-item')
+galleryItems.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(24px)' })
+inView('#galleryGrid', () => {
+  animate(galleryItems, { opacity: [0, 1], y: [24, 0] },
+    { delay: stagger(0.06), duration: 0.5, easing: ease })
+}, { amount: 0.05 })
+
+// Filter button spring on click
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () =>
+    animate(btn, { scale: [0.94, 1] }, { type: 'spring', stiffness: 400, damping: 20 }))
+})
+</script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
+  })();
+</script>
 </body>
 </html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
+  <title>Enquire — Indulge The Salon</title>
+  <meta name="description" content="Book your bridal makeup, hair styling, or grooming appointment with Indulge The Salon — part of the Greens Group." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Nunito:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --accent:      #e8a598;
+      --accent-deep: #c97b6e;
+      --accent-pale: #fdf0ed;
+      --green-deep:  #5a8a5e;
+      --green-mid:   #7bae7f;
+      --green-light: #c8dfc9;
+      --cream:       #fdf6ec;
+      --text-dark:   #3d3a36;
+      --text-muted:  #7a7570;
+      --white:       #ffffff;
+      --radius-md:   16px;
+      --radius-lg:   24px;
+      --shadow-sm:   0 2px 12px rgba(232,165,152,.12);
+      --shadow-md:   0 8px 32px rgba(232,165,152,.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Top Bar ── */
+    .top-bar {
+      background: rgba(253,246,236,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--green-light);
+      padding: .85rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .top-bar .brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--green-deep); }
+    .top-bar nav { display: flex; gap: .75rem; align-items: center; }
+    .top-bar nav a { font-size: .85rem; font-weight: 600; color: var(--text-muted); padding: .4rem .9rem; border-radius: 20px; transition: background .2s, color .2s; }
+    .top-bar nav a:hover { background: var(--accent-pale); color: var(--accent-deep); }
+    .top-bar nav a.cta { background: var(--accent); color: #fff; }
+    .top-bar nav a.cta:hover { background: var(--accent-deep); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--accent-pale) 0%, var(--cream) 60%, #fde8e4 100%);
+      padding: 72px 2rem 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .1;
+      top: -180px; right: -120px;
+      filter: blur(80px);
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .hero-logo {
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo img { height: 64px; width: auto; max-width: 200px; object-fit: contain; border-radius: 8px; }
+    .hero-logo .logo-fallback {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-deep);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #fff; border: 1.5px solid #f7d4c8;
+      border-radius: 40px; padding: .35rem 1rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent-deep);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; margin-bottom: .75rem; }
+    .hero h1 em { font-style: italic; color: var(--accent-deep); }
+    .hero p { font-size: 1rem; color: var(--text-muted); max-width: 480px; margin: 0 auto; }
+
+    /* ── Services Strip ── */
+    .services-strip {
+      background: var(--white);
+      border-bottom: 1px solid #f0e8e4;
+      padding: 1.25rem 2rem;
+      display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center;
+    }
+    .chip {
+      font-size: .75rem; font-weight: 700; padding: .3rem .85rem;
+      border-radius: 20px; background: var(--accent-pale);
+      color: var(--accent-deep); border: 1px solid #f7d4c8;
+    }
+
+    /* ── Main Layout ── */
+    .main { max-width: 1060px; margin: 0 auto; padding: 64px 2rem 80px; }
+    .main-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
+
+    /* ── Info Panel ── */
+    .info-panel { position: sticky; top: 100px; }
+    .info-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; }
+    .info-panel p { font-size: .93rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.5rem; }
+
+    .contact-item {
+      display: flex; gap: .75rem; align-items: flex-start;
+      margin-bottom: 1rem; font-size: .9rem;
+    }
+    .contact-item .ci-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--accent-pale); color: var(--accent-deep);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; flex-shrink: 0; margin-top: .05rem;
+    }
+    .contact-item .ci-body { }
+    .contact-item .ci-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
+    .contact-item .ci-val { font-weight: 600; color: var(--text-dark); }
+
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #25d366; color: #fff; font-weight: 700; font-size: .88rem;
+      padding: .7rem 1.5rem; border-radius: 40px; margin-top: .5rem;
+      transition: background .2s, transform .2s;
+    }
+    .wa-btn:hover { background: #1da855; transform: translateY(-2px); }
+
+    /* ── Form ── */
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1.5px solid #f7d4c8;
+    }
+    .form-card h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; margin-bottom: 1.75rem; }
+    .form-card h3 span { color: var(--accent-deep); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.1rem; }
+    .form-group label { font-size: .8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: .75rem 1rem;
+      border: 1.5px solid #f0e8e4;
+      border-radius: var(--radius-md);
+      font-family: 'Nunito', sans-serif;
+      font-size: .93rem;
+      color: var(--text-dark);
+      background: var(--cream);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,165,152,.18);
+      background: var(--white);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .submit-btn {
+      width: 100%;
+      padding: .9rem;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 40px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      margin-top: .5rem;
+    }
+    .submit-btn:hover { background: var(--accent-deep); transform: translateY(-2px); }
+
+    .form-note { font-size: .78rem; color: var(--text-muted); text-align: center; margin-top: .75rem; }
+
+    /* ── Footer ── */
+    footer { background: #2a2a2a; color: #aaa; text-align: center; padding: 1.75rem 2rem; font-size: .82rem; }
+    footer a { color: var(--green-light); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .info-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 1.75rem; }
+    }
+    @media (max-width: 600px) {
+      .top-bar { padding: .75rem 1.2rem; }
+      .top-bar .brand { font-size: .95rem; }
+      .top-bar nav a:not(.cta) { display: none; }
+      .top-bar nav a.cta { padding: .35rem .8rem; font-size: .8rem; }
+    }
+    @media (max-width: 400px) {
+      .page-hero { padding: 56px 1.25rem 48px; }
+      .form-card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <a href="hub.html" class="brand">🌿 Greens Group</a>
+    <nav>
+      <a href="hub.html"><i class="fa-solid fa-arrow-left"></i> All Brands</a>
+      <a href="https://wa.me/919040210791" target="_blank" rel="noopener" class="cta"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-logo">
+        <img src="logos/indulge-salon.png" alt="Indulge The Salon" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+        <span class="logo-fallback" style="display:none;">Indulge</span>
+      </div>
+      <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Bridal Beauty & Styling</div>
+      <h1>Look Your Most <em>Radiant</em> Self</h1>
+      <p>From bridal makeup to pre-wedding packages — Indulge The Salon brings out the best version of you on your special day.</p>
+    </div>
+  </div>
+
+  <!-- Services Strip -->
+  <div class="services-strip">
+    <span class="chip">Bridal Makeup</span>
+    <span class="chip">Hair Styling</span>
+    <span class="chip">Skincare</span>
+    <span class="chip">Grooming</span>
+    <span class="chip">Pre-Wedding Package</span>
+    <span class="chip">Mehndi</span>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="main-grid">
+
+      <!-- Info Panel -->
+      <div class="info-panel">
+        <h2>Book Your Appointment</h2>
+        <p>Fill in the form and our team will get back to you within 24 hours to confirm your slot and discuss your requirements in detail.</p>
+
+        <div class="contact-item">
+          <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="ci-body">
+            <div class="ci-label">Call / WhatsApp</div>
+            <div class="ci-val">+91 90402 10791</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div class="ci-body">
+            <div class="ci-label">Email</div>
+            <div class="ci-val">Ritesh.jena80@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="ci-body">
+            <div class="ci-label">Location</div>
+            <div class="ci-val">Bhubaneswar, Odisha</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/919040210791?text=Hi%2C+I%27d+like+to+enquire+about+Indulge+The+Salon+services." target="_blank" rel="noopener" class="wa-btn">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+      </div>
+
+      <!-- Form -->
+      <div class="form-card" id="form">
+        <h3>Enquiry Form — <span>Indulge The Salon</span></h3>
+
+        <form action="https://mail.google.com/mail/?view=cm&to=Ritesh.jena80%40gmail.com&su=Salon+Enquiry+—+Indulge+The+Salon" target="_blank" rel="noopener" onsubmit="buildMailto(event,'Indulge The Salon','Ritesh.jena80@gmail.com')">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="service">Service Required *</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option>Bridal Makeup</option>
+                <option>Hair Styling</option>
+                <option>Skincare Treatment</option>
+                <option>Grooming Package</option>
+                <option>Pre-Wedding Package</option>
+                <option>Mehndi Application</option>
+                <option>Full Bridal Package</option>
+                <option>Other / Multiple Services</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Event Date *</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Additional Requirements</label>
+            <textarea id="message" name="message" placeholder="Tell us more — theme, inspiration, number of people, timing preferences, etc."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-paper-plane"></i> Send Enquiry
+          </button>
+          <p class="form-note">We'll respond within 24 hours · All enquiries are confidential</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Indulge The Salon · Part of the <a href="hub.html">Greens Group</a> · Bhubaneswar, Odisha</p>
+  </footer>
+
+  <!-- Floating Back -->
+  <a href="hub.html" style="position:fixed;bottom:1.5rem;left:1.5rem;z-index:200;display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid #f7d4c8;border-radius:40px;padding:.55rem 1.1rem;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;color:#c97b6e;text-decoration:none;box-shadow:0 4px 18px rgba(232,165,152,.2);transition:transform .2s;" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform='none'">
+    🌿 All Brands
+  </a>
+
+  <script>
+    function buildMailto(e, brand, email) {
+      e.preventDefault();
+      const name    = document.getElementById('name').value;
+      const phone   = document.getElementById('phone').value;
+      const emailV  = document.getElementById('email').value;
+      const service = document.getElementById('service').value;
+      const date    = document.getElementById('date').value;
+      const message = document.getElementById('message').value;
+      const body = `Enquiry for: ${brand}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${emailV}\nService: ${service}\nEvent Date: ${date}\n\nAdditional Info:\n${message}`;
+      const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Salon Enquiry — ' + brand)}&body=${encodeURIComponent(body)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<style>.vm-toggle{position:fixed;top:88px;right:20px;z-index:99999}.vm-btn{display:flex;align-items:center;gap:8px;background:#5a8a5e;color:#fff;border:none;border-radius:30px;padding:10px 18px 10px 14px;font-size:.8rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;box-shadow:0 4px 24px rgba(0,0,0,.25);letter-spacing:.02em;white-space:nowrap;transition:background .2s,transform .15s}.vm-btn:hover{background:#3d6b40;transform:translateY(-2px)}.vm-btn i{font-size:.88rem}</style>
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
+  })();
+</script>
+</body>
+</html>

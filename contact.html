@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <title>Contact & Book — Greens Marriage Hall</title>
   <meta name="description" content="Get in touch with Greens Marriage Hall to book a tour, enquire about availability, or ask any questions about our venue and services." />
   <link rel="stylesheet" href="styles.css" />
@@ -153,6 +154,15 @@
       will-change: width, height;
     }
     .social-dock-icon:hover { box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+    .social-dock-icon i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      line-height: 1;
+      font-size: 1.05rem;
+      pointer-events: none;
+    }
     .sdi-fb { background: linear-gradient(145deg,#1877f2,#3b5998); }
     .sdi-ig { background: linear-gradient(145deg,#833ab4 0%,#e1306c 50%,#f77737 100%); }
     .sdi-yt { background: linear-gradient(145deg,#ff0000,#b31217); }
@@ -382,9 +392,21 @@
       .contact-inner { grid-template-columns: 1fr; gap: 48px; }
       .quick-links-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     }
+    @media (max-width: 680px) {
+      .map-embed { height: 220px; border-radius: var(--radius-md); overflow: hidden; }
+      /* Quick links grid: use 2 cols below 680px */
+      .quick-links-grid { grid-template-columns: repeat(2, 1fr); max-width: unset; margin: 0; }
+    }
     @media (max-width: 540px) {
       .form-row { grid-template-columns: 1fr; }
       .booking-form-card { padding: 1.75rem; }
+      .info-card { padding: 1.25rem; gap: .75rem; }
+      .info-icon { width: 40px; height: 40px; font-size: 1rem; }
+    }
+    @media (max-width: 400px) {
+      .booking-form-card { padding: 1.25rem; }
+      .quick-links-grid { grid-template-columns: 1fr; }
+      .quick-link-card { padding: 1.5rem 1.25rem; }
     }
   </style>
 </head>
@@ -399,12 +421,14 @@
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
+        <li><a href="hub.html">Our Brands</a></li>
         <li><a href="features.html">Features</a></li>
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
+        <li class="nav-cta-item"><a href="tel:+919040210791" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Us</a></li>
       </ul>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -735,7 +759,16 @@
     // Nav toggle
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.classList.toggle('open');
+      document.body.style.overflow = links.classList.contains('open') ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
 
     // Form submission (demo)
     const form    = document.getElementById('bookingForm');
@@ -748,8 +781,8 @@
   </script>
 
   <!-- ── Back to Welcome ── -->
-  <a href="welcome.html" title="Back to Welcome Page" style="
-    position:fixed;bottom:28px;right:28px;z-index:999;
+  <a href="welcome.html" title="Back to Welcome Page" data-iframe-hide style="
+    position:fixed;bottom:28px;right:20px;z-index:999;
     display:flex;align-items:center;gap:.5rem;
     background:#fff;border:1.5px solid #c8dfc9;
     border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
@@ -857,6 +890,56 @@ document.querySelectorAll('input, textarea, select').forEach(field => {
         icon.style.fontSize     = (BASE * 0.42) + 'px';
       });
     });
+  })();
+</script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
   })();
 </script>
 </body>

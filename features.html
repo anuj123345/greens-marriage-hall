@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <title>Features — Greens Marriage Hall</title>
   <meta name="description" content="Explore everything Greens has to offer — from air conditioning and state-of-the-art lighting to in-house catering and a luxury bridal suite." />
   <link rel="stylesheet" href="styles.css" />
@@ -149,13 +150,18 @@
     .capacity-content h2 { margin-bottom: 1rem; }
     .capacity-content p  { margin-bottom: 1.5rem; line-height: 1.8; }
 
+    .table-scroll-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
     .capacity-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
       border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
       font-size: .92rem;
     }
     .capacity-table th {
@@ -290,20 +296,39 @@
       text-transform: uppercase;
     }
 
+    /* ── Nav Scroll ── */
+    .nav.nav-scrolled {
+      background: rgba(253,246,236,.98);
+      box-shadow: var(--shadow-sm);
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1000px) {
       .amenities-grid { grid-template-columns: repeat(2, 1fr); }
       .services-grid  { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      .capacity-inner { grid-template-columns: 1fr; gap: 60px; }
+      .capacity-inner { grid-template-columns: 1fr; gap: 40px; }
       .capacity-visual { display: none; }
-      .tech-inner { grid-template-columns: 1fr; gap: 48px; }
+      .capacity-content { padding-top: 0; }
+      .tech-inner { grid-template-columns: 1fr; gap: 40px; }
       .tech-visual { display: none; }
+      /* Remove horizontal translate on touch devices */
+      .tech-item:hover { transform: none; }
     }
     @media (max-width: 540px) {
       .amenities-grid { grid-template-columns: 1fr; }
       .services-grid  { grid-template-columns: 1fr; }
+      .capacity-table th,
+      .capacity-table td { padding: .6rem .75rem; font-size: .82rem; }
+      /* Reduce card/tile padding on narrow screens */
+      .amenity-body { padding: 1.25rem 1.5rem 1.5rem; }
+      .service-tile { padding: 1.5rem 1.25rem; }
+      .tech-item { padding: 1rem; }
+    }
+    @media (max-width: 400px) {
+      .amenities-grid { gap: 16px; }
+      .services-grid  { gap: 16px; }
     }
   </style>
 </head>
@@ -318,12 +343,14 @@
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
+        <li><a href="hub.html">Our Brands</a></li>
         <li><a href="features.html" class="active">Features</a></li>
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-item"><a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Enquire Now</a></li>
       </ul>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -452,6 +479,7 @@
         <p class="section-label">Venue Spaces</p>
         <h2>Spacious Venues for<br>Every Occasion</h2>
         <p>Greens features a massive 15,000 sq ft open lawn and a fully equipped Convention Hall — giving you the flexibility to host intimate gatherings or grand celebrations.</p>
+        <div class="table-scroll-wrap">
         <table class="capacity-table">
           <thead>
             <tr>
@@ -488,6 +516,7 @@
             </tr>
           </tbody>
         </table>
+        </div><!-- /.table-scroll-wrap -->
       </div>
     </div>
   </section>
@@ -667,12 +696,24 @@
   <script>
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.classList.toggle('open');
+      document.body.style.overflow = links.classList.contains('open') ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+    window.addEventListener('scroll', () =>
+      document.querySelector('.nav').classList.toggle('nav-scrolled', window.scrollY > 40));
   </script>
 
   <!-- ── Back to Welcome ── -->
-  <a href="welcome.html" title="Back to Welcome Page" style="
-    position:fixed;bottom:28px;right:28px;z-index:999;
+  <a href="welcome.html" title="Back to Welcome Page" data-iframe-hide style="
+    position:fixed;bottom:28px;right:20px;z-index:999;
     display:flex;align-items:center;gap:.5rem;
     background:#fff;border:1.5px solid #c8dfc9;
     border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
@@ -722,6 +763,12 @@ staggerReveal('.services-grid, .services-list', '.service-item, .service-tile', 
 // Capacity section
 reveal('.capacity-section h2, .capacity-item')
 
+// Tech items stagger
+staggerReveal('.tech-list', '.tech-item', 0.08)
+
+// Capacity table rows
+staggerReveal('.capacity-table tbody', 'tr', 0.05)
+
 // Spring hover on amenity cards
 document.querySelectorAll('.amenity-card').forEach(card => {
   card.addEventListener('mouseenter', () =>
@@ -729,6 +776,56 @@ document.querySelectorAll('.amenity-card').forEach(card => {
   card.addEventListener('mouseleave', () =>
     animate(card, { scale: 1, y: 0 }, { type: 'spring', stiffness: 300, damping: 20 }))
 })
+</script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
+  })();
 </script>
 </body>
 </html>

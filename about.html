@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <title>About Us — Greens Marriage Hall</title>
   <meta name="description" content="Learn the story behind Greens — a family-founded marriage hall built on love, trust, and the dream of giving every couple a perfect celebration." />
   <link rel="stylesheet" href="styles.css" />
@@ -275,6 +276,32 @@
     .award-badge h4 { font-size: .92rem; margin-bottom: .3rem; }
     .award-badge p  { font-size: .8rem; color: var(--text-light); }
 
+    /* ── Nav Scroll ── */
+    .nav.nav-scrolled {
+      background: rgba(253,246,236,.98);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── Hero Petals ── */
+    .hero-petal {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-18px) rotate(180deg); }
+    }
+
+    /* ── Image Overrides ── */
+    .story-main-img { font-size: 0; overflow: hidden; }
+    .story-main-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .founder-avatar { overflow: hidden; }
+    .founder-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+    .team-avatar { overflow: hidden; font-size:0; }
+    .team-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+
     /* ── Responsive ── */
     @media (max-width: 960px) {
       .story-inner    { grid-template-columns: 1fr; gap: 48px; }
@@ -292,10 +319,32 @@
       .milestone.right .milestone-left  { display: none; }
       .milestone.right .milestone-right { order: 2; }
     }
+    @media (max-width: 680px) {
+      /* Founder blockquote — reduce heavy padding on small screens */
+      .founder-quote blockquote {
+        padding: 1.75rem 1.5rem 1.75rem 2.25rem;
+      }
+      .founder-quote blockquote::before {
+        font-size: 3.5rem;
+        top: .6rem; left: .85rem;
+      }
+      .founder-quote blockquote p { font-size: 1rem; }
+    }
     @media (max-width: 540px) {
       .values-grid  { grid-template-columns: 1fr; }
+      .value-card   { padding: 1.75rem 1.5rem; }
       .team-grid    { grid-template-columns: 1fr 1fr; }
       .awards-grid  { grid-template-columns: 1fr 1fr; }
+      .stats-row    { flex-direction: column; gap: 1rem; align-items: stretch; }
+      .stats-row > * { text-align: center; }
+      /* Stack founder portrait vertically */
+      .founder-portrait { flex-direction: column !important; text-align: center !important; }
+      .founder-avatar { margin: 0 auto !important; }
+    }
+    @media (max-width: 400px) {
+      .team-grid   { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .founder-quote blockquote { padding: 1.5rem 1.25rem 1.5rem 2rem; }
     }
   </style>
 </head>
@@ -310,12 +359,14 @@
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
+        <li><a href="hub.html">Our Brands</a></li>
         <li><a href="features.html">Features</a></li>
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="about.html" class="active">About</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-item"><a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Enquire Now</a></li>
       </ul>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -323,6 +374,9 @@
 
   <!-- ── Page Hero ── -->
   <div class="page-hero">
+    <span class="hero-petal" style="width:9px;height:9px;background:var(--green-mid);opacity:.38;top:28%;left:7%;animation-delay:0s;animation-duration:5.5s;"></span>
+    <span class="hero-petal" style="width:6px;height:6px;background:var(--rose);opacity:.42;top:58%;right:10%;animation-delay:1.8s;animation-duration:6.8s;"></span>
+    <span class="hero-petal" style="width:11px;height:11px;background:var(--blush);opacity:.3;top:42%;left:28%;animation-delay:3.2s;animation-duration:7.2s;"></span>
     <div class="container page-hero-inner">
       <span class="badge badge-green">Our Story</span>
       <h1>Built on Love,<br>Driven by Passion</h1>
@@ -334,7 +388,9 @@
   <section class="story">
     <div class="container story-inner">
       <div class="story-img">
-        <div class="story-main-img">🌿</div>
+        <div class="story-main-img">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=700&q=80" alt="Greens wedding venue" loading="lazy" />
+        </div>
         <div class="story-accent-img">
           <div class="big-num">500+</div>
           <p>Weddings<br>Celebrated</p>
@@ -374,7 +430,9 @@
   <section class="founder">
     <div class="container founder-inner">
       <div class="founder-portrait">
-        <div class="founder-avatar">👨‍💼</div>
+        <div class="founder-avatar">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80" alt="Rajendra Shrestha, Founder" loading="lazy" />
+        </div>
         <div>
           <div class="founder-name">Rajendra Shrestha</div>
           <div class="founder-title">Founder & Managing Director</div>
@@ -513,25 +571,33 @@
       </div>
       <div class="team-grid">
         <div class="team-card">
-          <div class="team-avatar ta-1">👩</div>
+          <div class="team-avatar ta-1">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80" alt="Sunita Shrestha" loading="lazy" />
+          </div>
           <h4>Sunita Shrestha</h4>
           <div class="role">Head Event Coordinator</div>
           <p>12 years of making families' dreams a reality with flawless execution and calm leadership.</p>
         </div>
         <div class="team-card">
-          <div class="team-avatar ta-2">👨‍🍳</div>
+          <div class="team-avatar ta-2">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=80" alt="Chef Bikram Rai" loading="lazy" />
+          </div>
           <h4>Chef Bikram Rai</h4>
           <div class="role">Executive Chef</div>
           <p>Trained in Kolkata and Bhubaneswar, Chef Bikram leads our in-house culinary team of 15.</p>
         </div>
         <div class="team-card">
-          <div class="team-avatar ta-3">👩‍🎨</div>
+          <div class="team-avatar ta-3">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80" alt="Prativa Gurung" loading="lazy" />
+          </div>
           <h4>Prativa Gurung</h4>
           <div class="role">Lead Decorator</div>
           <p>An artist at heart, Prativa has designed over 300 unique wedding themes across all budgets.</p>
         </div>
         <div class="team-card">
-          <div class="team-avatar ta-4">👨‍💻</div>
+          <div class="team-avatar ta-4">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80" alt="Anil Tamang" loading="lazy" />
+          </div>
           <h4>Anil Tamang</h4>
           <div class="role">A/V & Tech Manager</div>
           <p>Anil ensures our sound, lighting, and screens run flawlessly so every moment is picture-perfect.</p>
@@ -654,12 +720,23 @@
   <script>
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.classList.toggle('open');
+      document.body.style.overflow = links.classList.contains('open') ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+    window.addEventListener('scroll', () =>
+      document.querySelector('.nav').classList.toggle('nav-scrolled', window.scrollY > 40));
   </script>
 
   <!-- ── Back to Welcome ── -->
-  <a href="welcome.html" title="Back to Welcome Page" style="
-    position:fixed;bottom:28px;right:28px;z-index:999;
+  <a href="welcome.html" title="Back to Welcome Page" data-iframe-hide style="
+    position:fixed;bottom:28px;right:20px;z-index:999;
     display:flex;align-items:center;gap:.5rem;
     background:#fff;border:1.5px solid #c8dfc9;
     border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
@@ -728,7 +805,7 @@ document.querySelectorAll('.timeline-item, .milestone').forEach((el, i) => {
 staggerReveal('.team-grid, .team-section', '.team-card', 0.1)
 
 // Awards
-staggerReveal('.awards-section, .awards-grid', '.award-item', 0.08)
+staggerReveal('.awards-grid', '.award-badge', 0.08)
 
 // Spring hover on value & team cards
 document.querySelectorAll('.value-card, .team-card').forEach(card => {
@@ -737,6 +814,56 @@ document.querySelectorAll('.value-card, .team-card').forEach(card => {
   card.addEventListener('mouseleave', () =>
     animate(card, { scale: 1, y: 0 }, { type: 'spring', stiffness: 320, damping: 20 }))
 })
+</script>
+
+<!-- Mobile Preview Overlay -->
+<div id="vmOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999998;align-items:center;justify-content:center;padding:20px;">
+  <div style="position:relative;">
+    <div style="background:#111;border-radius:44px;padding:14px 14px 22px;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="width:50px;height:5px;background:#333;border-radius:3px;margin:0 auto 10px;"></div>
+      <iframe id="vmFrame" src="" style="width:390px;height:724px;border:none;border-radius:30px;display:block;"></iframe>
+    </div>
+    <button onclick="greensCloseOverlay()" style="position:absolute;top:-14px;right:-14px;width:34px;height:34px;background:#fff;border:none;border-radius:50%;font-size:.9rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
+  </div>
+</div>
+<!-- ── View Mode Toggle ── -->
+<div class="vm-toggle">
+  <button class="vm-btn" id="vmBtn" onclick="greensToggleView()">
+    <i class="fa-solid fa-desktop" id="vmIcon"></i>
+    <span id="vmLabel">Desktop View</span>
+  </button>
+</div>
+<script>
+  (function(){
+    if(window.self!==window.top){document.querySelectorAll('.vm-toggle,[data-iframe-hide]').forEach(function(el){el.style.display='none';});return;}
+    var m=localStorage.getItem('greens-vm')||'responsive';
+    var isMob=screen.width<768;
+    var icon=document.getElementById('vmIcon');
+    var lbl=document.getElementById('vmLabel');
+    if(isMob){
+      if(m==='desktop'){icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile View';}
+      else{icon.className='fa-solid fa-desktop';lbl.textContent='Desktop View';}
+    }else{
+      icon.className='fa-solid fa-mobile-screen-button';
+      lbl.textContent='Mobile Preview';
+    }
+    window.greensToggleView=function(){
+      if(screen.width>=768&&m!=='desktop'){
+        var ol=document.getElementById('vmOverlay');
+        ol.style.display='flex';
+        var fr=document.getElementById('vmFrame');
+        if(!fr.getAttribute('data-loaded')){fr.src=location.href;fr.setAttribute('data-loaded','1');}
+        icon.className='fa-solid fa-xmark';lbl.textContent='Close Preview';
+      }else{
+        localStorage.setItem('greens-vm',m==='desktop'?'responsive':'desktop');
+        window.location.reload();
+      }
+    };
+    window.greensCloseOverlay=function(){
+      document.getElementById('vmOverlay').style.display='none';
+      icon.className='fa-solid fa-mobile-screen-button';lbl.textContent='Mobile Preview';
+    };
+  })();
 </script>
 </body>
 </html>
