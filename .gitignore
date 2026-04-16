@@ -39,3 +39,5 @@ graphify-out/
 
 # Vercel
 .vercel/
+
+.vercel

@@ -208,6 +208,18 @@ section { padding: 96px 0; }
 
 .nav-cta { margin-left: 1rem; }
 
+/* Login / Account nav button */
+.nav-login-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .45rem 1.1rem; border-radius: 20px;
+  background: var(--green-pale); color: var(--green-deep);
+  font-family: 'Nunito', sans-serif; font-size: .82rem; font-weight: 700;
+  border: 1.5px solid var(--green-light); cursor: pointer;
+  text-decoration: none; transition: background .2s, border-color .2s;
+  white-space: nowrap;
+}
+.nav-login-btn:hover { background: var(--green-light); }
+
 /* Mobile-only nav CTA item — hidden on desktop, shown in open mobile menu */
 .nav-cta-item { display: none; }
 

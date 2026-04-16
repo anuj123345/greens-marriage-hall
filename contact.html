@@ -429,6 +429,7 @@
         <li><a href="contact.html" class="active">Contact</a></li>
         <li class="nav-cta-item"><a href="tel:+919040210791" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Us</a></li>
       </ul>
+      <a href="login.html" class="nav-login-btn"><i class="fa-solid fa-user"></i> Login</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -818,6 +819,21 @@
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Enquiry';
         alert('Something went wrong. Please try again or contact us directly on WhatsApp.');
         return;
+      }
+
+      // Send email notification
+      const emailVal = document.getElementById('c-email').value.trim();
+      if (emailVal) {
+        fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:       document.getElementById('c-name').value.trim(),
+            email:      emailVal,
+            event_type: document.getElementById('c-event-type').value || 'General Enquiry',
+            source:     'general'
+          })
+        }).catch(() => {});
       }
 
       form.style.display = 'none';

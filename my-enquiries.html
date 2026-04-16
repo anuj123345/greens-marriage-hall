@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Enquiries — Greens Marriage Hall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <style>
+    :root{
+      --green-deep:#3d6b40;--green-mid:#5a8a5e;--green-light:#c8dfc9;--green-pale:#eef5ef;
+      --cream:#fdf6ec;--white:#fff;--text-dark:#2d3a2e;--text-muted:#7a7570;
+      --rose:#e07070;--blush:#fdecea;--radius:14px;--shadow:0 4px 24px rgba(60,100,65,.10);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
+    a{color:inherit;text-decoration:none;}
+
+    .top-bar{background:rgba(253,246,236,.97);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--green-light);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .top-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--green-deep);}
+    .top-right{display:flex;align-items:center;gap:1rem;}
+    .user-name{font-size:.82rem;color:var(--text-muted);font-weight:600;}
+    .btn-sm{padding:.45rem 1.1rem;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;border:none;transition:.2s;}
+    .btn-out{background:var(--green-pale);color:var(--green-deep);}
+    .btn-out:hover{background:var(--green-light);}
+
+    .hero{background:linear-gradient(135deg,var(--green-pale) 0%,var(--cream) 100%);padding:3rem 2rem 2.5rem;text-align:center;}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--green-deep);margin-bottom:.4rem;}
+    .hero p{font-size:.93rem;color:var(--text-muted);}
+
+    .main{max-width:820px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+    /* Stats */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+    .stat{background:var(--white);border-radius:var(--radius);padding:1.1rem 1rem;text-align:center;border:1.5px solid var(--green-light);box-shadow:var(--shadow);}
+    .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--green-deep);}
+    .stat-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-top:.1rem;}
+
+    /* Cards */
+    .enq-list{display:flex;flex-direction:column;gap:1rem;}
+    .enq-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);border:1.5px solid var(--green-light);border-left:4px solid var(--green-mid);}
+    .enq-card.st-new{border-left-color:#3b82f6;}
+    .enq-card.st-contacted{border-left-color:#f59e0b;}
+    .enq-card.st-booked{border-left-color:var(--green-deep);}
+    .enq-card.st-completed{border-left-color:#6b7280;}
+    .enq-card.st-cancelled{border-left-color:var(--rose);}
+
+    .enq-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem;}
+    .enq-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+    .enq-date{font-size:.75rem;color:var(--text-muted);}
+
+    .status-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .75rem;border-radius:12px;font-size:.75rem;font-weight:700;white-space:nowrap;}
+    .st-new .status-badge{background:#dbeafe;color:#1d4ed8;}
+    .st-contacted .status-badge{background:#fef3c7;color:#b45309;}
+    .st-booked .status-badge{background:var(--green-pale);color:var(--green-deep);}
+    .st-completed .status-badge{background:#f3f4f6;color:#4b5563;}
+    .st-cancelled .status-badge{background:var(--blush);color:var(--rose);}
+
+    .enq-details{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .75rem;font-size:.85rem;}
+    .detail-row{display:flex;gap:.4rem;}
+    .detail-row strong{color:var(--text-muted);font-weight:700;min-width:80px;flex-shrink:0;}
+    .enq-msg{margin-top:.75rem;padding:.75rem;background:var(--cream);border-radius:10px;font-size:.85rem;color:var(--text-muted);border:1px solid var(--green-light);}
+
+    .empty{text-align:center;padding:4rem 2rem;color:var(--text-muted);}
+    .empty i{font-size:3rem;opacity:.3;margin-bottom:1rem;}
+    .empty h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--text-dark);}
+    .btn-enq{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;background:var(--green-mid);color:#fff;padding:.7rem 1.5rem;border-radius:30px;font-weight:700;font-size:.9rem;transition:.2s;}
+    .btn-enq:hover{background:var(--green-deep);}
+
+    .loading{text-align:center;padding:3rem;color:var(--text-muted);}
+    .loading i{font-size:2rem;animation:spin 1s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    @media(max-width:600px){
+      .stats{grid-template-columns:repeat(2,1fr);}
+      .top-bar{padding:.75rem 1rem;}
+      .user-name{display:none;}
+      .enq-details{grid-template-columns:1fr;}
+      .main{padding:1.5rem 1rem 3rem;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="index.html" class="top-brand">🌿 Greens</a>
+  <div class="top-right">
+    <span class="user-name" id="userName"></span>
+    <button class="btn-sm btn-out" onclick="signOut()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>My Enquiries</h1>
+  <p>Track the status of all your enquiries with Greens Group.</p>
+</div>
+
+<div class="main">
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-num" id="s-new" style="color:#1d4ed8">—</div><div class="stat-label">Pending</div></div>
+    <div class="stat"><div class="stat-num" id="s-booked" style="color:var(--green-deep)">—</div><div class="stat-label">Booked</div></div>
+    <div class="stat"><div class="stat-num" id="s-done" style="color:#4b5563">—</div><div class="stat-label">Completed</div></div>
+  </div>
+
+  <!-- List -->
+  <div id="enqList">
+    <div class="loading"><i class="fa-solid fa-spinner"></i><br><br>Loading your enquiries…</div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://avvyqtsmobpgwitwbrnk.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0';
+  const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  async function init() {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (!session) { window.location.href = 'login.html'; return; }
+
+    const user = session.user;
+    const name = user.user_metadata?.full_name || user.email.split('@')[0];
+    document.getElementById('userName').textContent = name;
+
+    const { data, error } = await _sb.from('enquiries')
+      .select('*').order('created_at', { ascending: false });
+
+    if (error) {
+      document.getElementById('enqList').innerHTML = `<div class="empty"><i class="fa-solid fa-circle-exclamation"></i><h3>Could not load enquiries</h3><p>${error.message}</p></div>`;
+      return;
+    }
+
+    renderStats(data);
+    renderList(data);
+  }
+
+  function renderStats(list) {
+    document.getElementById('s-total').textContent = list.length;
+    document.getElementById('s-new').textContent   = list.filter(e => ['new','contacted'].includes(e.status)).length;
+    document.getElementById('s-booked').textContent = list.filter(e => e.status === 'booked').length;
+    document.getElementById('s-done').textContent   = list.filter(e => e.status === 'completed').length;
+  }
+
+  function renderList(list) {
+    const el = document.getElementById('enqList');
+    if (!list.length) {
+      el.innerHTML = `
+        <div class="empty">
+          <i class="fa-solid fa-inbox"></i>
+          <h3>No enquiries yet</h3>
+          <p>You haven't submitted any enquiries yet. Fill out a form to get started.</p>
+          <a href="contact.html" class="btn-enq"><i class="fa-solid fa-paper-plane"></i> Make an Enquiry</a>
+        </div>`;
+      return;
+    }
+    el.innerHTML = `<div class="enq-list">${list.map(e => `
+      <div class="enq-card st-${e.status||'new'}">
+        <div class="enq-top">
+          <div>
+            <div class="enq-title">${esc(e.event_type || 'General Enquiry')}</div>
+            <div class="enq-date">Submitted ${fmtDate(e.created_at)} · ${esc(e.source||'general')} enquiry</div>
+          </div>
+          <span class="status-badge">${statusLabel(e.status)}</span>
+        </div>
+        <div class="enq-details">
+          ${e.event_date ? `<div class="detail-row"><strong>Event Date</strong><span>${fmtDate(e.event_date)}</span></div>` : ''}
+          ${e.guest_count ? `<div class="detail-row"><strong>Guests</strong><span>${e.guest_count}</span></div>` : ''}
+          ${e.phone ? `<div class="detail-row"><strong>Phone</strong><span>${esc(e.phone)}</span></div>` : ''}
+        </div>
+        ${e.message ? `<div class="enq-msg"><strong>Your message:</strong><br>${esc(e.message)}</div>` : ''}
+      </div>`).join('')}</div>`;
+  }
+
+  async function signOut() {
+    await _sb.auth.signOut();
+    window.location.href = 'login.html';
+  }
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmtDate(d){return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
+  function statusLabel(s){
+    return {new:'⏳ Pending Review',contacted:'📞 Being Contacted',booked:'✅ Booked!',completed:'🎉 Completed',cancelled:'❌ Cancelled'}[s]||s;
+  }
+
+  init();
+</script>
+</body>
+</html>

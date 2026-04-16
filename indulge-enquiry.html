@@ -382,6 +382,21 @@
         return;
       }
 
+      // Send email notification (fire and forget)
+      const emailVal = document.getElementById('email').value.trim();
+      if (emailVal) {
+        fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:       document.getElementById('name').value.trim(),
+            email:      emailVal,
+            event_type: document.getElementById('service').value,
+            source:     'indulge'
+          })
+        }).catch(() => {});
+      }
+
       // Show success
       e.target.innerHTML = `
         <div style="text-align:center;padding:2rem 0;">

@@ -32,16 +32,16 @@
     .login-sub { font-size: .85rem; color: var(--text-muted); margin-bottom: 2.5rem; }
     .login-title { font-size: 1.1rem; font-weight: 700; margin-bottom: .4rem; }
     .login-desc { font-size: .88rem; color: var(--text-muted); margin-bottom: 2rem; }
-    .btn-google {
-      display: inline-flex; align-items: center; gap: .75rem; padding: .85rem 2rem;
-      background: var(--white); border: 2px solid var(--green-light);
-      border-radius: 40px; font-family: 'Nunito', sans-serif; font-size: .95rem;
-      font-weight: 700; color: var(--text-dark); cursor: pointer; width: 100%;
-      justify-content: center; transition: border-color .2s, box-shadow .2s, transform .15s;
-    }
-    .btn-google:hover { border-color: var(--green-mid); box-shadow: 0 4px 20px rgba(90,138,94,.18); transform: translateY(-2px); }
-    .btn-google img { width: 20px; height: 20px; }
-    #loginError { color: var(--rose); font-size: .85rem; margin-top: 1rem; display: none; }
+    .form-group-l { display:flex; flex-direction:column; gap:.35rem; margin-bottom:1rem; }
+    .form-group-l label { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); }
+    .input-wrap { position:relative; }
+    .input-wrap i { position:absolute; left:.9rem; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:.85rem; }
+    .form-group-l input { width:100%; padding:.75rem 1rem .75rem 2.4rem; border:1.5px solid var(--green-light); border-radius:12px; font-family:'Nunito',sans-serif; font-size:.93rem; color:var(--text-dark); background:var(--cream); outline:none; transition:.2s; }
+    .form-group-l input:focus { border-color:var(--green-mid); background:var(--white); box-shadow:0 0 0 3px rgba(90,138,94,.12); }
+    .btn-login { width:100%; padding:.85rem; background:var(--green-mid); color:#fff; border:none; border-radius:30px; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:.2s; display:flex; align-items:center; justify-content:center; gap:.5rem; margin-top:.25rem; }
+    .btn-login:hover { background:var(--green-deep); }
+    .btn-login:disabled { opacity:.6; cursor:not-allowed; }
+    #loginError { color: var(--rose); font-size: .85rem; margin-top: 1rem; display: none; background:var(--blush); padding:.6rem 1rem; border-radius:10px; }
 
     /* ── Dashboard ── */
     #dashboard { display: none; }
@@ -201,13 +201,28 @@
   <div class="login-card">
     <div class="login-logo">🌿 Greens</div>
     <div class="login-sub">Marriage Hall · Admin Portal</div>
-    <div class="login-title">Welcome back</div>
-    <div class="login-desc">Sign in with your Google account to access the enquiries dashboard.</div>
-    <button class="btn-google" onclick="signInGoogle()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-      Continue with Google
-    </button>
-    <div id="loginError">Access denied. Only authorised admins can sign in.</div>
+    <div class="login-title">Admin Login</div>
+    <div class="login-desc">Sign in with your admin email and password.</div>
+    <form onsubmit="doAdminLogin(event)">
+      <div class="form-group-l">
+        <label>Email</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="a-email" placeholder="admin@email.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-group-l">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="a-password" placeholder="Your password" required autocomplete="current-password" />
+        </div>
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+    </form>
+    <div id="loginError"></div>
   </div>
 </div>
 
@@ -312,46 +327,46 @@
 
   // ── Auth ──
   async function init() {
-    // Handle OAuth callback hash
-    if (window.location.hash && window.location.hash.includes('access_token')) {
-      const { data, error } = await _sb.auth.getSession();
-      if (error) { console.error('Session error:', error); }
-    }
-
-    const { data: { session }, error } = await _sb.auth.getSession();
-    if (error) { console.error('Get session error:', error); }
-
+    const { data: { session } } = await _sb.auth.getSession();
     if (session && isAdmin(session.user)) {
       showDashboard(session.user);
     } else if (session) {
       await _sb.auth.signOut();
-      const errEl = document.getElementById('loginError');
-      errEl.textContent = 'Access denied. Only authorised admins can sign in.';
-      errEl.style.display = 'block';
     }
-
-    // Listen for auth state changes (handles redirect back from Google)
-    _sb.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN' && session) {
-        if (isAdmin(session.user)) {
-          showDashboard(session.user);
-        } else {
-          await _sb.auth.signOut();
-          const errEl = document.getElementById('loginError');
-          errEl.textContent = 'Access denied. Only authorised admins can sign in.';
-          errEl.style.display = 'block';
-        }
-      }
-    });
   }
 
   function isAdmin(user) {
     return user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
   }
 
-  function signInGoogle() {
-    const redirectTo = encodeURIComponent(window.location.origin + '/admin.html');
-    window.location.href = 'https://avvyqtsmobpgwitwbrnk.supabase.co/auth/v1/authorize?provider=google&redirect_to=' + redirectTo;
+  async function doAdminLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    const errEl = document.getElementById('loginError');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in…';
+    errEl.style.display = 'none';
+
+    const email    = document.getElementById('a-email').value.trim();
+    const password = document.getElementById('a-password').value;
+
+    if (!isAdmin({ email })) {
+      errEl.textContent = 'Access denied. This portal is for admins only.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
+      return;
+    }
+
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
+      return;
+    }
+    showDashboard(data.user);
   }
 
   async function signOut() {

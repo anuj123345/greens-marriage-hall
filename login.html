@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Greens Marriage Hall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <style>
+    :root {
+      --green-deep:#3d6b40;--green-mid:#5a8a5e;--green-light:#c8dfc9;--green-pale:#eef5ef;
+      --cream:#fdf6ec;--white:#fff;--text-dark:#2d3a2e;--text-muted:#7a7570;
+      --rose:#e07070;--blush:#fdecea;--radius:16px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:linear-gradient(135deg,var(--green-pale) 0%,var(--cream) 60%,#f0f7f0 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
+    a{color:inherit;text-decoration:none;}
+
+    .back-link{position:fixed;top:1.25rem;left:1.5rem;display:flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:var(--green-deep);background:var(--white);border:1.5px solid var(--green-light);border-radius:30px;padding:.4rem 1rem;transition:.2s;}
+    .back-link:hover{background:var(--green-pale);}
+
+    .card{background:var(--white);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:420px;box-shadow:0 12px 48px rgba(60,100,65,.14);border:1.5px solid var(--green-light);}
+    .logo{text-align:center;margin-bottom:1.75rem;}
+    .logo-mark{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-deep);}
+    .logo-sub{font-size:.78rem;color:var(--text-muted);margin-top:.15rem;}
+
+    /* Tabs */
+    .tabs{display:flex;background:var(--green-pale);border-radius:30px;padding:.25rem;margin-bottom:2rem;}
+    .tab{flex:1;text-align:center;padding:.55rem;border-radius:24px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;color:var(--text-muted);}
+    .tab.active{background:var(--white);color:var(--green-deep);box-shadow:0 2px 8px rgba(60,100,65,.12);}
+
+    /* Form */
+    .form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.1rem;}
+    .form-group label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);}
+    .input-wrap{position:relative;}
+    .input-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem;}
+    .form-group input{width:100%;padding:.75rem 1rem .75rem 2.4rem;border:1.5px solid var(--green-light);border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:.93rem;color:var(--text-dark);background:var(--cream);outline:none;transition:.2s;}
+    .form-group input:focus{border-color:var(--green-mid);background:var(--white);box-shadow:0 0 0 3px rgba(90,138,94,.12);}
+
+    .btn-submit{width:100%;padding:.85rem;background:var(--green-mid);color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.25rem;}
+    .btn-submit:hover{background:var(--green-deep);}
+    .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+    .msg{font-size:.83rem;text-align:center;margin-top:.85rem;padding:.65rem 1rem;border-radius:10px;display:none;}
+    .msg.error{background:var(--blush);color:var(--rose);display:block;}
+    .msg.success{background:var(--green-pale);color:var(--green-deep);display:block;}
+
+    .divider{text-align:center;font-size:.8rem;color:var(--text-muted);margin:1.25rem 0;position:relative;}
+    .divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--green-light);}
+    .divider::before{left:0;} .divider::after{right:0;}
+
+    .form-note{font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:.75rem;}
+    .panel{display:none;} .panel.active{display:block;}
+
+    @media(max-width:480px){.card{padding:2rem 1.5rem;}}
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-mark">🌿 Greens</div>
+    <div class="logo-sub">Marriage Hall · Member Portal</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" id="tab-login" onclick="switchTab('login')">Login</div>
+    <div class="tab" id="tab-signup" onclick="switchTab('signup')">Create Account</div>
+  </div>
+
+  <!-- Login Panel -->
+  <div class="panel active" id="panel-login">
+    <form id="loginForm" onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="l-email" placeholder="your@email.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="l-password" placeholder="Your password" required autocomplete="current-password" />
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="loginBtn">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+      <div class="msg" id="loginMsg"></div>
+      <p class="form-note" style="margin-top:1rem;">Don't have an account? <a href="#" onclick="switchTab('signup')" style="color:var(--green-deep);font-weight:700;">Create one</a></p>
+    </form>
+  </div>
+
+  <!-- Signup Panel -->
+  <div class="panel" id="panel-signup">
+    <form id="signupForm" onsubmit="doSignup(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="s-name" placeholder="Your full name" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="s-email" placeholder="your@email.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="s-password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="signupBtn">
+        <i class="fa-solid fa-user-plus"></i> Create Account
+      </button>
+      <div class="msg" id="signupMsg"></div>
+      <p class="form-note" style="margin-top:1rem;">Already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--green-deep);font-weight:700;">Login</a></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://avvyqtsmobpgwitwbrnk.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0';
+  const ADMIN_EMAIL = 'ritesh.jena80@gmail.com';
+  const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Redirect if already logged in
+  (async () => {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (session) redirect(session.user.email);
+  })();
+
+  function redirect(email) {
+    window.location.href = email.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+      ? 'admin.html' : 'my-enquiries.html';
+  }
+
+  function switchTab(tab) {
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+    document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+    document.getElementById('panel-signup').classList.toggle('active', tab === 'signup');
+  }
+
+  function showMsg(id, text, type) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = 'msg ' + type;
+  }
+
+  async function doLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in…';
+
+    const { data, error } = await _sb.auth.signInWithPassword({
+      email: document.getElementById('l-email').value.trim(),
+      password: document.getElementById('l-password').value
+    });
+
+    if (error) {
+      showMsg('loginMsg', error.message, 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
+      return;
+    }
+    redirect(data.user.email);
+  }
+
+  async function doSignup(e) {
+    e.preventDefault();
+    const btn = document.getElementById('signupBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account…';
+
+    const name  = document.getElementById('s-name').value.trim();
+    const email = document.getElementById('s-email').value.trim();
+    const pass  = document.getElementById('s-password').value;
+
+    const { data, error } = await _sb.auth.signUp({
+      email,
+      password: pass,
+      options: { data: { full_name: name } }
+    });
+
+    if (error) {
+      showMsg('signupMsg', error.message, 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
+      return;
+    }
+
+    if (data.user && data.session) {
+      redirect(data.user.email);
+    } else {
+      // Email confirmation required
+      showMsg('signupMsg', '✅ Account created! Please check your email to confirm your account, then log in.', 'success');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
+    }
+  }
+</script>
+</body>
+</html>
