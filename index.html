@@ -711,6 +711,7 @@
   <!-- ── Navigation ── -->
   <nav class="nav">
     <div class="container nav-inner">
+      <button class="mob-back-btn" onclick="history.length>1?history.back():window.location.href='welcome.html'" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
       <a href="index.html" class="nav-logo">
         <div class="nav-logo-icon">🌿</div>
         <span class="nav-logo-text">Green<span>s</span></span>
@@ -1538,21 +1539,6 @@
       nav.classList.toggle('nav-scrolled', window.scrollY > 40);
     }, { passive: true });
   </script>
-
-  <!-- ── Back to Welcome ── -->
-  <a href="welcome.html" title="Back to Welcome Page" data-iframe-hide style="
-    position:fixed;bottom:28px;right:20px;z-index:999;
-    display:flex;align-items:center;gap:.5rem;
-    background:#fff;border:1.5px solid #c8dfc9;
-    border-radius:60px;padding:.55rem 1.1rem .55rem .75rem;
-    box-shadow:0 4px 20px rgba(90,138,94,.18);
-    font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;
-    color:#5a8a5e;text-decoration:none;
-    transition:transform .2s ease,box-shadow .2s ease;
-  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(90,138,94,.25)'"
-     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(90,138,94,.18)'">
-    <span style="font-size:1rem;">🌿</span> Welcome Page
-  </a>
 
 <script type="module">
 import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
