@@ -279,6 +279,10 @@
     .gallery-section {
       background: var(--white);
       overflow: hidden;
+      padding-bottom: 48px;
+    }
+    .testimonials {
+      padding-top: 48px;
     }
     .gallery-grid {
       display: grid;
@@ -467,9 +471,13 @@
       .about-img-wrap { display: none; }
       .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
       .gallery-accordion { height: 380px; }
+      .gallery-section { padding-bottom: 32px; }
+      .testimonials { padding-top: 32px; }
     }
     @media (max-width: 680px) {
       .strip-inner { grid-template-columns: 1fr; }
+      .gallery-section { padding-bottom: 24px; }
+      .testimonials { padding-top: 24px; }
 
       /* Hero — reduce padding so the section isn't excessively tall */
       .hero { padding: 48px 0 56px; min-height: unset; }
