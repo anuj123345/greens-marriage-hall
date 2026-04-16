@@ -289,7 +289,7 @@
       <div class="form-card" id="form">
         <h3>Enquiry Form — <span>Indulge The Salon</span></h3>
 
-        <form action="https://mail.google.com/mail/?view=cm&to=Ritesh.jena80%40gmail.com&su=Salon+Enquiry+—+Indulge+The+Salon" target="_blank" rel="noopener" onsubmit="buildMailto(event,'Indulge The Salon','Ritesh.jena80@gmail.com')">
+        <form id="enquiryForm" onsubmit="submitEnquiry(event)">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name *</label>
@@ -352,18 +352,44 @@
     🌿 All Brands
   </a>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    function buildMailto(e, brand, email) {
+    const _sb = supabase.createClient(
+      'https://avvyqtsmobpgwitwbrnk.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0'
+    );
+
+    async function submitEnquiry(e) {
       e.preventDefault();
-      const name    = document.getElementById('name').value;
-      const phone   = document.getElementById('phone').value;
-      const emailV  = document.getElementById('email').value;
-      const service = document.getElementById('service').value;
-      const date    = document.getElementById('date').value;
-      const message = document.getElementById('message').value;
-      const body = `Enquiry for: ${brand}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${emailV}\nService: ${service}\nEvent Date: ${date}\n\nAdditional Info:\n${message}`;
-      const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Salon Enquiry — ' + brand)}&body=${encodeURIComponent(body)}`;
-      window.open(url, '_blank');
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+
+      const { error } = await _sb.from('enquiries').insert([{
+        name:       document.getElementById('name').value.trim(),
+        phone:      document.getElementById('phone').value.trim(),
+        email:      document.getElementById('email').value.trim() || null,
+        event_type: document.getElementById('service').value,
+        event_date: document.getElementById('date').value || null,
+        message:    document.getElementById('message').value.trim() || null,
+        source:     'indulge'
+      }]);
+
+      if (error) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Enquiry';
+        alert('Something went wrong. Please try again or contact us on WhatsApp.');
+        return;
+      }
+
+      // Show success
+      e.target.innerHTML = `
+        <div style="text-align:center;padding:2rem 0;">
+          <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.5rem;">Enquiry Received!</h3>
+          <p style="color:var(--text-muted);font-size:.93rem;">Our team will reach out within 24 hours. You can also WhatsApp us directly for a faster response.</p>
+          <a href="https://wa.me/919040210791" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;background:#25d366;color:#fff;padding:.65rem 1.5rem;border-radius:30px;font-weight:700;font-size:.9rem;text-decoration:none;"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+        </div>`;
     }
   </script>
 

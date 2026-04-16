@@ -224,7 +224,7 @@
       <div class="form-card" id="form">
         <h3>Enquiry Form — <span>Weavorah</span></h3>
 
-        <form onsubmit="buildMailto(event,'Weavorah','Ritesh.jena80@gmail.com')">
+        <form id="enquiryForm" onsubmit="submitEnquiry(event)">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name *</label>
@@ -306,20 +306,51 @@
     🌿 All Brands
   </a>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    function buildMailto(e, brand, email) {
+    const _sb = supabase.createClient(
+      'https://avvyqtsmobpgwitwbrnk.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0'
+    );
+
+    async function submitEnquiry(e) {
       e.preventDefault();
-      const name    = document.getElementById('name').value;
-      const phone   = document.getElementById('phone').value;
-      const emailV  = document.getElementById('email').value;
-      const service = document.getElementById('service').value;
-      const date    = document.getElementById('date').value;
-      const budget  = document.getElementById('budget').value;
-      const fabric  = document.getElementById('fabric').value;
-      const message = document.getElementById('message').value;
-      const body = `Enquiry for: ${brand}\n\nName: ${name}\nPhone: ${phone}\nEmail: ${emailV}\nLooking For: ${service}\nEvent Date: ${date}\nBudget: ${budget}\nFabric/Style: ${fabric}\n\nAdditional Info:\n${message}`;
-      const url = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Fashion Enquiry — ' + brand)}&body=${encodeURIComponent(body)}`;
-      window.open(url, '_blank');
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+
+      const msgParts = [];
+      const budget = document.getElementById('budget').value;
+      const fabric = document.getElementById('fabric').value;
+      if (budget) msgParts.push('Budget: ' + budget);
+      if (fabric) msgParts.push('Fabric/Style: ' + fabric);
+      const extraMsg = document.getElementById('message').value.trim();
+      if (extraMsg) msgParts.push(extraMsg);
+
+      const { error } = await _sb.from('enquiries').insert([{
+        name:       document.getElementById('name').value.trim(),
+        phone:      document.getElementById('phone').value.trim(),
+        email:      document.getElementById('email').value.trim() || null,
+        event_type: document.getElementById('service').value,
+        event_date: document.getElementById('date').value || null,
+        message:    msgParts.join('\n') || null,
+        source:     'weavorah'
+      }]);
+
+      if (error) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Enquiry';
+        alert('Something went wrong. Please try again or contact us on WhatsApp.');
+        return;
+      }
+
+      e.target.innerHTML = `
+        <div style="text-align:center;padding:2rem 0;">
+          <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.5rem;">Enquiry Received!</h3>
+          <p style="color:var(--text-muted);font-size:.93rem;">Our team will reach out within 24 hours. Custom orders need 2–4 weeks lead time — book early to avoid delays.</p>
+          <a href="https://wa.me/919040210791" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;background:#25d366;color:#fff;padding:.65rem 1.5rem;border-radius:30px;font-weight:700;font-size:.9rem;text-decoration:none;"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+        </div>`;
     }
   </script>
 

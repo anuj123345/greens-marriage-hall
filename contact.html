@@ -531,23 +531,23 @@
           <div class="form-row">
             <div class="form-group">
               <label>Full Name <span class="req">*</span></label>
-              <input type="text" placeholder="e.g. Priya Sharma" required />
+              <input type="text" id="c-name" placeholder="e.g. Priya Sharma" required />
             </div>
             <div class="form-group">
               <label>Phone Number <span class="req">*</span></label>
-              <input type="tel" placeholder="+977 98X-XXX-XXXX" required />
+              <input type="tel" id="c-phone" placeholder="+977 98X-XXX-XXXX" required />
             </div>
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" placeholder="priya@example.com" />
+            <input type="email" id="c-email" placeholder="priya@example.com" />
           </div>
 
           <p class="form-section-label">Event Details</p>
           <div class="form-row">
             <div class="form-group">
               <label>Event Type <span class="req">*</span></label>
-              <select required>
+              <select id="c-event-type" required>
                 <option value="">Select event type...</option>
                 <option>Wedding Reception</option>
                 <option>Engagement Ceremony</option>
@@ -558,17 +558,17 @@
             </div>
             <div class="form-group">
               <label>Preferred Date <span class="req">*</span></label>
-              <input type="date" required />
+              <input type="date" id="c-date" required />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>Estimated Guest Count</label>
-              <input type="number" placeholder="e.g. 450" min="50" max="1200" />
+              <input type="number" id="c-guests" placeholder="e.g. 450" min="50" max="1200" />
             </div>
             <div class="form-group">
               <label>Approximate Budget</label>
-              <select>
+              <select id="c-budget">
                 <option value="">Select range (Rs.)...</option>
                 <option>Under 75,000</option>
                 <option>75,000 – 1,50,000</option>
@@ -583,26 +583,26 @@
           <div class="form-group">
             <label>Select all that apply</label>
             <div class="checkbox-group">
-              <label class="checkbox-label"><input type="checkbox" />🍽️ In-House Catering</label>
-              <label class="checkbox-label"><input type="checkbox" />🌸 Decoration Package</label>
-              <label class="checkbox-label"><input type="checkbox" />🎤 Sound & Lighting</label>
-              <label class="checkbox-label"><input type="checkbox" />👸 Bridal Suite</label>
-              <label class="checkbox-label"><input type="checkbox" />🚗 Valet Parking</label>
-              <label class="checkbox-label"><input type="checkbox" />📸 Photography Setup</label>
-              <label class="checkbox-label"><input type="checkbox" />🎵 Live Band / DJ</label>
-              <label class="checkbox-label"><input type="checkbox" />🎊 Custom Add-Ons</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="In-House Catering" />🍽️ In-House Catering</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Decoration Package" />🌸 Decoration Package</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Sound & Lighting" />🎤 Sound & Lighting</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Bridal Suite" />👸 Bridal Suite</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Valet Parking" />🚗 Valet Parking</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Photography Setup" />📸 Photography Setup</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Live Band / DJ" />🎵 Live Band / DJ</label>
+              <label class="checkbox-label"><input type="checkbox" class="service-cb" value="Custom Add-Ons" />🎊 Custom Add-Ons</label>
             </div>
           </div>
 
           <div class="form-group" style="margin-top:.5rem;">
             <label>Additional Message or Questions</label>
-            <textarea placeholder="Tell us about your theme ideas, special requirements, dietary needs, or anything else we should know..."></textarea>
+            <textarea id="c-message" placeholder="Tell us about your theme ideas, special requirements, dietary needs, or anything else we should know..."></textarea>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>How Did You Hear About Us?</label>
-              <select>
+              <select id="c-referral">
                 <option value="">Select an option...</option>
                 <option>Google Search</option>
                 <option>Facebook / Instagram</option>
@@ -613,7 +613,7 @@
             </div>
             <div class="form-group">
               <label>Preferred Callback Time</label>
-              <input type="text" placeholder="e.g. Weekday mornings after 10 AM" />
+              <input type="text" id="c-callback" placeholder="e.g. Weekday mornings after 10 AM" />
             </div>
           </div>
 
@@ -756,6 +756,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Nav toggle
     const toggle = document.getElementById('navToggle');
@@ -772,10 +773,53 @@
     }));
 
     // Form submission (demo)
+    const _sbContact = supabase.createClient(
+      'https://avvyqtsmobpgwitwbrnk.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0'
+    );
+
     const form    = document.getElementById('bookingForm');
     const success = document.getElementById('formSuccess');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+
+      // Collect selected services
+      const services = [...document.querySelectorAll('.service-cb:checked')].map(cb => cb.value);
+
+      // Build message
+      const msgParts = [];
+      const budget   = document.getElementById('c-budget').value;
+      const referral = document.getElementById('c-referral').value;
+      const callback = document.getElementById('c-callback').value;
+      if (services.length) msgParts.push('Services: ' + services.join(', '));
+      if (budget)          msgParts.push('Budget: ' + budget);
+      if (referral)        msgParts.push('Referral: ' + referral);
+      if (callback)        msgParts.push('Callback: ' + callback);
+      const extra = document.getElementById('c-message').value.trim();
+      if (extra) msgParts.push(extra);
+
+      const guestsVal = document.getElementById('c-guests').value;
+      const { error } = await _sbContact.from('enquiries').insert([{
+        name:        document.getElementById('c-name').value.trim(),
+        phone:       document.getElementById('c-phone').value.trim(),
+        email:       document.getElementById('c-email').value.trim() || null,
+        event_type:  document.getElementById('c-event-type').value || null,
+        event_date:  document.getElementById('c-date').value || null,
+        guest_count: guestsVal ? parseInt(guestsVal) : null,
+        message:     msgParts.join('\n') || null,
+        source:      'general'
+      }]);
+
+      if (error) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Enquiry';
+        alert('Something went wrong. Please try again or contact us directly on WhatsApp.');
+        return;
+      }
+
       form.style.display = 'none';
       success.style.display = 'block';
     });
