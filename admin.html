@@ -354,18 +354,28 @@
     btn.disabled = true;
     btn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:20px;height:20px;" /> Redirecting…';
 
-    const { error } = await _sb.auth.signInWithOAuth({
+    const { data, error } = await _sb.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin + '/admin.html'
+        redirectTo: window.location.origin + '/admin.html',
+        skipBrowserRedirect: true
       }
     });
 
     if (error) {
-      console.error('OAuth error:', error);
       btn.disabled = false;
       btn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:20px;height:20px;" /> Continue with Google';
       document.getElementById('loginError').textContent = 'Login failed: ' + error.message;
+      document.getElementById('loginError').style.display = 'block';
+      return;
+    }
+
+    if (data?.url) {
+      window.location.href = data.url;
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:20px;height:20px;" /> Continue with Google';
+      document.getElementById('loginError').textContent = 'Could not get login URL. Check Supabase Google provider is saved correctly.';
       document.getElementById('loginError').style.display = 'block';
     }
   }
