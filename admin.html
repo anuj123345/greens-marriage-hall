@@ -330,8 +330,9 @@
     const { data: { session } } = await _sb.auth.getSession();
     if (session && isAdmin(session.user)) {
       showDashboard(session.user);
-    } else if (session) {
-      await _sb.auth.signOut();
+    } else {
+      if (session) await _sb.auth.signOut();
+      window.location.href = 'login.html?portal=admin';
     }
   }
 

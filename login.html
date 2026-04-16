@@ -21,40 +21,58 @@
     .back-link{position:fixed;top:1.25rem;left:1.5rem;display:flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:var(--green-deep);background:var(--white);border:1.5px solid var(--green-light);border-radius:30px;padding:.4rem 1rem;transition:.2s;}
     .back-link:hover{background:var(--green-pale);}
 
-    .card{background:var(--white);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:420px;box-shadow:0 12px 48px rgba(60,100,65,.14);border:1.5px solid var(--green-light);}
-    .logo{text-align:center;margin-bottom:1.75rem;}
-    .logo-mark{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-deep);}
-    .logo-sub{font-size:.78rem;color:var(--text-muted);margin-top:.15rem;}
+    .card{background:var(--white);border-radius:24px;padding:2.5rem 2rem 2rem;width:100%;max-width:440px;box-shadow:0 12px 48px rgba(60,100,65,.14);border:1.5px solid var(--green-light);}
 
-    /* Tabs */
-    .tabs{display:flex;background:var(--green-pale);border-radius:30px;padding:.25rem;margin-bottom:2rem;}
-    .tab{flex:1;text-align:center;padding:.55rem;border-radius:24px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;color:var(--text-muted);}
-    .tab.active{background:var(--white);color:var(--green-deep);box-shadow:0 2px 8px rgba(60,100,65,.12);}
+    /* Logo */
+    .logo{text-align:center;margin-bottom:1.5rem;}
+    .logo-mark{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green-deep);}
+    .logo-sub{font-size:.75rem;color:var(--text-muted);margin-top:.15rem;letter-spacing:.04em;}
+
+    /* ── Portal Toggle ── */
+    .portal-toggle{display:flex;background:#f0f4f0;border-radius:40px;padding:.3rem;margin-bottom:1.75rem;position:relative;border:1.5px solid var(--green-light);}
+    .portal-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:.45rem;padding:.65rem 1rem;border-radius:32px;font-size:.88rem;font-weight:700;cursor:pointer;transition:.25s;color:var(--text-muted);border:none;background:transparent;font-family:'Nunito',sans-serif;}
+    .portal-btn i{font-size:.85rem;}
+    .portal-btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 3px 12px rgba(60,100,65,.14);}
+    .portal-btn.active.admin-btn{color:#b45309;background:var(--white);}
+
+    /* Portal labels */
+    .portal-label{text-align:center;margin-bottom:1.5rem;}
+    .portal-label h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text-dark);margin-bottom:.2rem;}
+    .portal-label p{font-size:.82rem;color:var(--text-muted);}
+
+    /* Inner tabs (customer login/signup) */
+    .inner-tabs{display:flex;background:var(--green-pale);border-radius:30px;padding:.22rem;margin-bottom:1.5rem;}
+    .inner-tab{flex:1;text-align:center;padding:.5rem;border-radius:24px;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;color:var(--text-muted);}
+    .inner-tab.active{background:var(--white);color:var(--green-deep);box-shadow:0 2px 8px rgba(60,100,65,.10);}
 
     /* Form */
-    .form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.1rem;}
-    .form-group label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);}
+    .form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
+    .form-group label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);}
     .input-wrap{position:relative;}
-    .input-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem;}
-    .form-group input{width:100%;padding:.75rem 1rem .75rem 2.4rem;border:1.5px solid var(--green-light);border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:.93rem;color:var(--text-dark);background:var(--cream);outline:none;transition:.2s;}
+    .input-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.82rem;}
+    .form-group input{width:100%;padding:.72rem 1rem .72rem 2.4rem;border:1.5px solid var(--green-light);border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:.92rem;color:var(--text-dark);background:var(--cream);outline:none;transition:.2s;}
     .form-group input:focus{border-color:var(--green-mid);background:var(--white);box-shadow:0 0 0 3px rgba(90,138,94,.12);}
 
-    .btn-submit{width:100%;padding:.85rem;background:var(--green-mid);color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.25rem;}
+    .btn-submit{width:100%;padding:.82rem;background:var(--green-mid);color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.25rem;}
     .btn-submit:hover{background:var(--green-deep);}
     .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+    .btn-submit.admin-style{background:#92400e;}
+    .btn-submit.admin-style:hover{background:#78350f;}
 
-    .msg{font-size:.83rem;text-align:center;margin-top:.85rem;padding:.65rem 1rem;border-radius:10px;display:none;}
+    .msg{font-size:.82rem;text-align:center;margin-top:.75rem;padding:.6rem 1rem;border-radius:10px;display:none;}
     .msg.error{background:var(--blush);color:var(--rose);display:block;}
     .msg.success{background:var(--green-pale);color:var(--green-deep);display:block;}
 
-    .divider{text-align:center;font-size:.8rem;color:var(--text-muted);margin:1.25rem 0;position:relative;}
-    .divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--green-light);}
-    .divider::before{left:0;} .divider::after{right:0;}
+    .form-note{font-size:.77rem;color:var(--text-muted);text-align:center;margin-top:.75rem;}
 
-    .form-note{font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:.75rem;}
-    .panel{display:none;} .panel.active{display:block;}
+    /* Panels */
+    .portal{display:none;} .portal.active{display:block;}
+    .subpanel{display:none;} .subpanel.active{display:block;}
 
-    @media(max-width:480px){.card{padding:2rem 1.5rem;}}
+    /* Admin badge */
+    .admin-badge{display:inline-flex;align-items:center;gap:.4rem;background:#fef3c7;color:#92400e;border:1.5px solid #fde68a;border-radius:20px;padding:.3rem .85rem;font-size:.75rem;font-weight:700;margin-bottom:1.25rem;}
+
+    @media(max-width:480px){.card{padding:2rem 1.25rem 1.75rem;}}
   </style>
 </head>
 <body>
@@ -62,72 +80,115 @@
 <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
 
 <div class="card">
+
+  <!-- Logo -->
   <div class="logo">
     <div class="logo-mark">🌿 Greens</div>
-    <div class="logo-sub">Marriage Hall · Member Portal</div>
+    <div class="logo-sub">MARRIAGE HALL &amp; GROUP · BHUBANESWAR</div>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" id="tab-login" onclick="switchTab('login')">Login</div>
-    <div class="tab" id="tab-signup" onclick="switchTab('signup')">Create Account</div>
+  <!-- Portal Toggle -->
+  <div class="portal-toggle">
+    <button class="portal-btn active" id="btn-customer" onclick="switchPortal('customer')">
+      <i class="fa-solid fa-user"></i> Customer Portal
+    </button>
+    <button class="portal-btn admin-btn" id="btn-admin" onclick="switchPortal('admin')">
+      <i class="fa-solid fa-lock"></i> Admin Portal
+    </button>
   </div>
 
-  <!-- Login Panel -->
-  <div class="panel active" id="panel-login">
-    <form id="loginForm" onsubmit="doLogin(event)">
+  <!-- ── Customer Portal ── -->
+  <div class="portal active" id="portal-customer">
+    <div class="portal-label">
+      <h2>Welcome Back</h2>
+      <p>Login or create an account to track your enquiries.</p>
+    </div>
+
+    <div class="inner-tabs">
+      <div class="inner-tab active" id="itab-login" onclick="switchInner('login')">Login</div>
+      <div class="inner-tab" id="itab-signup" onclick="switchInner('signup')">Create Account</div>
+    </div>
+
+    <!-- Customer Login -->
+    <div class="subpanel active" id="sub-login">
+      <form onsubmit="doLogin(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap"><i class="fa-solid fa-envelope"></i>
+            <input type="email" id="l-email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap"><i class="fa-solid fa-lock"></i>
+            <input type="password" id="l-password" placeholder="Your password" required autocomplete="current-password" />
+          </div>
+        </div>
+        <button type="submit" class="btn-submit" id="loginBtn">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </button>
+        <div class="msg" id="loginMsg"></div>
+        <p class="form-note">No account? <a href="#" onclick="switchInner('signup')" style="color:var(--green-deep);font-weight:700;">Create one free</a></p>
+      </form>
+    </div>
+
+    <!-- Customer Signup -->
+    <div class="subpanel" id="sub-signup">
+      <form onsubmit="doSignup(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <div class="input-wrap"><i class="fa-solid fa-user"></i>
+            <input type="text" id="s-name" placeholder="Your full name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap"><i class="fa-solid fa-envelope"></i>
+            <input type="email" id="s-email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap"><i class="fa-solid fa-lock"></i>
+            <input type="password" id="s-password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
+          </div>
+        </div>
+        <button type="submit" class="btn-submit" id="signupBtn">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+        <div class="msg" id="signupMsg"></div>
+        <p class="form-note">Already have an account? <a href="#" onclick="switchInner('login')" style="color:var(--green-deep);font-weight:700;">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Admin Portal ── -->
+  <div class="portal" id="portal-admin">
+    <div class="portal-label">
+      <h2>Admin Access</h2>
+      <p>Restricted to authorised personnel only.</p>
+    </div>
+    <div style="text-align:center;"><span class="admin-badge"><i class="fa-solid fa-shield-halved"></i> Staff Only</span></div>
+    <form onsubmit="doAdminLogin(event)">
       <div class="form-group">
-        <label>Email Address</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="l-email" placeholder="your@email.com" required autocomplete="email" />
+        <label>Admin Email</label>
+        <div class="input-wrap"><i class="fa-solid fa-envelope"></i>
+          <input type="email" id="a-email" placeholder="admin@email.com" required autocomplete="email" />
         </div>
       </div>
       <div class="form-group">
         <label>Password</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="l-password" placeholder="Your password" required autocomplete="current-password" />
+        <div class="input-wrap"><i class="fa-solid fa-lock"></i>
+          <input type="password" id="a-password" placeholder="Your password" required autocomplete="current-password" />
         </div>
       </div>
-      <button type="submit" class="btn-submit" id="loginBtn">
-        <i class="fa-solid fa-right-to-bracket"></i> Login
+      <button type="submit" class="btn-submit admin-style" id="adminBtn">
+        <i class="fa-solid fa-gauge-high"></i> Access Dashboard
       </button>
-      <div class="msg" id="loginMsg"></div>
-      <p class="form-note" style="margin-top:1rem;">Don't have an account? <a href="#" onclick="switchTab('signup')" style="color:var(--green-deep);font-weight:700;">Create one</a></p>
+      <div class="msg" id="adminMsg"></div>
     </form>
   </div>
 
-  <!-- Signup Panel -->
-  <div class="panel" id="panel-signup">
-    <form id="signupForm" onsubmit="doSignup(event)">
-      <div class="form-group">
-        <label>Full Name</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-user"></i>
-          <input type="text" id="s-name" placeholder="Your full name" required />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="s-email" placeholder="your@email.com" required autocomplete="email" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <div class="input-wrap">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="s-password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
-        </div>
-      </div>
-      <button type="submit" class="btn-submit" id="signupBtn">
-        <i class="fa-solid fa-user-plus"></i> Create Account
-      </button>
-      <div class="msg" id="signupMsg"></div>
-      <p class="form-note" style="margin-top:1rem;">Already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--green-deep);font-weight:700;">Login</a></p>
-    </form>
-  </div>
 </div>
 
 <script>
@@ -135,6 +196,10 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2dnlxdHNtb2JwZ3dpdHdicm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMTU0NDgsImV4cCI6MjA5MTg5MTQ0OH0.34hCOsOesI9cbAraH2mNxDu-q6m3PcTyxVTixuYxfU0';
   const ADMIN_EMAIL = 'ritesh.jena80@gmail.com';
   const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Check URL param for portal
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('portal') === 'admin') switchPortal('admin');
 
   // Redirect if already logged in
   (async () => {
@@ -147,17 +212,24 @@
       ? 'admin.html' : 'my-enquiries.html';
   }
 
-  function switchTab(tab) {
-    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
-    document.getElementById('panel-login').classList.toggle('active', tab === 'login');
-    document.getElementById('panel-signup').classList.toggle('active', tab === 'signup');
+  function switchPortal(portal) {
+    const isAdmin = portal === 'admin';
+    document.getElementById('btn-customer').classList.toggle('active', !isAdmin);
+    document.getElementById('btn-admin').classList.toggle('active', isAdmin);
+    document.getElementById('portal-customer').classList.toggle('active', !isAdmin);
+    document.getElementById('portal-admin').classList.toggle('active', isAdmin);
+  }
+
+  function switchInner(tab) {
+    document.getElementById('itab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('itab-signup').classList.toggle('active', tab === 'signup');
+    document.getElementById('sub-login').classList.toggle('active', tab === 'login');
+    document.getElementById('sub-signup').classList.toggle('active', tab === 'signup');
   }
 
   function showMsg(id, text, type) {
     const el = document.getElementById(id);
-    el.textContent = text;
-    el.className = 'msg ' + type;
+    el.textContent = text; el.className = 'msg ' + type;
   }
 
   async function doLogin(e) {
@@ -165,12 +237,10 @@
     const btn = document.getElementById('loginBtn');
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in…';
-
     const { data, error } = await _sb.auth.signInWithPassword({
       email: document.getElementById('l-email').value.trim(),
       password: document.getElementById('l-password').value
     });
-
     if (error) {
       showMsg('loginMsg', error.message, 'error');
       btn.disabled = false;
@@ -185,32 +255,49 @@
     const btn = document.getElementById('signupBtn');
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account…';
-
-    const name  = document.getElementById('s-name').value.trim();
-    const email = document.getElementById('s-email').value.trim();
-    const pass  = document.getElementById('s-password').value;
-
     const { data, error } = await _sb.auth.signUp({
-      email,
-      password: pass,
-      options: { data: { full_name: name } }
+      email: document.getElementById('s-email').value.trim(),
+      password: document.getElementById('s-password').value,
+      options: { data: { full_name: document.getElementById('s-name').value.trim() } }
     });
-
     if (error) {
       showMsg('signupMsg', error.message, 'error');
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
       return;
     }
-
     if (data.user && data.session) {
       redirect(data.user.email);
     } else {
-      // Email confirmation required
-      showMsg('signupMsg', '✅ Account created! Please check your email to confirm your account, then log in.', 'success');
+      showMsg('signupMsg', '✅ Account created! Check your email to confirm, then log in.', 'success');
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
     }
+  }
+
+  async function doAdminLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('adminBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying…';
+    const email = document.getElementById('a-email').value.trim();
+    if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+      showMsg('adminMsg', 'Access denied. Not an admin account.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-gauge-high"></i> Access Dashboard';
+      return;
+    }
+    const { data, error } = await _sb.auth.signInWithPassword({
+      email,
+      password: document.getElementById('a-password').value
+    });
+    if (error) {
+      showMsg('adminMsg', error.message, 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-gauge-high"></i> Access Dashboard';
+      return;
+    }
+    window.location.href = 'admin.html';
   }
 </script>
 </body>
