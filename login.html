@@ -201,10 +201,21 @@
   const params = new URLSearchParams(window.location.search);
   if (params.get('portal') === 'admin') switchPortal('admin');
 
-  // Redirect if already logged in
-  (async () => {
-    const { data: { session } } = await _sb.auth.getSession();
-    if (session) redirect(session.user.email);
+  // Redirect if already logged in — use synchronous localStorage scan
+  // so a just-cleared session (logout) is never mistakenly detected
+  (function () {
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('sb-') === 0 && k.indexOf('-auth-token') > 0) {
+          var v = JSON.parse(localStorage.getItem(k) || '{}');
+          if (v && v.access_token && v.user && v.user.email) {
+            redirect(v.user.email);
+            return;
+          }
+        }
+      }
+    } catch (e) {}
   })();
 
   function redirect(email) {

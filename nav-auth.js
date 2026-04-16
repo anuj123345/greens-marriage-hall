@@ -37,19 +37,25 @@
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
+      // Step 1: clear session from localStorage immediately (synchronous)
+      // This ensures login.html won't find a session and auto-redirect
+      try {
+        for (var i = localStorage.length - 1; i >= 0; i--) {
+          var k = localStorage.key(i);
+          if (k && (k.indexOf('sb-') === 0 || k === 'supabase.auth.token')) {
+            localStorage.removeItem(k);
+          }
+        }
+      } catch (e) {}
+      // Step 2: server-side signOut, then redirect regardless of outcome
       try {
         var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         sb.auth.signOut().then(function () {
           window.location.href = 'welcome.html';
+        }).catch(function () {
+          window.location.href = 'welcome.html';
         });
       } catch (err) {
-        // Fallback: clear storage manually then redirect
-        try {
-          for (var i = localStorage.length - 1; i >= 0; i--) {
-            var k = localStorage.key(i);
-            if (k && k.indexOf('sb-') === 0) localStorage.removeItem(k);
-          }
-        } catch (e2) {}
         window.location.href = 'welcome.html';
       }
     });
