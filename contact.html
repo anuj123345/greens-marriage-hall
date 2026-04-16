@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>if(localStorage.getItem('greens-vm')==='desktop'&&window.self===window.top){document.querySelector('meta[name="viewport"]').content='width=1280,initial-scale='+(screen.width/1280).toFixed(3)+',maximum-scale=5';}</script>
   <script>!function(){var ok=false;try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("sb-")===0&&k.indexOf("-auth-token")>0){var v=JSON.parse(localStorage.getItem(k)||"{}");if(v&&v.access_token){ok=true;break;}}}}catch(e){}if(!ok){window.location.replace("welcome.html");}}();</script>
@@ -1001,5 +1004,6 @@ document.querySelectorAll('input, textarea, select').forEach(field => {
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="nav-auth.js"></script>
+<script>window.addEventListener("pageshow",function(e){if(e.persisted){window.location.reload();}});</script>
 </body>
 </html>
