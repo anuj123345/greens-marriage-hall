@@ -279,10 +279,7 @@
     .gallery-section {
       background: var(--white);
       overflow: hidden;
-      padding-bottom: 48px;
-    }
-    .testimonials {
-      padding-top: 48px;
+      padding-bottom: 32px !important;
     }
     .gallery-grid {
       display: grid;
@@ -336,7 +333,9 @@
     /* ── Testimonials ── */
     .testimonials {
       background: var(--green-pale);
+      padding-top: 32px !important;
     }
+    .testimonials .section-header { margin-bottom: 40px; }
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -471,13 +470,14 @@
       .about-img-wrap { display: none; }
       .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
       .gallery-accordion { height: 380px; }
-      .gallery-section { padding-bottom: 32px; }
-      .testimonials { padding-top: 32px; }
+      .gallery-section { padding-bottom: 20px !important; }
+      .testimonials { padding-top: 20px !important; }
     }
     @media (max-width: 680px) {
       .strip-inner { grid-template-columns: 1fr; }
-      .gallery-section { padding-bottom: 24px; }
-      .testimonials { padding-top: 24px; }
+      .gallery-section { padding-bottom: 16px !important; }
+      .testimonials { padding-top: 16px !important; }
+      .testimonials .section-header { margin-bottom: 28px; }
 
       /* Hero — reduce padding so the section isn't excessively tall */
       .hero { padding: 48px 0 56px; min-height: unset; }
