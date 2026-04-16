@@ -245,6 +245,24 @@
       stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
     }
 
+    .login-link {
+      display: inline-flex; align-items: center; gap: .45rem;
+      margin-top: 1.1rem;
+      color: rgba(200,223,201,.72);
+      font-size: .83rem;
+      text-decoration: none;
+      letter-spacing: .035em;
+      transition: color .22s;
+      animation: riseIn .7s ease 1.45s both;
+    }
+    .login-link:hover { color: var(--gold-light); }
+    .login-link svg {
+      width: 14px; height: 14px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
     /* ── Co-powered strip ── */
     .copowered {
       position: relative; z-index: 5;
@@ -349,6 +367,10 @@
       Explore the Venue
       <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </a>
+    <a href="login.html" class="login-link" id="loginLink">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Login to your account
+    </a>
   </div>
 
   <!-- Co-powered strip -->
@@ -421,11 +443,15 @@
     }
 
     // ── Smooth exit ──
-    document.getElementById('enterBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const dest = this.href;
-      document.body.classList.add('exiting');
-      setTimeout(() => { window.location.href = dest; }, 440);
+    ['enterBtn', 'loginLink'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        const dest = this.href;
+        document.body.classList.add('exiting');
+        setTimeout(() => { window.location.href = dest; }, 440);
+      });
     });
 
     // ── Auto-redirect after 14s ──
