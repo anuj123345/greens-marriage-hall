@@ -350,48 +350,73 @@ section { padding: 96px 0; }
   .section-header { margin-bottom: 44px; }
   .section-header p { font-size: .95rem; }
 
-  .nav-links, .nav-cta { display: none; }
-  .nav-toggle { display: flex; }
+  /* Hide hamburger and desktop nav — bottom bar handles navigation */
+  .nav-links, .nav-cta, .nav-toggle { display: none !important; }
 
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    inset: 72px 0 0 0;
-    background: var(--cream);
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    z-index: 99;
-    overflow-y: auto;
-    padding: 2rem 1.5rem;
-  }
-  .nav-links.open a { font-size: 1.2rem; }
-
-  /* Mobile nav CTA – shown at bottom of open menu */
-  .nav-links.open .nav-cta-item {
-    display: flex;
-    justify-content: center;
-    margin-top: .75rem;
-    width: 100%;
-  }
-  .nav-links.open .nav-cta-item a {
-    width: 100%;
-    max-width: 280px;
-    justify-content: center;
-    font-size: 1rem;
-    padding: .9rem 1.5rem;
-  }
+  /* Pad body so footer content isn't hidden behind bottom nav */
+  body { padding-bottom: 68px; }
 
   .btn { padding: .75rem 1.5rem; font-size: .9rem; }
 
   /* Strip items: single column — remove right border, use bottom instead */
-
   .strip-item { border-right: none !important; border-bottom: 1px solid var(--cream-dark); padding: 24px 20px; }
   .strip-item:last-child { border-bottom: none; }
 
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+}
+
+/* ── Mobile Bottom Navigation Bar ── */
+.mob-nav { display: none; }
+
+@media (max-width: 680px) {
+  .mob-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(253,246,236,.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--cream-dark);
+    box-shadow: 0 -4px 24px rgba(90,138,94,.10);
+    padding: 8px 0 max(10px, env(safe-area-inset-bottom, 10px));
+  }
+  .mob-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: .6rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 4px 2px 2px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    transition: color var(--transition);
+    position: relative;
+  }
+  .mob-nav-item i {
+    font-size: 1.2rem;
+    transition: transform var(--transition);
+  }
+  .mob-nav-item.active {
+    color: var(--green-mid);
+  }
+  .mob-nav-item.active i {
+    transform: translateY(-2px);
+  }
+  .mob-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 20px; height: 3px;
+    background: var(--green-mid);
+    border-radius: 3px 3px 0 0;
+  }
 }
 
 /* ── Page hero on mobile ── */
