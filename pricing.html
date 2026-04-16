@@ -345,6 +345,46 @@
       .card-body    { padding: 1.25rem; }
       .faq-item     { padding: 1.25rem; }
     }
+
+    /* ── Combo / second-row grids (inline grids given classes) ── */
+    .combos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 720px;
+      margin: 28px auto 0;
+    }
+    .ceremony-highlight {
+      margin: 32px auto 0;
+      max-width: 960px;
+      background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 50%, var(--green-pale) 100%);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .combos-grid { grid-template-columns: 1fr; max-width: 420px; gap: 20px; }
+      .combos-grid > div:nth-child(2) { transform: none !important; box-shadow: var(--shadow-md) !important; }
+      .pricing-row-2 { grid-template-columns: 1fr; max-width: 420px; }
+    }
+    @media (max-width: 680px) {
+      .ceremony-highlight { padding: 1.75rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .ceremony-highlight .btn { width: 100%; justify-content: center; }
+      .combos-grid > div { padding: 1.5rem !important; }
+    }
   </style>
 </head>
 <body>
@@ -496,7 +536,7 @@
       </div>
 
       <!-- Second row: Engagement + Sangeet -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:720px;margin:28px auto 0;">
+      <div class="pricing-row-2">
 
         <div class="pricing-card">
           <div class="card-header">
@@ -564,7 +604,7 @@
         <h2>Combo Packages</h2>
         <p>Book multiple events together and enjoy exclusive discounted pricing.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto;">
+      <div class="combos-grid">
 
         <div style="background:var(--cream);border-radius:var(--radius-lg);padding:2rem;text-align:center;border:2px solid var(--green-light);position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green-mid),var(--rose));"></div>
@@ -602,7 +642,7 @@
       </div>
 
       <!-- All Ceremony Package highlight -->
-      <div style="margin-top:32px;background:linear-gradient(135deg,var(--blush) 0%,var(--cream) 50%,var(--green-pale) 100%);border-radius:var(--radius-lg);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;max-width:960px;margin:32px auto 0;box-shadow:var(--shadow-sm);">
+      <div class="ceremony-highlight">
         <div>
           <p style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);margin-bottom:.4rem;">Ultimate Package</p>
           <h3 style="font-size:1.3rem;margin-bottom:.3rem;">All Ceremony Package</h3>
